@@ -1,0 +1,56 @@
+version: "3.8"
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: dockerfile
+    container_name: edbo-api
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - "4040:4040"
+    volumes:
+      - ./api:/app
+      - /api/app/node_modules
+    environment:
+      - NODE_PORT=$NODE_PORT
+      - DB_HOST=mongodb
+      - DB_USER=$MONGODB_USER
+      - DB_PASSWORD=$MONGODB_PASSWORD
+      - DB_NAME=$MONGODB_DATABASE
+      - DB_PORT=$MONGODB_DOCKER_PORT
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    restart: unless-stopped
+    container_name: mongo-db
+    env_file: ./.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
+    ports:
+      - "27017:27017"
+    volumes:
+      - app-vol:/data/db
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: edbo-client
+    stdin_open: true
+    tty: true
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/usr/src/app:delegated
+      - /usr/src/app/node_modules/
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - api
+
+volumes:
+  app-vol:
