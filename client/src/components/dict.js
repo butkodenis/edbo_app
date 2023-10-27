@@ -1,8 +1,8 @@
 const dictionary = {
-  year: [
+  years: [
     { code: 2023, name: '2023 р.' },
     { code: 2022, name: '2022 р.' },
-    { code: 2021, name: '2023 р.' },
+    { code: 2021, name: '2021 р.' },
   ],
   specialty: [
     { code: 221, name: 'Стоматологія' },

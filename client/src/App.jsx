@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import Input from './components/Forms/Input/Input';
+import React from 'react';
+import Forms from './components/Forms/Form';
 import './App.css';
 
 function App() {
-  return <Input />;
+  return <Forms />;
 }
 
 export default App;
