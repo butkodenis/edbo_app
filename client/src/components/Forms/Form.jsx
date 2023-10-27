@@ -9,13 +9,13 @@ function Forms() {
       <div className="container">
         <div className="row">
           <div className="col-lg-6">
-            <Select name="yearSelect" label="Оберіть рік" years={years} />
+            <Select name="yearSelect" label="Оберіть рік" values={years} />
           </div>
           <div className="col-lg-6">
             <Select
               name="specialtySelect"
               label="Оберіть спеціальність"
-              years={specialty}
+              values={specialty}
             />
           </div>
         </div>
@@ -24,14 +24,14 @@ function Forms() {
             <Select
               name="qualificationySelect"
               label="Оберіть освітній рівень"
-              years={qualification}
+              values={qualification}
             />
           </div>
           <div className="col-lg-6">
             <Select
               name="seducationBaseSelect"
               label="Оберіть основу вступу"
-              years={educationBase}
+              values={educationBase}
             />
           </div>
         </div>
