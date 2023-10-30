@@ -9,7 +9,9 @@ function Select({ name, values, label }) {
       </label>
       <select id={name} className="form-select">
         {values.map((val) => (
-          <option value={val.code}>{val.name} </option>
+          <option key={val.code} value={val.code}>
+            {val.name}{' '}
+          </option>
         ))}
       </select>
     </>

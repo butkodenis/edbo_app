@@ -8,11 +8,8 @@ function SelectJob({ label, value }) {
         type="radio"
         name="option"
         value={value}
-        id={value}
       />
-      <label className="form-check-label" htmlFor={value}>
-        {label}
-      </label>
+      <label className="form-check-label">{label}</label>
     </div>
   );
 }
