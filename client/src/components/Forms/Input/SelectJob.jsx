@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SelectJob({ label, value }) {
+function SelectJob({ label, value, selectedJob, setSelectedJob }) {
   return (
     <div className="form-check">
       <input
@@ -8,6 +8,9 @@ function SelectJob({ label, value }) {
         type="radio"
         name="option"
         value={value}
+        id={value}
+        checked={selectedJob === value}
+        onChange={() => setSelectedJob(value)}
       />
       <label className="form-check-label">{label}</label>
     </div>

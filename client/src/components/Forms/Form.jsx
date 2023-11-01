@@ -61,10 +61,30 @@ function Forms() {
         </div>
         <hr className="my-4" />
         <div className="d-flex justify-content-between">
-          <SelectJob label="Імпорт пропозицій" value="saveIds" />
-          <SelectJob label="Імпорт статистики пропозицій" value="saveStat" />
-          <SelectJob label="Імпорт статистики студентів" value="saveStud" />
-          <SelectJob label="Всі завдання" value="saveAll" />
+          <SelectJob
+            label="Імпорт пропозицій"
+            value="saveIds"
+            selectedJob={selectedJob}
+            setSelectedJob={setSelectedJob}
+          />
+          <SelectJob
+            label="Імпорт статистики пропозицій"
+            value="saveStat"
+            selectedJob={selectedJob}
+            setSelectedJob={setSelectedJob}
+          />
+          <SelectJob
+            label="Імпорт статистики студентів"
+            value="saveStud"
+            selectedJob={selectedJob}
+            setSelectedJob={setSelectedJob}
+          />
+          <SelectJob
+            label="Всі завдання"
+            value="saveAll"
+            selectedJob={selectedJob}
+            setSelectedJob={setSelectedJob}
+          />
         </div>
         <hr className="my-4" />
         <button
