@@ -1,10 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const router = express.Router();
 const app = express();
-
+const createTask = require('./controllers/taskController');
 app.use(morgan('tiny'));
+
 app.use(express.json());
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -15,7 +18,6 @@ app.use((req, res, next) => {
 app.get('/task/all', async (req, res) => {
   try {
     const user = 'messaage';
-
     res.json(user);
   } catch (err) {
     console.log(err);
@@ -24,17 +26,7 @@ app.get('/task/all', async (req, res) => {
   }
 });
 
-app.post('/task/all', async (req, res) => {
-  try {
-    const data = req.body;
-    console.log(data);
-    res.json({ message: 'Данные успешно обработаны' });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: 'Ошибка на сервере' });
-    return;
-  }
-});
+app.post('/task/all', createTask);
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => {
