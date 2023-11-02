@@ -11,13 +11,42 @@ function Forms() {
   const [selectedEducationBase, setSelectedEducationBase] = useState('40');
   const [selectedJob, setSelectedJob] = useState('saveAll');
 
+  const formData = {
+    years: selectedYear,
+    specialty: selectedSpecialty,
+    qualification: selectedQualification,
+    educationBase: selectedEducationBase,
+    task: selectedJob,
+  };
+
   const handleClick = (event) => {
     event.preventDefault();
-    console.log('Selected year:', selectedYear);
-    console.log('Selected Specialty:', selectedSpecialty);
-    console.log('Selected Qualification:', selectedQualification);
-    console.log('Selected Education Base:', selectedEducationBase);
-    console.log('Selected Job:', selectedJob);
+    console.log(formData);
+
+    fetch('http://localhost:4040/task/all', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Успешно отправлено
+          console.log('Данные успешно отправлены на сервер.');
+
+          // Здесь можно обработать ответ от сервера, если он есть
+          response.json().then((data) => {
+            console.log('Ответ от сервера:', data);
+          });
+        } else {
+          // Обработка ошибок при отправке данных на сервер
+          console.error('Ошибка при отправке данных на сервер.');
+        }
+      })
+      .catch((error) => {
+        console.error('Произошла ошибка при отправке данных:', error);
+      });
   };
 
   return (
