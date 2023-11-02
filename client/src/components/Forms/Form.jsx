@@ -12,10 +12,18 @@ function Forms() {
   const [selectedJob, setSelectedJob] = useState('saveAll');
 
   const formData = {
-    years: selectedYear,
+    year: selectedYear,
     specialty: selectedSpecialty,
+    specialtyText: specialty.find((item) => item.code == selectedSpecialty)
+      .name,
     qualification: selectedQualification,
+    qualificationText: qualification.find(
+      (item) => item.code == selectedQualification,
+    ).name,
     educationBase: selectedEducationBase,
+    educationBaseText: educationBase.find(
+      (item) => item.code == selectedEducationBase,
+    ).name,
     task: selectedJob,
   };
 
@@ -31,21 +39,20 @@ function Forms() {
       body: JSON.stringify(formData),
     })
       .then((response) => {
+        // После выполнения запроса, мы получаем объект ответа (response).
         if (response.ok) {
-          // Успешно отправлено
-          console.log('Данные успешно отправлены на сервер.');
-
-          // Здесь можно обработать ответ от сервера, если он есть
-          response.json().then((data) => {
-            console.log('Ответ от сервера:', data);
-          });
-        } else {
-          // Обработка ошибок при отправке данных на сервер
-          console.error('Ошибка при отправке данных на сервер.');
+          // Если статус ответа успешный (код 200), разбираем ответ в формате JSON.
+          return response.json();
         }
+        throw new Error('Ошибка при выполнении запроса');
+      })
+      .then((data) => {
+        // Обработка успешного ответа (уже в формате JSON).
+        console.log('Успешный ответ от сервера:', data);
       })
       .catch((error) => {
-        console.error('Произошла ошибка при отправке данных:', error);
+        // Обработка ошибок, если что-то пошло не так.
+        console.error('Ошибка:', error);
       });
   };
 
