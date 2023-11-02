@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const router = express.Router();
 const app = express();
 
 app.use(morgan('tiny'));
