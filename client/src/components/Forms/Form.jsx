@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import Select from './Input/Select';
 import SelectJob from './Input/SelectJob';
@@ -12,15 +13,15 @@ function Forms() {
   const [selectedJob, setSelectedJob] = useState('saveAll');
 
   const formData = {
-    year: selectedYear,
-    specialty: selectedSpecialty,
+    year: Number(selectedYear),
+    specialty: Number(selectedSpecialty),
     specialtyText: specialty.find((item) => item.code == selectedSpecialty)
       .name,
-    qualification: selectedQualification,
+    qualification: Number(selectedQualification),
     qualificationText: qualification.find(
       (item) => item.code == selectedQualification,
     ).name,
-    educationBase: selectedEducationBase,
+    educationBase: Number(selectedEducationBase),
     educationBaseText: educationBase.find(
       (item) => item.code == selectedEducationBase,
     ).name,
@@ -30,7 +31,6 @@ function Forms() {
   const handleClick = (event) => {
     event.preventDefault();
     console.log(formData);
-
     fetch('http://localhost:4040/task/all', {
       method: 'POST',
       headers: {
