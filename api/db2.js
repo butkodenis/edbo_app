@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://root:123456@localhost:27017/mydatabase');
+mongoose.connect(
+  'mongodb+srv://butko:8Hd4mTmlceS9d9ft@cluster0.i7ddjab.mongodb.net/animal'
+);
 
 const Cat = mongoose.model('Cat', { name: String }, 'mycats');
 
