@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const MongoClient = require('mongodb').MongoClient;
 
 const url = 'mongodb+srv://butko:8Hd4mTmlceS9d9ft@cluster0.i7ddjab.mongodb.net'; // URL подключения к вашей базе данных
