@@ -1,8 +1,8 @@
-const MongoClient = require("mongodb").MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 
-const url = "mongodb://root:123456@localhost:27017"; // URL подключения к вашей базе данных
-const dbName = "edbo"; // Название вашей базы данных
-const collectionName = "user"; // Название вашей коллекции
+const url = 'mongodb+srv://butko:8Hd4mTmlceS9d9ft@cluster0.i7ddjab.mongodb.net'; // URL подключения к вашей базе данных
+const dbName = 'sample_guides'; // Название вашей базы данных
+const collectionName = 'planets'; // Название вашей коллекции
 const client = new MongoClient(url);
 
 async function run() {
