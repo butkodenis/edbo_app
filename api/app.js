@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
-const Tasks = require('./models/taskModel');
+const taskController = require('./controllers/taskController');
 
 app.use(morgan('tiny'));
 
@@ -18,7 +18,6 @@ app.use((req, res, next) => {
 
 const url =
   'mongodb+srv://butko:8Hd4mTmlceS9d9ft@cluster0.i7ddjab.mongodb.net/edbo';
-const collectionName = 'tasks';
 
 // Подключаемся к базе данных
 mongoose.connect(url);
@@ -28,40 +27,11 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-app.get('/task/all', async (req, res) => {
-  try {
-    const user = 'messaage';
-    res.json(user);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: 'Ошибка на сервере' });
-    return;
-  }
-});
+app.get('/task/all', taskController.getTasksAll);
 
-app.post('/task/all', async (req, res) => {
-  try {
-    const data = req.body;
-    console.log(data);
-    const task = new Tasks({
-      year: data.year,
-      specialty: data.specialty,
-      specialtyText: data.specialtyText,
-      qualification: data.qualification,
-      qualificationText: data.qualificationText,
-      educationBase: data.educationBase,
-      educationBaseText: data.educationBaseText,
-      task: data.task,
-    });
-    // сохраняем в бд
-    await task.save();
-    res.json({ message: 'Данные успешно обработаны' });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: 'Ошибка на сервере' });
-    return;
-  }
-});
+app.post('/task/create', taskController.createTask);
+
+app.delete('/task/delete', taskController.deleteTask);
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => {

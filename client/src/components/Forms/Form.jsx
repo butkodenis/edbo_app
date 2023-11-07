@@ -31,7 +31,7 @@ function Forms() {
   const handleClick = (event) => {
     event.preventDefault();
     console.log(formData);
-    fetch('http://localhost:4040/task/all', {
+    fetch('http://localhost:4040/task/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
