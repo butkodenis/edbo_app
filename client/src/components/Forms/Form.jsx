@@ -1,24 +1,50 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import Select from './Input/Select';
-import SelectComponent from './Input/SelectComponent';
 import SelectJob from './Input/SelectJob';
 import dictionary from '../dict';
 
-function Forms() {
+function Forms({ formData, onInputChange, onSubmit }) {
   const { years, specialty, qualification, educationBase } = dictionary;
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <div className="container">
         <div className="row">
-          <div className="col-lg"></div>
           <div className="col-lg">
             <Select
-              name="specialtySelect"
+              name="year"
+              value={formData.year}
+              label="Оберіть спеціальність"
+              options={years}
+              onChange={onInputChange}
+            />
+          </div>
+          <div className="col-lg">
+            <Select
+              name="specialty"
+              value={formData.specialty}
               label="Оберіть спеціальність"
               options={specialty}
-              values={specialty}
+              onChange={onInputChange}
+            />
+          </div>
+          <div className="col-lg">
+            <Select
+              name="qualification"
+              value={formData.specialty}
+              label="Оберіть спеціальність"
+              options={qualification}
+              onChange={onInputChange}
+            />
+          </div>
+          <div className="col-lg">
+            <Select
+              name="educationBase"
+              value={formData.specialty}
+              label="Оберіть спеціальність"
+              options={educationBase}
+              onChange={onInputChange}
             />
           </div>
         </div>

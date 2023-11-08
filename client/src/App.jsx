@@ -14,12 +14,12 @@ function App() {
 
   const [tasksList, setTasksList] = useState([]);
 
-  const handleFormChenge = (e) => {
-    const [name, value] = e.target;
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
   };
@@ -28,7 +28,11 @@ function App() {
     <div className="container">
       <div className="row">
         <data className="col-md-12">
-          <Forms />
+          <Forms
+            formData={formData}
+            onInputChange={handleInputChange}
+            onSubmit={handleSubmit}
+          />
         </data>
         <div className="col-sm">
           <TableTask />

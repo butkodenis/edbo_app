@@ -1,16 +1,21 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-function Select({ name, values, label, onChange }) {
+function Select({ name, value, options, label, onChange }) {
   return (
     <>
       <label htmlFor={name} className="form-label">
         <strong>{label}</strong>
       </label>
-      <select id={name} className="form-select" onChange={onChange}>
-        {values.map((val) => (
-          <option key={val.code} value={val.code}>
-            {val.name}{' '}
+      <select
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="form-select"
+      >
+        {options.map((option) => (
+          <option key={option.code} value={option.code}>
+            {option.name}{' '}
           </option>
         ))}
       </select>
