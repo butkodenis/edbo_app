@@ -30,7 +30,7 @@ function Forms() {
 
   const handleClick = (event) => {
     event.preventDefault();
-    console.log(formData);
+    //console.log(formData);
     fetch('http://localhost:4040/task/all', {
       method: 'POST',
       headers: {
