@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-console */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Select from './Input/Select';
-import SelectJob from './Input/SelectJob';
+import Radio from './Input/Radio';
+
 import dictionary from '../dict';
 
 function Forms({ formData, onInputChange, onSubmit }) {
@@ -15,7 +17,7 @@ function Forms({ formData, onInputChange, onSubmit }) {
             <Select
               name="year"
               value={formData.year}
-              label="Оберіть спеціальність"
+              label="Оберіть рік"
               options={years}
               onChange={onInputChange}
             />
@@ -33,7 +35,7 @@ function Forms({ formData, onInputChange, onSubmit }) {
             <Select
               name="qualification"
               value={formData.specialty}
-              label="Оберіть спеціальність"
+              label="Оберіть освітній рівень"
               options={qualification}
               onChange={onInputChange}
             />
@@ -42,7 +44,7 @@ function Forms({ formData, onInputChange, onSubmit }) {
             <Select
               name="educationBase"
               value={formData.specialty}
-              label="Оберіть спеціальність"
+              label="Оберіть основу вступу"
               options={educationBase}
               onChange={onInputChange}
             />
@@ -50,6 +52,41 @@ function Forms({ formData, onInputChange, onSubmit }) {
         </div>
 
         <hr className="my-4" />
+        <div className="row">
+          <div className="col-lg">
+            <Radio
+              label="Імпорт пропозицій"
+              value="saveIds"
+              checked={formData.task === 'saveIds'}
+              onChange={onInputChange}
+            />
+          </div>
+          <div className="col-lg">
+            <Radio
+              label="Імпорт статистики пропозицій"
+              value="saveStat"
+              checked={formData.task === 'saveIds'}
+              onChange={onInputChange}
+            />
+          </div>
+          <div className="col-lg">
+            <Radio
+              label="Імпорт статистики студентів"
+              value="saveStud"
+              checked={formData.task === 'saveIds'}
+              onChange={onInputChange}
+            />
+          </div>
+          <div className="col-lg">
+            <Radio
+              label="Всі завдання"
+              value="saveAll"
+              checked={formData.task === 'saveAll'}
+              onChange={onInputChange}
+            />
+          </div>
+        </div>
+
         <hr className="my-4" />
         <button type="submit" className="btn btn-info btn-sm">
           Додати завдання

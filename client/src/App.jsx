@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Forms from './components/Forms/Form';
 import TableTask from './components/Tables/Table';
 import './App.css';
@@ -11,8 +11,6 @@ function App() {
     educationBase: '40',
     task: 'saveAll',
   });
-
-  const [tasksList, setTasksList] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
