@@ -5,16 +5,24 @@ import './App.css';
 
 function App() {
   const [formData, setFormData] = useState({
-    year: '2023',
-    specialty: '221',
-    qualification: '1',
-    educationBase: '40',
+    year: 2023,
+    specialty: 221,
+    qualification: 1,
+    educationBase: 40,
     task: 'saveAll',
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    // Проверяем, если поле - одно из числовых полей, то преобразуем значение в число
+    if (
+      ['year', 'specialty', 'qualification', 'educationBase'].includes(name)
+    ) {
+      setFormData({ ...formData, [name]: parseInt(value, 10) });
+    } else {
+      // Иначе оставляем значение как строку
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {

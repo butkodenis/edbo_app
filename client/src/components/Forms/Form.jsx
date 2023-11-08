@@ -65,7 +65,7 @@ function Forms({ formData, onInputChange, onSubmit }) {
             <Radio
               label="Імпорт статистики пропозицій"
               value="saveStat"
-              checked={formData.task === 'saveIds'}
+              checked={formData.task === 'saveStat'}
               onChange={onInputChange}
             />
           </div>
@@ -73,7 +73,7 @@ function Forms({ formData, onInputChange, onSubmit }) {
             <Radio
               label="Імпорт статистики студентів"
               value="saveStud"
-              checked={formData.task === 'saveIds'}
+              checked={formData.task === 'saveStud'}
               onChange={onInputChange}
             />
           </div>
