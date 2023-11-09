@@ -1,5 +1,5 @@
 import React from 'react';
-import Forms from './components/Forms/Form';
+import Form from './components/Forms/Form';
 import TableTask from './components/Tables/Table';
 import './App.css';
 
@@ -8,7 +8,7 @@ function App() {
     <div className="conteiner ">
       <div className="row">
         <div className="col-12">
-          <Forms />
+          <Form />
         </div>
       </div>
       <div className="row">
