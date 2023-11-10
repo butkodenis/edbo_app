@@ -1,8 +1,11 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import Select from './Input/Select';
+import dictionary from '../dict';
 
-const Form = function () {
+function Form() {
+  const { years, specialty, qualification, educationBase } = dictionary;
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
@@ -12,6 +15,17 @@ const Form = function () {
   return (
     <div className="container mt-3">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="row">
+          <div className="col-lg-6">
+            <Select
+              name="year"
+              options={years}
+              label="Оберіть рік"
+              register={register}
+            />
+          </div>
+        </div>
+
         <div className="mb-3">
           <label htmlFor="select1" className="form-label">
             Выберите опцию 1:
@@ -29,7 +43,6 @@ const Form = function () {
             Выберите опцию 2:
           </label>
           <select id="select2" className="form-select" {...register('select2')}>
-            <option value="">Выберите...</option>
             <option value="option4">Опция 4</option>
             <option value="option5">Опция 5</option>
             <option value="option6">Опция 6</option>
@@ -72,6 +85,6 @@ const Form = function () {
       </form>
     </div>
   );
-};
+}
 
 export default Form;
