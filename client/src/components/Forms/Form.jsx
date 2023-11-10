@@ -2,21 +2,37 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Select from './Input/Select';
+import Radio from './Input/Radio';
 import dictionary from '../dict';
 
 function Form() {
-  const { years, specialty, qualification, educationBase } = dictionary;
+  const { years, specialtys, qualifications, educationBases, tasks } =
+    dictionary;
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    //добавляем тектовые поля из справочника
+    const sendData = {
+      ...data,
+      specialtyText: specialtys.find((item) => item.code == data.specialty)
+        .name,
+      qualificationText: qualifications.find(
+        (item) => item.code == data.qualification,
+      ).name,
+      educationBaseText: educationBases.find(
+        (item) => item.code == data.educationBase,
+      ).name,
+      taskText: tasks.find((item) => item.code == data.task).name,
+    };
+
+    console.log(sendData);
   };
 
   return (
     <div className="container mt-3">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg">
             <Select
               name="year"
               options={years}
@@ -24,61 +40,67 @@ function Form() {
               register={register}
             />
           </div>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="select1" className="form-label">
-            Выберите опцию 1:
-          </label>
-          <select id="select1" className="form-select" {...register('select1')}>
-            <option value="">Выберите...</option>
-            <option value="option1">Опция 1</option>
-            <option value="option2">Опция 2</option>
-            <option value="option3">Опция 3</option>
-          </select>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="select2" className="form-label">
-            Выберите опцию 2:
-          </label>
-          <select id="select2" className="form-select" {...register('select2')}>
-            <option value="option4">Опция 4</option>
-            <option value="option5">Опция 5</option>
-            <option value="option6">Опция 6</option>
-          </select>
-        </div>
-
-        <div className="mb-3">
-          <div className="form-check">
-            <input
-              type="radio"
-              id="radio1"
-              className="form-check-input"
-              value="radioOption1"
-              {...register('radioOption')}
+          <div className="col-lg">
+            <Select
+              name="specialty"
+              options={specialtys}
+              label="Оберіть спеціальність"
+              register={register}
             />
-            <label htmlFor="radio1" className="form-check-label">
-              Радио опция 1
-            </label>
+          </div>
+          <div className="col-lg">
+            <Select
+              name="qualification"
+              options={qualifications}
+              label="Оберіть освітній рівень"
+              register={register}
+            />
+          </div>
+          <div className="col-lg">
+            <Select
+              name="educationBase"
+              options={educationBases}
+              label="Оберіть основу вступу"
+              register={register}
+            />
           </div>
         </div>
-
-        <div className="mb-3">
-          <div className="form-check">
-            <input
-              type="radio"
-              id="radio2"
-              className="form-check-input"
-              value="radioOption2"
-              {...register('radioOption')}
+        <hr className="my-4" />
+        <div className="row">
+          <div className="col-lg">
+            <Radio
+              name="task"
+              value="saveStat"
+              label="Імпорт пропозицій"
+              register={register}
             />
-            <label htmlFor="radio2" className="form-check-label">
-              Радио опция 2
-            </label>
+          </div>
+          <div className="col-lg">
+            <Radio
+              name="task"
+              value="saveStat"
+              label="Імпорт статистики пропозицій"
+              register={register}
+            />
+          </div>
+          <div className="col-lg">
+            <Radio
+              name="task"
+              value="saveStud"
+              label="Імпорт статистики студентів"
+              register={register}
+            />
+          </div>
+          <div className="col-lg">
+            <Radio
+              name="task"
+              value="saveAll"
+              label="Всі завдання"
+              register={register}
+            />
           </div>
         </div>
-
+        <hr className="my-4" />
         <button type="submit" className="btn btn-primary">
           Отправить
         </button>

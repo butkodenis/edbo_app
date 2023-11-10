@@ -1,20 +1,19 @@
 import React from 'react';
 
-function SelectJob({ label, value, selectedJob, setSelectedJob }) {
+function Radio({ name, value, label, register }) {
   return (
     <div className="form-check">
       <input
         className="form-check-input"
         type="radio"
-        name="option"
+        name={name}
         value={value}
         id={value}
-        checked={selectedJob === value}
-        onChange={() => setSelectedJob(value)}
+        {...register(name)}
       />
       <label className="form-check-label">{label}</label>
     </div>
   );
 }
 
-export default SelectJob;
+export default Radio;

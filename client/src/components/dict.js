@@ -25,6 +25,12 @@ const dictionary = {
     { code: 610, name: 'Молодший бакалавр' },
     { code: 620, name: 'Бакалавр' },
   ],
+  tasks: [
+    { code: 'saveIds', name: 'Імпорт пропозицій' },
+    { code: 'saveStat', name: 'Імпорт статистики пропозицій' },
+    { code: 'saveStud', name: 'Імпорт статистики студентів' },
+    { code: 'saveAll', name: 'Всі завдання' },
+  ],
 };
 
 export default dictionary;
