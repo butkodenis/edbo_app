@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
 function Radio({ name, value, label, register }) {
@@ -9,9 +10,12 @@ function Radio({ name, value, label, register }) {
         name={name}
         value={value}
         id={value}
-        {...register(name)}
+        {...register(name, { text: label })}
+        defaultChecked={value === 'saveAll'}
       />
-      <label className="form-check-label">{label}</label>
+      <label htmlFor={name} className="form-check-label">
+        {label}
+      </label>
     </div>
   );
 }

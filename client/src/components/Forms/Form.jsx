@@ -11,7 +11,7 @@ function Form() {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    //добавляем тектовые поля из справочника
+    // добавляем тектовые поля из справочника
     const sendData = {
       ...data,
       specialtyText: specialtys.find((item) => item.code == data.specialty)
@@ -70,32 +70,32 @@ function Form() {
           <div className="col-lg">
             <Radio
               name="task"
-              value="saveStat"
-              label="Імпорт пропозицій"
+              value={tasks[0].code}
+              label={tasks[0].name}
               register={register}
             />
           </div>
           <div className="col-lg">
             <Radio
               name="task"
-              value="saveStat"
-              label="Імпорт статистики пропозицій"
+              value={tasks[1].code}
+              label={tasks[1].name}
               register={register}
             />
           </div>
           <div className="col-lg">
             <Radio
               name="task"
-              value="saveStud"
-              label="Імпорт статистики студентів"
+              value={tasks[2].code}
+              label={tasks[2].name}
               register={register}
             />
           </div>
           <div className="col-lg">
             <Radio
               name="task"
-              value="saveAll"
-              label="Всі завдання"
+              value={tasks[3].code}
+              label={tasks[3].name}
               register={register}
             />
           </div>
