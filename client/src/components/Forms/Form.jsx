@@ -14,6 +14,11 @@ function Form() {
     // добавляем тектовые поля из справочника
     const sendData = {
       ...data,
+      year: Number(data.year),
+      specialty: Number(data.specialty),
+      educationBase: Number(data.educationBase),
+      qualification: Number(data.qualification),
+      // Добавляем текстовые поля из справочника
       specialtyText: specialtys.find((item) => item.code == data.specialty)
         .name,
       qualificationText: qualifications.find(
@@ -22,7 +27,7 @@ function Form() {
       educationBaseText: educationBases.find(
         (item) => item.code == data.educationBase,
       ).name,
-      taskText: tasks.find((item) => item.code == data.task).name,
+      taskText: tasks.find((item) => item.code === data.task).name,
     };
 
     console.log(sendData);
