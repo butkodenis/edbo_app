@@ -1,12 +1,13 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-console */
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 import Select from './Input/Select';
 import Radio from './Input/Radio';
 import dictionary from '../dict';
-import axios from 'axios';
 
-function Form() {
+function Form({ fetchData }) {
   const { years, specialtys, qualifications, educationBases, tasks } =
     dictionary;
   const { register, handleSubmit } = useForm();
@@ -40,7 +41,7 @@ function Form() {
         sendData,
       );
       console.log('Ответ сервера:', response.data);
-      // Здесь вы можете добавить дополнительную логику после успешного запроса
+      fetchData();
     } catch (error) {
       if (error.response) {
         // Запрос выполнен, и сервер вернул статус код отличный от 2xx
