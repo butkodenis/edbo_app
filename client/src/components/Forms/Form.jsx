@@ -1,138 +1,128 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import Select from './Input/Select';
-import SelectJob from './Input/SelectJob';
+import Radio from './Input/Radio';
 import dictionary from '../dict';
+import axios from 'axios';
 
-function Forms() {
-  const { years, specialty, qualification, educationBase } = dictionary;
-  const [selectedYear, setSelectedYear] = useState('2023');
-  const [selectedSpecialty, setSelectedSpecialty] = useState('221');
-  const [selectedQualification, setSelectedQualification] = useState('1');
-  const [selectedEducationBase, setSelectedEducationBase] = useState('40');
-  const [selectedJob, setSelectedJob] = useState('saveAll');
+function Form() {
+  const { years, specialtys, qualifications, educationBases, tasks } =
+    dictionary;
+  const { register, handleSubmit } = useForm();
 
-  const formData = {
-    year: Number(selectedYear),
-    specialty: Number(selectedSpecialty),
-    specialtyText: specialty.find((item) => item.code == selectedSpecialty)
-      .name,
-    qualification: Number(selectedQualification),
-    qualificationText: qualification.find(
-      (item) => item.code == selectedQualification,
-    ).name,
-    educationBase: Number(selectedEducationBase),
-    educationBaseText: educationBase.find(
-      (item) => item.code == selectedEducationBase,
-    ).name,
-    task: selectedJob,
-  };
+  const onSubmit = async (data) => {
+    // добавляем тектовые поля из справочника
+    const sendData = {
+      ...data,
+      year: Number(data.year),
+      specialty: Number(data.specialty),
+      educationBase: Number(data.educationBase),
+      qualification: Number(data.qualification),
 
-  const handleClick = (event) => {
-    event.preventDefault();
-    console.log(formData);
-    fetch('http://localhost:4040/task/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        // После выполнения запроса, мы получаем объект ответа (response).
-        if (response.ok) {
-          // Если статус ответа успешный (код 200), разбираем ответ в формате JSON.
-          return response.json();
-        }
-        throw new Error('Ошибка при выполнении запроса');
-      })
-      .then((data) => {
-        // Обработка успешного ответа (уже в формате JSON).
-        console.log('Успешный ответ от сервера:', data);
-      })
-      .catch((error) => {
-        // Обработка ошибок, если что-то пошло не так.
-        console.error('Ошибка:', error);
-      });
+      // Добавляем текстовые поля из справочника
+      specialtyText: specialtys.find((item) => item.code == data.specialty)
+        .name,
+      qualificationText: qualifications.find(
+        (item) => item.code == data.qualification,
+      ).name,
+      educationBaseText: educationBases.find(
+        (item) => item.code == data.educationBase,
+      ).name,
+      taskText: tasks.find((item) => item.code === data.task).name,
+    };
+
+    console.log(sendData);
+    try {
+      const response = await axios.post(
+        'http://localhost:4040/task/create',
+        sendData,
+      );
+      console.log('Ответ сервера:', response.data);
+    } catch (error) {
+      console.error('Ошибка при отправке запроса:', error);
+    }
   };
 
   return (
-    <form>
-      <div className="container">
+    <div className="container mt-3">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg">
             <Select
-              name="yearSelect"
+              name="year"
+              options={years}
               label="Оберіть рік"
-              values={years}
-              onChange={(event) => setSelectedYear(event.target.value)}
+              register={register}
             />
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg">
             <Select
-              name="specialtySelect"
+              name="specialty"
+              options={specialtys}
               label="Оберіть спеціальність"
-              values={specialty}
-              onChange={(event) => setSelectedSpecialty(event.target.value)}
+              register={register}
             />
           </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg">
             <Select
-              name="qualificationySelect"
+              name="qualification"
+              options={qualifications}
               label="Оберіть освітній рівень"
-              values={qualification}
-              onChange={(event) => setSelectedQualification(event.target.value)}
+              register={register}
             />
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg">
             <Select
-              name="seducationBaseSelect"
+              name="educationBase"
+              options={educationBases}
               label="Оберіть основу вступу"
-              values={educationBase}
-              onChange={(event) => setSelectedEducationBase(event.target.value)}
+              register={register}
             />
           </div>
         </div>
         <hr className="my-4" />
-        <div className="d-flex justify-content-between">
-          <SelectJob
-            label="Імпорт пропозицій"
-            value="saveIds"
-            selectedJob={selectedJob}
-            setSelectedJob={setSelectedJob}
-          />
-          <SelectJob
-            label="Імпорт статистики пропозицій"
-            value="saveStat"
-            selectedJob={selectedJob}
-            setSelectedJob={setSelectedJob}
-          />
-          <SelectJob
-            label="Імпорт статистики студентів"
-            value="saveStud"
-            selectedJob={selectedJob}
-            setSelectedJob={setSelectedJob}
-          />
-          <SelectJob
-            label="Всі завдання"
-            value="saveAll"
-            selectedJob={selectedJob}
-            setSelectedJob={setSelectedJob}
-          />
+        <div className="row">
+          <div className="col-lg">
+            <Radio
+              name="task"
+              value={tasks[0].code}
+              label={tasks[0].name}
+              register={register}
+            />
+          </div>
+          <div className="col-lg">
+            <Radio
+              name="task"
+              value={tasks[1].code}
+              label={tasks[1].name}
+              register={register}
+            />
+          </div>
+          <div className="col-lg">
+            <Radio
+              name="task"
+              value={tasks[2].code}
+              label={tasks[2].name}
+              register={register}
+            />
+          </div>
+          <div className="col-lg">
+            <Radio
+              name="task"
+              value={tasks[3].code}
+              label={tasks[3].name}
+              register={register}
+            />
+          </div>
         </div>
         <hr className="my-4" />
-        <button
-          type="submit"
-          className="btn btn-info btn-sm"
-          onClick={handleClick}
-        >
-          Додати завдання
+        <button type="submit" className="btn btn-primary">
+          Отправить
         </button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 
-export default Forms;
+export default Form;
