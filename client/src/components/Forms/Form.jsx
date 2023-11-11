@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import Select from './Input/Select';
 import Radio from './Input/Radio';
 import dictionary from '../dict';
+import axios from 'axios';
 
 function Form() {
   const { years, specialtys, qualifications, educationBases, tasks } =
@@ -18,6 +19,7 @@ function Form() {
       specialty: Number(data.specialty),
       educationBase: Number(data.educationBase),
       qualification: Number(data.qualification),
+
       // Добавляем текстовые поля из справочника
       specialtyText: specialtys.find((item) => item.code == data.specialty)
         .name,
@@ -30,9 +32,12 @@ function Form() {
       taskText: tasks.find((item) => item.code === data.task).name,
     };
 
-    console.log(data);
+    console.log(sendData);
     try {
-      const response = await axios.post('/task/create', sendData);
+      const response = await axios.post(
+        'http://localhost:4040/task/create',
+        sendData,
+      );
       console.log('Ответ сервера:', response.data);
     } catch (error) {
       console.error('Ошибка при отправке запроса:', error);
