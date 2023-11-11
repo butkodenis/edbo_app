@@ -33,14 +33,26 @@ function Form() {
     };
 
     console.log(sendData);
+    // Отправка POST-запроса
     try {
       const response = await axios.post(
         'http://localhost:4040/task/create',
         sendData,
       );
       console.log('Ответ сервера:', response.data);
+      // Здесь вы можете добавить дополнительную логику после успешного запроса
     } catch (error) {
-      console.error('Ошибка при отправке запроса:', error);
+      if (error.response) {
+        // Запрос выполнен, и сервер вернул статус код отличный от 2xx
+        console.error('Ошибка при запросе. Статус:', error.response.status);
+        console.error('Данные ошибки:', error.response.data);
+      } else if (error.request) {
+        // Запрос отправлен, но нет ответа
+        console.error('Ошибка при получении ответа от сервера');
+      } else {
+        // Что-то пошло не так при настройке запроса
+        console.error('Ошибка при настройке запроса:', error.message);
+      }
     }
   };
 
