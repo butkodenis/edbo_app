@@ -6,7 +6,6 @@ import axios from 'axios';
 import Select from './Input/Select';
 import Radio from './Input/Radio';
 import dictionary from '../dict';
-import axios from 'axios';
 
 function Form({ fetchData }) {
   const { years, specialtys, qualifications, educationBases, tasks } =
