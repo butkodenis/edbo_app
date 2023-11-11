@@ -10,7 +10,7 @@ function Form() {
     dictionary;
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // добавляем тектовые поля из справочника
     const sendData = {
       ...data,
@@ -30,7 +30,13 @@ function Form() {
       taskText: tasks.find((item) => item.code === data.task).name,
     };
 
-    console.log(sendData);
+    console.log(data);
+    try {
+      const response = await axios.post('/task/create', sendData);
+      console.log('Ответ сервера:', response.data);
+    } catch (error) {
+      console.error('Ошибка при отправке запроса:', error);
+    }
   };
 
   return (
