@@ -32,6 +32,7 @@ function CardList({ cardsData }) {
         <div className="row">
           {cardsData.map((card) => (
             <Card
+              id={card._id}
               title={card.specialtyText}
               subtitle={card.qualificationText}
               text={card.educationBaseText}
