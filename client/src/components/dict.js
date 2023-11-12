@@ -29,7 +29,7 @@ const dictionary = {
     { code: 'saveIds', name: 'Імпорт пропозицій' },
     { code: 'saveStat', name: 'Імпорт статистики пропозицій' },
     { code: 'saveStud', name: 'Імпорт статистики студентів' },
-    { code: 'saveAll', name: 'Всі завдання' },
+    { code: 'saveAll', name: 'Всі імпорти' },
   ],
 };
 
