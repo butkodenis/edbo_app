@@ -34,7 +34,7 @@ function App() {
       </div>
       <div className="row">
         <div className="col-12">
-          <CardList cardsData={cardsData} />
+          <CardList cardsData={cardsData} fetchData={fetchData} />
         </div>
       </div>
     </div>
