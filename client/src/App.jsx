@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Form from './components/Forms/Form';
-import TableTask from './components/Tables/Table';
+import CardList from './components/CardList/CardList';
 import axios from 'axios';
 import './App.css';
 
@@ -30,7 +30,7 @@ function App() {
       </div>
       <div className="row">
         <div className="col-12">
-          <TableTask />
+          <CardList />
         </div>
       </div>
     </div>
