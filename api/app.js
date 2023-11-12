@@ -1,10 +1,14 @@
+/* eslint-disable no-console */
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
+const taskController = require('./controllers/taskController');
 
 app.use(morgan('tiny'));
+
 app.use(express.json());
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -13,8 +17,7 @@ app.use((req, res, next) => {
 });
 
 const url =
-  'mongodb+srv://butko:8Hd4mTmlceS9d9ft@cluster0.i7ddjab.mongodb.net/sample_guides';
-const collectionName = 'planets';
+  'mongodb+srv://butko:8Hd4mTmlceS9d9ft@cluster0.i7ddjab.mongodb.net/edbo';
 
 // Подключаемся к базе данных
 mongoose.connect(url);
@@ -24,49 +27,11 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-// Определяем схему и модель для коллекции planets
-const planetSchema = new mongoose.Schema({
-  name: String,
-});
+app.get('/task/all', taskController.getTasksAll);
 
-const Planet = mongoose.model('Planet', planetSchema, collectionName);
+app.post('/task/create', taskController.createTask);
 
-// Реализуем GET запрос
-app.get('/planets', async (req, res) => {
-  try {
-    const planets = await Planet.find();
-    res.json(planets);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-app.get('/task/all', async (req, res) => {
-  try {
-    const user = 'messaage';
-
-    res.json(user);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: 'Ошибка на сервере' });
-    return;
-  }
-});
-
-app.post('/task/all', async (req, res) => {
-  try {
-    const data = req.body.year;
-    console.log(data);
-    const planet = new Planet({ name: 'dddddd' });
-    // сохраняем в бд
-    await planet.save();
-    res.json({ message: 'Данные успешно обработаны' });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: 'Ошибка на сервере' });
-    return;
-  }
-});
+app.delete('/task/delete', taskController.deleteTask);
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => {
