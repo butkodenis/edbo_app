@@ -25,18 +25,19 @@ const cards = [
   },
 ];
 
-function CardList() {
+function CardList({ cardsData }) {
   return (
-    <div className="container">
-      <div className="row">
-        {cards.map((card, index) => (
-          <Card
-            title={card.title}
-            subtitle={card.subtitle}
-            text={card.text}
-            link={card.link}
-          />
-        ))}
+    <div className="card-list mt-4 mb-4">
+      <div className="container">
+        <div className="row">
+          {cardsData.map((card) => (
+            <Card
+              title={card.specialtyText}
+              subtitle={card.qualificationText}
+              text={card.educationBaseText}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

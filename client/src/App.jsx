@@ -6,13 +6,12 @@ import CardList from './components/CardList/CardList';
 import './App.css';
 
 function App() {
-  const [tableData, setTableData] = useState([]);
+  const [cardsData, setCardsData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:4040/task/all'); // Update the URL to match your server endpoint
-      setTableData(response.data);
-      console.log(tableData);
+      const response = await axios.get('http://localhost:4040/task/all');
+      setCardsData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error.message);
     }
@@ -21,6 +20,10 @@ function App() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log(cardsData);
+  }, [cardsData]); // This useEffect will run whenever cardData changes
 
   return (
     <div className="conteiner ">
@@ -31,7 +34,7 @@ function App() {
       </div>
       <div className="row">
         <div className="col-12">
-          <CardList />
+          <CardList cardsData={cardsData} />
         </div>
       </div>
     </div>
