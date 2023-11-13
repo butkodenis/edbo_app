@@ -54,4 +54,12 @@ const deleteTask = async (req, res) => {
   }
 };
 
+const runTask = async (req, res) => {
+  try {
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Произошла ошибка выполнеии задачи' });
+  }
+};
+
 module.exports = { createTask, getTasksAll, deleteTask };
