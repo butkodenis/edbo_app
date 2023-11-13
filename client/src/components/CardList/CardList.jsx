@@ -10,9 +10,10 @@ function CardList({ cardsData, fetchData }) {
             <Card
               key={card._id}
               id={card._id}
-              title={card.specialtyText}
-              subtitle={card.qualificationText}
-              text={card.educationBaseText}
+              specialty={card.specialty}
+              specialtyText={card.specialtyText}
+              qualificationText={card.qualificationText}
+              educationBaseText={card.educationBaseText}
               fetchData={fetchData}
             />
           ))}
