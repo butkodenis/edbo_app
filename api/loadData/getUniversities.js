@@ -1,6 +1,11 @@
 const axios = require('axios');
 
-const getIds = async (year, qualification, educationBase, speciality) => {
+const getUniversities = async (
+  year,
+  qualification,
+  educationBase,
+  speciality,
+) => {
   // меняем ссылку взависимости от года
   if (year === new Date().getFullYear()) {
     year = '';
@@ -21,7 +26,7 @@ const getIds = async (year, qualification, educationBase, speciality) => {
     const jsonData = response.data.universities;
     const message = 'запит до vstup.edbo.gov.ua виконано';
     console.log(message);
-    console.log(jsonData);
+    //console.log(jsonData);
 
     /*
     await saveLog(
@@ -40,5 +45,5 @@ const getIds = async (year, qualification, educationBase, speciality) => {
     console.error('помилка запиту пропозиц.:', error.message);
   }
 };
-
-module.exports = getIds;
+//getUniversities(2022, 2, 40, 226);
+module.exports = getUniversities;
