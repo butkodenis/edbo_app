@@ -9,6 +9,7 @@ const taskShema = new mongoose.Schema({
   educationBase: Number,
   educationBaseText: String,
   task: String,
+  taskText: String,
 });
 
 const Tasks = mongoose.model('Tasks', taskShema);

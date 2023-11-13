@@ -14,6 +14,7 @@ const createTask = async (req, res) => {
       educationBase: data.educationBase,
       educationBaseText: data.educationBaseText,
       task: data.task,
+      taskText: data.taskText,
     });
 
     await task.save();

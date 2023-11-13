@@ -1,16 +1,18 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-console */
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 import Select from './Input/Select';
 import Radio from './Input/Radio';
 import dictionary from '../dict';
 
-function Form() {
+function Form({ fetchData }) {
   const { years, specialtys, qualifications, educationBases, tasks } =
     dictionary;
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // добавляем тектовые поля из справочника
     const sendData = {
       ...data,
@@ -18,6 +20,7 @@ function Form() {
       specialty: Number(data.specialty),
       educationBase: Number(data.educationBase),
       qualification: Number(data.qualification),
+
       // Добавляем текстовые поля из справочника
       specialtyText: specialtys.find((item) => item.code == data.specialty)
         .name,
@@ -31,6 +34,27 @@ function Form() {
     };
 
     console.log(sendData);
+    // Отправка POST-запроса
+    try {
+      const response = await axios.post(
+        'http://localhost:4040/task/create',
+        sendData,
+      );
+      console.log('Ответ сервера:', response.data);
+      fetchData();
+    } catch (error) {
+      if (error.response) {
+        // Запрос выполнен, и сервер вернул статус код отличный от 2xx
+        console.error('Ошибка при запросе. Статус:', error.response.status);
+        console.error('Данные ошибки:', error.response.data);
+      } else if (error.request) {
+        // Запрос отправлен, но нет ответа
+        console.error('Ошибка при получении ответа от сервера');
+      } else {
+        // Что-то пошло не так при настройке запроса
+        console.error('Ошибка при настройке запроса:', error.message);
+      }
+    }
   };
 
   return (
