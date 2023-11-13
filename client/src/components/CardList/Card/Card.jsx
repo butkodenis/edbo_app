@@ -5,10 +5,12 @@ import axios from 'axios';
 function Card({ card, fetchData }) {
   const {
     _id,
+    year,
     specialty,
     specialtyText,
     qualificationText,
     educationBaseText,
+    taskText,
   } = card;
   const handleDelete = async () => {
     try {
@@ -39,15 +41,20 @@ function Card({ card, fetchData }) {
         </div>
 
         <div className="card-body">
-          <p className="card-text">ID: {_id}</p>
-          <p className="card-text">
+          <p className="">
+            {taskText} {year}
+          </p>
+          <p className="">ID: {_id}</p>
+          <p className="">
             <strong>
               {specialty} {specialtyText}
             </strong>
           </p>
-          <p className="card-text">
-            {qualificationText} {educationBaseText}
+
+          <p className="">
+            ОР -<strong> {qualificationText}</strong>{' '}
           </p>
+          <p className="">ОВ - {educationBaseText}</p>
         </div>
         <div className="card-footer text-body-secondary">
           <button type="button" className="btn btn-outline-primary btn-sm">
