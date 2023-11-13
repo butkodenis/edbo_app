@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import Form from './components/Forms/Form';
-import TableTask from './components/Tables/Table';
 import axios from 'axios';
+import Form from './components/Forms/Form';
+import CardList from './components/CardList/CardList';
+
 import './App.css';
 
 function App() {
-  const [tableData, setTableData] = useState([]);
+  const [cardsData, setCardsData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:4040/task/all'); // Update the URL to match your server endpoint
-      setTableData(response.data);
-      console.log(tableData);
+      const response = await axios.get('http://localhost:4040/task/all');
+      setCardsData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error.message);
     }
@@ -20,6 +20,10 @@ function App() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log(cardsData);
+  }, [cardsData]); // This useEffect will run whenever cardData changes
 
   return (
     <div className="conteiner ">
@@ -30,7 +34,7 @@ function App() {
       </div>
       <div className="row">
         <div className="col-12">
-          <TableTask />
+          <CardList cardsData={cardsData} fetchData={fetchData} />
         </div>
       </div>
     </div>
