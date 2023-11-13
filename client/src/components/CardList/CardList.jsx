@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Card from './Card/Card';
 
@@ -7,15 +8,7 @@ function CardList({ cardsData, fetchData }) {
       <div className="container">
         <div className="row">
           {cardsData.map((card) => (
-            <Card
-              key={card._id}
-              id={card._id}
-              specialty={card.specialty}
-              specialtyText={card.specialtyText}
-              qualificationText={card.qualificationText}
-              educationBaseText={card.educationBaseText}
-              fetchData={fetchData}
-            />
+            <Card key={card._id} card={card} fetchData={fetchData} />
           ))}
         </div>
       </div>
