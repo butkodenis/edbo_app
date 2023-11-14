@@ -7,7 +7,7 @@ mongoose.connect(
 
 const Universities = require('../models/universitiesModel');
 
-const saveUniversities = async (data) => {
+const saveUniversities = async (data, idJob) => {
   try {
     // Сохраните данные в базе данных
     const universitiesData = data.map((item) => ({
@@ -15,8 +15,10 @@ const saveUniversities = async (data) => {
       un: item.un,
       ids: item.ids,
       n: item.n,
+      timeCreation: new Date(),
+      idJob: idJob,
     }));
-    const savedUniversities = await Universities.insertMany(data);
+    const savedUniversities = await Universities.insertMany(universitiesData);
     console.log('Данные успешно сохранены в базе данных:');
   } catch (error) {
     const message = `помилка при збереженні даних: ${error.message}`;
