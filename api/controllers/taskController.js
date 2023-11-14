@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const Tasks = require('../models/taskModel');
+const importData = require('../import/importData');
 
 const createTask = async (req, res) => {
   try {
@@ -56,10 +57,16 @@ const deleteTask = async (req, res) => {
 
 const runTask = async (req, res) => {
   try {
+    const id = req.params.id;
+    // нужно получить параметры задачи по id
+    // запрос в таблицу
+    await importData.importStatUniv(id);
+    await importData.importUniversities();
+    res.status(200).json({ message: 'Running task', id });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Произошла ошибка выполнеии задачи' });
   }
 };
 
-module.exports = { createTask, getTasksAll, deleteTask };
+module.exports = { createTask, getTasksAll, deleteTask, runTask };

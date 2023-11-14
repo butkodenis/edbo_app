@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 const getUniversities = require('../loadData/getUniversities');
-const saveUniversities = require('../import/saveUniversities');
+const saveUniversities = require('./saveUniversities');
+const getStatUniv = require('../loadData/getStatUniv');
 
 const importUniversities = async () => {
   try {
@@ -15,8 +17,20 @@ const importUniversities = async () => {
   } catch (err) {
     console.error(
       'ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)',
-      error,
+      err,
     );
   }
 };
-importUniversities();
+//importUniversities();
+
+const importStatUniv = async (id) => {
+  try {
+    await getStatUniv(id);
+    console.log(id);
+  } catch (err) {
+    console.error(err);
+  }
+};
+importStatUniv();
+
+module.exports = { importUniversities, importStatUniv };
