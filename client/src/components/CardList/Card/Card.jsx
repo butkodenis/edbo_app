@@ -12,6 +12,7 @@ function Card({ card, fetchData }) {
     educationBaseText,
     taskText,
   } = card;
+
   const handleDelete = async () => {
     try {
       // Отправка запроса на удаление с использованием Axios
@@ -25,6 +26,23 @@ function Card({ card, fetchData }) {
     } catch (error) {
       // Обработка ошибок при удалении
       console.error('Error deleting task:', error.message);
+    }
+  };
+
+  const handleImport = async () => {
+    try {
+      // Отправка POST-запроса на /task/:id/run
+      const response = await axios.post(
+        `http://localhost:4040/task/${_id}/run`,
+      );
+      const time = response.data;
+      // Обработка ответа, если нужно
+      console.log('Import response:', time);
+
+      // Дополнительные действия после успешного импорта, если нужно
+    } catch (error) {
+      // Обработка ошибок при импорте
+      console.error('Error importing task:', error.message);
     }
   };
 
@@ -55,9 +73,14 @@ function Card({ card, fetchData }) {
             ОР -<strong> {qualificationText}</strong>{' '}
           </p>
           <p className="">ОВ - {educationBaseText}</p>
+          <p className=""> time: {}</p>
         </div>
         <div className="card-footer text-body-secondary">
-          <button type="button" className="btn btn-outline-primary btn-sm">
+          <button
+            type="button"
+            className="btn btn-outline-primary btn-sm"
+            onClick={handleImport}
+          >
             Імпорт
           </button>
         </div>
