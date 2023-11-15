@@ -9,6 +9,10 @@ const taskShema = new mongoose.Schema({
   educationBase: Number,
   educationBaseText: String,
   task: String,
+  taskText: String,
+  status: String,
+  timeCreation: Date,
+  timeCompleted: Date,
 });
 
 const Tasks = mongoose.model('Tasks', taskShema);
