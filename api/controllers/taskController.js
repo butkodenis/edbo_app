@@ -60,9 +60,21 @@ const runTask = async (req, res) => {
     const id = req.params.id;
     // нужно получить параметры задачи по id
     // запрос в таблицу
-    await importData.importStatUniv(id);
-    await importData.importUniversities();
-    res.status(200).json({ message: 'Running task', id });
+    const result = await Tasks.findById(id);
+    //await importData.importStatUniv(id);
+    //await importData.importUniversities();
+    switch (result.task) {
+      case 'saveIds':
+        importData.importUniversities();
+        break;
+      case 'saveStat':
+        importData.importStatUniv(result._id);
+        break;
+      default:
+        throw new Error('Неверная операция');
+        break;
+    }
+    res.status(200).json({ message: 'Running task', result });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Произошла ошибка выполнеии задачи' });
