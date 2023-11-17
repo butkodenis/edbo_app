@@ -57,18 +57,19 @@ const deleteTask = async (req, res) => {
 
 const runTask = async (req, res) => {
   try {
-    const id = req.params.id;
-    // нужно получить параметры задачи по id
-    // запрос в таблицу
+    const { id } = req.params;
+
+    // запрос в таблицу, получить параметры задачи по id
     const result = await Tasks.findById(id);
-    //await importData.importStatUniv(id);
-    //await importData.importUniversities();
+
     switch (result.task) {
       case 'saveIds':
         importData.importUniversities();
         break;
       case 'saveStat':
-        importData.importStatUniv(result._id);
+        importData.importStatUniv();
+        break;
+      case 'saveStud':
         break;
       default:
         throw new Error('Неверная операция');

@@ -1,8 +1,6 @@
 const axios = require('axios');
-//const saveStatsToDB = require('../db/saveStatToDB');
 
-// Функция получаеия данных статистки по университету и специальности
-const getStatInofo = async (
+const getStatUniv = async (
   ids,
   uid,
   year,
@@ -25,14 +23,15 @@ const getStatInofo = async (
   try {
     const response = await axios.post(apiUrl, requestData, { headers });
     const data = response.data.offers;
-    console.log(data); //отладка запроса
-    console.log('запит статистики ппропозиції виконан!'); //отладка запроса
+    console.log(data);
+    console.log('запит статистики пропозиції виконан!');
     return data; // возращаем полученые данные в виде масива обьектов
   } catch (error) {
     console.error('Ошибка:', error);
     return null; // возвращеем null если нет статистики по пропоз. (не подали заявы)
   }
 };
-// для отадаки можно выполнить ф-ю тут и увидеть резутат
-getStatInofo('991183, 998028, 1012749, 110769', 85, 2022, 2, 40, 226);
-module.exports = getStatInofo;
+
+//getStatUniv('991183, 998028, 1012749, 110769', 85, 2022, 2, 40, 226);
+
+module.exports = getStatUniv;

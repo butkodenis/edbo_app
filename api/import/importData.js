@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-const getUniversities = require('../loadData/getUniversities');
-const saveUniversities = require('./saveUniversities');
-const getStatUniv = require('../loadData/getStatUniv');
+const getUniversities = require('./loadData/getUniversities');
+const saveUniversities = require('./loadData/saveUniversities');
+const getStatUniv = require('./loadData/getStatUniv');
 
 const importUniversities = async () => {
   try {
@@ -21,16 +21,25 @@ const importUniversities = async () => {
     );
   }
 };
-//importUniversities();
 
-const importStatUniv = async (id) => {
+const importStatUniv = async () => {
   try {
-    await getStatUniv(id);
-    console.log(id);
+    const data = await getUniversities(2022, 2, 40, 226);
+    const idJob = Math.floor(Math.random() * 10000);
+
+    await getStatUniv('991183, 998028, 1012749, 110769', 85, 2022, 2, 40, 226);
+    console.log('prop stat!');
   } catch (err) {
     console.error(err);
   }
 };
-importStatUniv();
 
-module.exports = { importUniversities, importStatUniv };
+const importStatStudent = async () => {
+  try {
+    console.log('student stat');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+module.exports = { importUniversities, importStatUniv, importStatStudent };
