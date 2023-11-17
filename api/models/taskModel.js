@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const taskShema = new mongoose.Schema({
   year: Number,
-  specialty: Number,
-  specialtyText: String,
+  speciality: Number,
+  specialityText: String,
   qualification: Number,
   qualificationText: String,
   educationBase: Number,

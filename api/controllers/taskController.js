@@ -8,8 +8,8 @@ const createTask = async (req, res) => {
 
     const task = new Tasks({
       year: data.year,
-      specialty: data.specialty,
-      specialtyText: data.specialtyText,
+      speciality: data.speciality,
+      specialityText: data.specialityText,
       qualification: data.qualification,
       qualificationText: data.qualificationText,
       educationBase: data.educationBase,
@@ -60,9 +60,9 @@ const runTask = async (req, res) => {
     const { id } = req.params;
 
     // запрос в таблицу, получить параметры задачи по id
-    const result = await Tasks.findById(id); // получаем { year, specialty...}
+    const result = await Tasks.findById(id); // получаем { year, speciality...}
     //console.log(result);
-    const { year, qualification, educationBase, specialty } = result;
+    const { year, qualification, educationBase, speciality } = result;
 
     switch (result.task) {
       case 'saveIds':
@@ -70,7 +70,7 @@ const runTask = async (req, res) => {
           year,
           qualification,
           educationBase,
-          specialty,
+          speciality,
         );
         break;
       case 'saveStat':

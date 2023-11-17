@@ -7,14 +7,14 @@ const importUniversities = async (
   year,
   qualification,
   educationBase,
-  specialty,
+  speciality,
 ) => {
   try {
     const data = await getUniversities(
       year,
       qualification,
       educationBase,
-      specialty,
+      speciality,
     );
 
     if (data.length > 0) {
