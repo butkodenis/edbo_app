@@ -8,7 +8,7 @@ import Radio from './Input/Radio';
 import dictionary from '../dict';
 
 function Form({ fetchData }) {
-  const { years, specialtys, qualifications, educationBases, tasks } =
+  const { years, specialitys, qualifications, educationBases, tasks } =
     dictionary;
   const { register, handleSubmit } = useForm();
 
@@ -17,12 +17,12 @@ function Form({ fetchData }) {
     const sendData = {
       ...data,
       year: Number(data.year),
-      specialty: Number(data.specialty),
+      speciality: Number(data.speciality),
       educationBase: Number(data.educationBase),
       qualification: Number(data.qualification),
 
       // Добавляем текстовые поля из справочника
-      specialtyText: specialtys.find((item) => item.code == data.specialty)
+      specialityText: specialitys.find((item) => item.code == data.speciality)
         .name,
       qualificationText: qualifications.find(
         (item) => item.code == data.qualification,
@@ -71,8 +71,8 @@ function Form({ fetchData }) {
           </div>
           <div className="col-lg">
             <Select
-              name="specialty"
-              options={specialtys}
+              name="speciality"
+              options={specialitys}
               label="Оберіть спеціальність"
               register={register}
             />

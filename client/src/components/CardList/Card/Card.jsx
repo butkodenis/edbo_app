@@ -6,8 +6,8 @@ function Card({ card, fetchData }) {
   const {
     _id,
     year,
-    specialty,
-    specialtyText,
+    speciality,
+    specialityText,
     qualificationText,
     educationBaseText,
     taskText,
@@ -65,7 +65,7 @@ function Card({ card, fetchData }) {
           <p className="">ID: {_id}</p>
           <p className="">
             <strong>
-              {specialty} {specialtyText}
+              {speciality} {specialityText}
             </strong>
           </p>
 
