@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+
 const app = express();
 const taskController = require('./controllers/taskController');
 
@@ -32,6 +33,8 @@ app.get('/task/all', taskController.getTasksAll);
 app.post('/task/create', taskController.createTask);
 
 app.delete('/task/delete', taskController.deleteTask);
+
+app.post('/task/:id/run', taskController.runTask);
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => {

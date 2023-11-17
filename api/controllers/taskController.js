@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const Tasks = require('../models/taskModel');
+const importData = require('../import/importData');
 
 const createTask = async (req, res) => {
   try {
@@ -7,8 +8,8 @@ const createTask = async (req, res) => {
 
     const task = new Tasks({
       year: data.year,
-      specialty: data.specialty,
-      specialtyText: data.specialtyText,
+      speciality: data.speciality,
+      specialityText: data.specialityText,
       qualification: data.qualification,
       qualificationText: data.qualificationText,
       educationBase: data.educationBase,
@@ -54,4 +55,39 @@ const deleteTask = async (req, res) => {
   }
 };
 
-module.exports = { createTask, getTasksAll, deleteTask };
+const runTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // запрос в таблицу, получить параметры задачи по id
+    const result = await Tasks.findById(id); // получаем { year, speciality...}
+    //console.log(result);
+    const { year, qualification, educationBase, speciality } = result;
+
+    switch (result.task) {
+      case 'saveIds':
+        importData.importUniversities(
+          year,
+          qualification,
+          educationBase,
+          speciality,
+        );
+        break;
+      case 'saveStat':
+        importData.importStatUniv();
+        break;
+      case 'saveStud':
+        importData.importStatStudent();
+        break;
+      default:
+        throw new Error('Неверная операция');
+        break;
+    }
+    res.status(200).json({ message: 'Running task', result });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Произошла ошибка выполнеии задачи' });
+  }
+};
+
+module.exports = { createTask, getTasksAll, deleteTask, runTask };
