@@ -66,21 +66,26 @@ const runTask = async (req, res) => {
     switch (dataTask.task) {
       case 'saveIds':
         importData.importUniversities(dataTask);
+        res.status(200).json({ message: 'Задача 1 выполнена успешно' });
         break;
       case 'saveStat':
         importData.importStatUniv(dataTask);
+        res.status(200).json({ message: 'Задача 2 выполнена успешно' });
         break;
       case 'saveStud':
         importData.importStatStudent();
+        res.status(200).json({ message: 'Задача 3 выполнена успешно' });
         break;
       default:
         throw new Error('Неверная операция');
         break;
     }
-    res.status(200).json({ message: 'Running task', dataTask });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Произошла ошибка выполнеии задачи' });
+    res.status(500).json({
+      message: 'Ошибка выполнения задачи',
+      error: err.message,
+    });
   }
 };
 
