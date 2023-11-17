@@ -60,18 +60,12 @@ const runTask = async (req, res) => {
     const { id } = req.params;
 
     // запрос в таблицу, получить параметры задачи по id
-    const result = await Tasks.findById(id); // получаем { year, speciality...}
-    //console.log(result);
-    const { year, qualification, educationBase, speciality } = result;
+    const dataTask = await Tasks.findById(id); // получаем { year, speciality...}
+    //console.log(dataTask);
 
-    switch (result.task) {
+    switch (dataTask.task) {
       case 'saveIds':
-        importData.importUniversities(
-          year,
-          qualification,
-          educationBase,
-          speciality,
-        );
+        importData.importUniversities(dataTask);
         break;
       case 'saveStat':
         importData.importStatUniv();
@@ -83,7 +77,7 @@ const runTask = async (req, res) => {
         throw new Error('Неверная операция');
         break;
     }
-    res.status(200).json({ message: 'Running task', result });
+    res.status(200).json({ message: 'Running task', dataTask });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Произошла ошибка выполнеии задачи' });

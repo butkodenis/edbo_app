@@ -1,15 +1,14 @@
 const axios = require('axios');
 
-const getUniversities = async (
-  year,
-  qualification,
-  educationBase,
-  speciality,
-) => {
+const getUniversities = async (dataTask) => {
+  const { qualification, educationBase, speciality } = dataTask;
+  let { year } = dataTask;
+
   // меняем ссылку взависимости от года
   if (year === new Date().getFullYear()) {
     year = '';
   }
+
   try {
     const apiUrl = `https://vstup${year}.edbo.gov.ua/offers-universities/`;
     const requestData = `qualification=${qualification}&education_base=${educationBase}&speciality=${speciality}`;
@@ -27,17 +26,6 @@ const getUniversities = async (
     const message = 'запит до vstup.edbo.gov.ua виконано';
     console.log(message);
     // console.log(jsonData);
-
-    /*
-    await saveLog(
-      'запит пророз. за спец.',
-      message,
-      'ok',
-      getTime(),
-      taskId,
-      idRun,
-    ); //LOG
-*/
 
     return jsonData; // Возвращаем данные
   } catch (error) {

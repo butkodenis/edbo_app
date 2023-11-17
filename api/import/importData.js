@@ -3,19 +3,9 @@ const getUniversities = require('./loadData/getUniversities');
 const saveUniversities = require('./loadData/saveUniversities');
 const getStatUniv = require('./loadData/getStatUniv');
 
-const importUniversities = async (
-  year,
-  qualification,
-  educationBase,
-  speciality,
-) => {
+const importUniversities = async (dataTask) => {
   try {
-    const data = await getUniversities(
-      year,
-      qualification,
-      educationBase,
-      speciality,
-    );
+    const data = await getUniversities(dataTask);
 
     if (data.length > 0) {
       console.log(data.length, 'пропозиций');
