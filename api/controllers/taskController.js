@@ -61,14 +61,14 @@ const runTask = async (req, res) => {
 
     // запрос в таблицу, получить параметры задачи по id
     const dataTask = await Tasks.findById(id); // получаем { year, speciality...}
-    //console.log(dataTask);
+    // console.log(dataTask);
 
     switch (dataTask.task) {
       case 'saveIds':
         importData.importUniversities(dataTask);
         break;
       case 'saveStat':
-        importData.importStatUniv();
+        importData.importStatUniv(dataTask);
         break;
       case 'saveStud':
         importData.importStatStudent();

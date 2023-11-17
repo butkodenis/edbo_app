@@ -5,12 +5,12 @@ const getStatUniv = require('./loadData/getStatUniv');
 
 const importUniversities = async (dataTask) => {
   try {
-    const data = await getUniversities(dataTask);
+    const dataUniv = await getUniversities(dataTask);
 
-    if (data.length > 0) {
-      console.log(data.length, 'пропозиций');
+    if (dataUniv.length > 0) {
+      console.log(dataUniv.length, 'пропозиций');
       const idJob = Math.floor(Math.random() * 10000);
-      await saveUniversities(data, idJob);
+      await saveUniversities(dataUniv, idJob);
     } else {
       console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
       throw new Error(`неправильные параметры запроса`);
@@ -23,12 +23,20 @@ const importUniversities = async (dataTask) => {
   }
 };
 
-const importStatUniv = async () => {
+const importStatUniv = async (dataTask) => {
   try {
-    const data = await getUniversities(2022, 2, 40, 226);
+    const dataUniv = await getUniversities(dataTask);
     const idJob = Math.floor(Math.random() * 10000);
 
-    await getStatUniv('991183, 998028, 1012749, 110769', 85, 2022, 2, 40, 226);
+    const dataStatUniv = await getStatUniv(
+      '991183, 998028, 1012749, 110769',
+      85,
+      2022,
+      2,
+      40,
+      226,
+    );
+    console.log(dataStatUniv[0], dataStatUniv[0]);
   } catch (err) {
     console.error(err);
   }
