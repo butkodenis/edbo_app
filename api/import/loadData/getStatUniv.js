@@ -23,7 +23,7 @@ const getStatUniv = async (
   try {
     const response = await axios.post(apiUrl, requestData, { headers });
     const data = response.data.offers;
-    console.log(data);
+    // console.log(data); массов {};
     console.log('запит статистики пропозиції виконан!');
     return data; // возращаем полученые данные в виде масива обьектов
   } catch (error) {
@@ -32,6 +32,6 @@ const getStatUniv = async (
   }
 };
 
-//getStatUniv('991183, 998028, 1012749, 110769', 85, 2022, 2, 40, 226);
+// getStatUniv('991183, 998028, 1012749, 110769', 85, 2022, 2, 40, 226);
 
 module.exports = getStatUniv;

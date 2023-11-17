@@ -26,7 +26,7 @@ const getUniversities = async (
     const jsonData = response.data.universities;
     const message = 'запит до vstup.edbo.gov.ua виконано';
     console.log(message);
-    //console.log(jsonData);
+    // console.log(jsonData);
 
     /*
     await saveLog(
@@ -45,5 +45,5 @@ const getUniversities = async (
     console.error('помилка запиту пропозиц.:', error.message);
   }
 };
-//getUniversities(2022, 2, 40, 226);
+// getUniversities(2022, 2, 40, 226);
 module.exports = getUniversities;

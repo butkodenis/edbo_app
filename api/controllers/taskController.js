@@ -60,16 +60,24 @@ const runTask = async (req, res) => {
     const { id } = req.params;
 
     // запрос в таблицу, получить параметры задачи по id
-    const result = await Tasks.findById(id);
+    const result = await Tasks.findById(id); // получаем { year, specialty...}
+    //console.log(result);
+    const { year, qualification, educationBase, specialty } = result;
 
     switch (result.task) {
       case 'saveIds':
-        importData.importUniversities();
+        importData.importUniversities(
+          year,
+          qualification,
+          educationBase,
+          specialty,
+        );
         break;
       case 'saveStat':
         importData.importStatUniv();
         break;
       case 'saveStud':
+        importData.importStatStudent();
         break;
       default:
         throw new Error('Неверная операция');

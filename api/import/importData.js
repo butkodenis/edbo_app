@@ -3,11 +3,22 @@ const getUniversities = require('./loadData/getUniversities');
 const saveUniversities = require('./loadData/saveUniversities');
 const getStatUniv = require('./loadData/getStatUniv');
 
-const importUniversities = async () => {
+const importUniversities = async (
+  year,
+  qualification,
+  educationBase,
+  specialty,
+) => {
   try {
-    const data = await getUniversities(2022, 2, 40, 226);
+    const data = await getUniversities(
+      year,
+      qualification,
+      educationBase,
+      specialty,
+    );
 
     if (data.length > 0) {
+      console.log(data.length, 'пропозиций');
       const idJob = Math.floor(Math.random() * 10000);
       await saveUniversities(data, idJob);
     } else {
@@ -28,7 +39,6 @@ const importStatUniv = async () => {
     const idJob = Math.floor(Math.random() * 10000);
 
     await getStatUniv('991183, 998028, 1012749, 110769', 85, 2022, 2, 40, 226);
-    console.log('prop stat!');
   } catch (err) {
     console.error(err);
   }
