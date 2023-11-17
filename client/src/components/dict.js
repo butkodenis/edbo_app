@@ -4,7 +4,7 @@ const dictionary = {
     { code: 2022, name: '2022 р.' },
     { code: 2021, name: '2021 р.' },
   ],
-  specialtys: [
+  specialitys: [
     { code: 221, name: 'Стоматологія' },
     { code: 222, name: 'Медицина' },
     { code: 224, name: 'Лабораторна діагностика' },
