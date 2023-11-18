@@ -18,6 +18,7 @@ const createTask = async (req, res) => {
       taskText: data.taskText,
       status: '',
       timeCreation: new Date(),
+      timeCompleted: '',
     });
 
     await task.save();

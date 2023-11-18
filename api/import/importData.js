@@ -9,8 +9,11 @@ const importUniversities = async (dataTask) => {
 
     if (dataUniv.length > 0) {
       console.log(dataUniv.length, 'пропозиций');
+      // генерируем случайный id для текущего импорта каждый раз
       const idJob = Math.floor(Math.random() * 10000);
-      await saveUniversities(dataUniv, idJob);
+
+      // передем в ф-ю пар-ры из формы
+      await saveUniversities(dataUniv, idJob, dataTask._id);
     } else {
       console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
       throw new Error(`неправильные параметры запроса`);
