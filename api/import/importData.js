@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 const getUniversities = require('./loadData/getUniversities');
 const saveUniversities = require('./loadData/saveUniversities');
@@ -19,27 +21,25 @@ const importUniversities = async (dataTask) => {
       throw new Error(`неправильные параметры запроса`);
     }
   } catch (err) {
-    console.error(
-      'ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)',
-      err,
-    );
+    console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', err);
   }
 };
 
 const importStatUniv = async (dataTask) => {
   try {
+    const { year, qualification, educationBase, speciality } = dataTask;
     const dataUniv = await getUniversities(dataTask);
+
     const idJob = Math.floor(Math.random() * 10000);
 
-    const dataStatUniv = await getStatUniv(
-      '991183, 998028, 1012749, 110769',
-      85,
-      2022,
-      2,
-      40,
-      226,
-    );
-    console.log(dataStatUniv[0], dataStatUniv[0]);
+    const results = [];
+    for (const item of dataUniv) {
+      const { ids, uid } = item;
+      const result = await getStatUniv(ids, uid, year, qualification, educationBase, speciality);
+      results.push(result);
+    }
+
+    console.log(results[7]);
   } catch (err) {
     console.error(err);
   }
