@@ -4,7 +4,7 @@
 const getUniversities = require('./loadData/getUniversities');
 const saveUniversities = require('./loadData/saveUniversities');
 const getStatUniv = require('./loadData/getStatUniv');
-
+const saveStatUniv = require('./loadData/saveStatUniv');
 const importUniversities = async (dataTask) => {
   try {
     const dataUniv = await getUniversities(dataTask);
@@ -36,10 +36,14 @@ const importStatUniv = async (dataTask) => {
     for (const item of dataUniv) {
       const { ids, uid } = item;
       const result = await getStatUniv(ids, uid, year, qualification, educationBase, speciality);
-      results.push(result);
+      for (const item of result) {
+        results.push(item);
+      }
     }
 
-    console.log(results[7]);
+    console.log(results.length, results[2]);
+    console.log(year, qualification, educationBase, speciality);
+    saveStatUniv(results);
   } catch (err) {
     console.error(err);
   }

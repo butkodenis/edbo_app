@@ -1,57 +1,14 @@
 const Tasks = require('../../models/taskModel');
+const StatUniv = require('../../models/statUnivModel');
 
-data = [
-  {
-    usid: 991183,
-    usn: 'Фармація (денна форма, магістр 1 курс)',
-    ustn: 'Відкрита',
-    uid: 85,
-    un: 'Буковинський державний медичний університет',
-    ufn: 'Фармацевтичний факультет',
-    osn: {
-      1: { n: '1', i: [25] },
-      2: { n: '2', i: [28] },
-      3: { n: '3', i: [30] },
-      4: { n: '4', i: [30 },
-      5: { n: '5', i: [33] },
-      6: { n: '6', i: [2, 4, 88] },
-      9: { i: [99] },
-    },
-    os: {
-      662225: {
-        sn: 'Математика',
-        k: 0.4,
-        efid: 3,
-        t: 'Сертифікат НМТ',
-        icon: '3n',
-        ch: 0,
-        mv: 105,
-      },
-      666317: {
-        sn: 'Українська мова',
-        k: 0.35,
-        efid: 3,
-        t: 'Сертифікат НМТ',
-        icon: '3n',
-        ch: 0,
-        mv: 105,
-      }
-    },
-    st: {
-      c: {
-        t: 188,
-        a: 188,
-        b: 164,
-        ka: 156.8,
-        km: 131,
-        kx: 196.8,
-        r: 10,
-        ob: 10,
-        oc: 35,
-        rm: 175.5,
-        obm: 175.5,
-        ocm: 131,
-      },
-    },
-  },
-];
+const saveStatUniv = async (data) => {
+  try {
+    // Используйте await для вставки данных в MongoDB и обработки результата
+    await StatUniv.insertMany(data);
+    console.log('Данные успешно сохранены');
+  } catch (error) {
+    console.error('Ошибка при сохранении данных', error);
+  }
+};
+
+module.exports = saveStatUniv;
