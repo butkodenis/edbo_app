@@ -18,7 +18,7 @@ const importUniversities = async (dataTask) => {
       await saveUniversities(dataUniv, idJob, dataTask._id);
     } else {
       console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
-      throw new Error(`неправильные параметры запроса`);
+      throw new Error(`Неправильные параметры запроса`);
     }
   } catch (err) {
     console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', err);
@@ -27,10 +27,8 @@ const importUniversities = async (dataTask) => {
 
 const importStatUniv = async (dataTask) => {
   try {
-    const { year, qualification, educationBase, speciality } = dataTask;
+    const { year, qualification, educationBase, speciality, _id } = dataTask;
     const dataUniv = await getUniversities(dataTask);
-
-    const idJob = Math.floor(Math.random() * 10000);
 
     const results = [];
     for (const item of dataUniv) {
@@ -41,9 +39,9 @@ const importStatUniv = async (dataTask) => {
       }
     }
 
-    console.log(results.length, results[2]);
-    console.log(year, qualification, educationBase, speciality);
-    saveStatUniv(results);
+    console.log(results.length);
+
+    saveStatUniv(results, dataTask);
   } catch (err) {
     console.error(err);
   }

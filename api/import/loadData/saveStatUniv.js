@@ -1,11 +1,29 @@
 const Tasks = require('../../models/taskModel');
 const StatUniv = require('../../models/statUnivModel');
+const generateIdJob = require('../utility');
 
-const saveStatUniv = async (data) => {
+const saveStatUniv = async (data, dataTask) => {
   try {
-    // Используйте await для вставки данных в MongoDB и обработки результата
-    await StatUniv.insertMany(data);
-    console.log('Данные успешно сохранены');
+    const { _id } = dataTask;
+    const idJob = await generateIdJob();
+    // добавляем время импорта и код выполяемой задачи
+    const modData = data.map((item) => ({
+      ...item,
+      timeCreation: new Date(),
+      idJob,
+    }));
+
+    const result = await StatUniv.insertMany(modData);
+
+    console.log(`Данные успешно сохранены: ${result.length}`);
+
+    // получ время последней записи импорта
+    const latestDate = await StatUniv.findOne({ idJob }).sort({
+      timeCreation: -1,
+    });
+
+    // обновляем время импорта задачи в БД
+    await Tasks.updateOne({ _id: _id }, { $set: { timeCompleted: latestDate.timeCreation } });
   } catch (error) {
     console.error('Ошибка при сохранении данных', error);
   }

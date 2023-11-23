@@ -45,9 +45,7 @@ const deleteTask = async (req, res) => {
     const deletedTask = await Tasks.findOneAndDelete({ _id: id });
 
     if (!deletedTask) {
-      return res
-        .status(404)
-        .json({ message: 'Документ с указанным ID не найден' });
+      return res.status(404).json({ message: 'Документ с указанным ID не найден' });
     }
     res.json({ message: 'Задача успешно удалена', deletedTask });
   } catch (err) {
@@ -66,15 +64,15 @@ const runTask = async (req, res) => {
 
     switch (dataTask.task) {
       case 'saveIds':
-        importData.importUniversities(dataTask);
+        await importData.importUniversities(dataTask);
         res.status(200).json({ message: 'Задача 1 выполнена успешно' });
         break;
       case 'saveStat':
-        importData.importStatUniv(dataTask);
+        await importData.importStatUniv(dataTask);
         res.status(200).json({ message: 'Задача 2 выполнена успешно' });
         break;
       case 'saveStud':
-        importData.importStatStudent();
+        await importData.importStatStudent();
         res.status(200).json({ message: 'Задача 3 выполнена успешно' });
         break;
       default:

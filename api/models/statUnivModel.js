@@ -27,6 +27,33 @@ const statUnivShema = new mongoose.Schema({
   ol: Number,
   oc: Number,
   rr: Number,
+  osn: {
+    type: Object,
+    default: {},
+  },
+  os: {
+    type: Object,
+    default: {},
+  },
+  st: {
+    c: {
+      t: Number,
+      a: Number,
+      b: Number,
+      ka: Number,
+      km: Number,
+      kx: Number,
+      r: Number,
+      ob: Number,
+      oc: Number,
+      rm: Number,
+      obm: Number,
+      ocm: Number,
+    },
+  },
+  timeCreation: Date,
+  idTask: String,
+  idJob: Number,
 });
 
 const StatUniv = mongoose.model('StatUniv', statUnivShema);
