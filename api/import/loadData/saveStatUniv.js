@@ -23,7 +23,10 @@ const saveStatUniv = async (data, dataTask) => {
     });
 
     // обновляем время импорта задачи в БД
-    await Tasks.updateOne({ _id: _id }, { $set: { timeCompleted: latestDate.timeCreation } });
+    await Tasks.updateOne(
+      { _id },
+      { $set: { timeCompleted: latestDate.timeCreation, status: 'Виконано' } },
+    );
   } catch (error) {
     console.error('Ошибка при сохранении данных', error);
   }

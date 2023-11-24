@@ -5,6 +5,8 @@ const getUniversities = require('./loadData/getUniversities');
 const saveUniversities = require('./loadData/saveUniversities');
 const getStatUniv = require('./loadData/getStatUniv');
 const saveStatUniv = require('./loadData/saveStatUniv');
+
+// импорт предложений университетов
 const importUniversities = async (dataTask) => {
   try {
     const dataUniv = await getUniversities(dataTask);
@@ -25,28 +27,31 @@ const importUniversities = async (dataTask) => {
   }
 };
 
+// импорт статистики предложений университатов
 const importStatUniv = async (dataTask) => {
   try {
     const { year, qualification, educationBase, speciality, _id } = dataTask;
-    const dataUniv = await getUniversities(dataTask);
+    const dataUniv = await getUniversities(dataTask); // запрос предложений
 
     const results = [];
     for (const item of dataUniv) {
       const { ids, uid } = item;
+      // получаем статистику по университету по всем предложения
       const result = await getStatUniv(ids, uid, year, qualification, educationBase, speciality);
-      for (const item of result) {
-        results.push(item);
+      for (const itemResuit of result) {
+        results.push(itemResuit);
       }
     }
 
     console.log(results.length);
-
+    //  сохраняем массив
     saveStatUniv(results, dataTask);
   } catch (err) {
     console.error(err);
   }
 };
 
+// импорт статистики по студентам
 const importStatStudent = async () => {
   try {
     console.log('student stat');

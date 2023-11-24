@@ -65,15 +65,15 @@ const runTask = async (req, res) => {
     switch (dataTask.task) {
       case 'saveIds':
         await importData.importUniversities(dataTask);
-        res.status(200).json({ message: 'Задача 1 выполнена успешно' });
+        res.status(200).json({ message: 'Імпорт пропозицій виконан' });
         break;
       case 'saveStat':
         await importData.importStatUniv(dataTask);
-        res.status(200).json({ message: 'Задача 2 выполнена успешно' });
+        res.status(200).json({ message: 'Імпорт статистики пропозицій виконан' });
         break;
       case 'saveStud':
         await importData.importStatStudent();
-        res.status(200).json({ message: 'Задача 3 выполнена успешно' });
+        res.status(200).json({ message: 'Імпорт статистики студентів виконан' });
         break;
       default:
         throw new Error('Неверная операция');

@@ -24,12 +24,10 @@ const saveUniversities = async (data, idJob, idTask) => {
     // обновляем время импорта задачи в БД
     await Tasks.updateOne(
       { _id: idTask },
-      { $set: { timeCompleted: latestDate.timeCreation } },
+      { $set: { timeCompleted: latestDate.timeCreation, status: 'Виконано' } },
     );
 
-    console.log(
-      `Данные сохранены в базе данных:  ${latestDate.timeCreation} ${idTask}`,
-    );
+    console.log(`Данные сохранены в базе данных:  ${latestDate.timeCreation} ${idTask}`);
   } catch (error) {
     const message = `помилка при збереженні даних: ${error.message}`;
     console.error(message);
