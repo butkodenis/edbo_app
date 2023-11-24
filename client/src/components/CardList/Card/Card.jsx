@@ -68,23 +68,23 @@ function Card({ card, fetchData }) {
         </div>
 
         <div className="card-body">
-          <p className="">
+          <p className="mb-1">
             {taskText} <strong>{year}</strong>
           </p>
 
-          <p className="">
+          <p className="mb-1">
             <strong>
               {speciality} {specialityText}
             </strong>
           </p>
 
-          <p className="">
+          <p className="mb-1">
             ОР -<strong> {qualificationText}</strong>{' '}
           </p>
-          <p className="">ОВ - {educationBaseText}</p>
-          <p className=""> Время создания: {formattedTimeCreation}</p>
-          <p className=""> Время завершения: {formattedTimeCompleted}</p>
-          <p className="">ID: {_id}</p>
+          <p className="mb-1">ОВ - {educationBaseText}</p>
+          <p className="mb-1"> Створено: {formattedTimeCreation}</p>
+          <p className="mb-1"> Виконано: {formattedTimeCompleted}</p>
+          <p className="mb-1">ID: {_id}</p>
         </div>
         <div className="card-footer text-body-secondary">
           <button
