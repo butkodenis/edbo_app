@@ -1,49 +1,57 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 const getUniversities = require('./loadData/getUniversities');
 const saveUniversities = require('./loadData/saveUniversities');
 const getStatUniv = require('./loadData/getStatUniv');
+const saveStatUniv = require('./loadData/saveStatUniv');
 
-const importUniversities = async (
-  year,
-  qualification,
-  educationBase,
-  speciality,
-) => {
+// импорт предложений университетов
+const importUniversities = async (dataTask) => {
   try {
-    const data = await getUniversities(
-      year,
-      qualification,
-      educationBase,
-      speciality,
-    );
+    const dataUniv = await getUniversities(dataTask);
 
-    if (data.length > 0) {
-      console.log(data.length, 'пропозиций');
+    if (dataUniv.length > 0) {
+      console.log(dataUniv.length, 'пропозиций');
+      // генерируем случайный id для текущего импорта каждый раз
       const idJob = Math.floor(Math.random() * 10000);
-      await saveUniversities(data, idJob);
+
+      // передем в ф-ю пар-ры из формы
+      await saveUniversities(dataUniv, idJob, dataTask._id);
     } else {
       console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
-      throw new Error(`неправильные параметры запроса`);
+      throw new Error(`Неправильные параметры запроса`);
     }
   } catch (err) {
-    console.error(
-      'ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)',
-      err,
-    );
+    console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', err);
   }
 };
 
-const importStatUniv = async () => {
+// импорт статистики предложений университатов
+const importStatUniv = async (dataTask) => {
   try {
-    const data = await getUniversities(2022, 2, 40, 226);
-    const idJob = Math.floor(Math.random() * 10000);
+    const { year, qualification, educationBase, speciality, _id } = dataTask;
+    const dataUniv = await getUniversities(dataTask); // запрос предложений
 
-    await getStatUniv('991183, 998028, 1012749, 110769', 85, 2022, 2, 40, 226);
+    const results = [];
+    for (const item of dataUniv) {
+      const { ids, uid } = item;
+      // получаем статистику по университету по всем предложения
+      const result = await getStatUniv(ids, uid, year, qualification, educationBase, speciality);
+      for (const itemResuit of result) {
+        results.push(itemResuit);
+      }
+    }
+
+    console.log(results.length);
+    //  сохраняем массив
+    saveStatUniv(results, dataTask);
   } catch (err) {
     console.error(err);
   }
 };
 
+// импорт статистики по студентам
 const importStatStudent = async () => {
   try {
     console.log('student stat');

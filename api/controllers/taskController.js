@@ -18,6 +18,7 @@ const createTask = async (req, res) => {
       taskText: data.taskText,
       status: '',
       timeCreation: new Date(),
+      timeCompleted: '',
     });
 
     await task.save();
@@ -44,9 +45,7 @@ const deleteTask = async (req, res) => {
     const deletedTask = await Tasks.findOneAndDelete({ _id: id });
 
     if (!deletedTask) {
-      return res
-        .status(404)
-        .json({ message: 'Документ с указанным ID не найден' });
+      return res.status(404).json({ message: 'Документ с указанным ID не найден' });
     }
     res.json({ message: 'Задача успешно удалена', deletedTask });
   } catch (err) {
@@ -60,33 +59,32 @@ const runTask = async (req, res) => {
     const { id } = req.params;
 
     // запрос в таблицу, получить параметры задачи по id
-    const result = await Tasks.findById(id); // получаем { year, speciality...}
-    //console.log(result);
-    const { year, qualification, educationBase, speciality } = result;
+    const dataTask = await Tasks.findById(id); // получаем { year, speciality...}
+    // console.log(dataTask);
 
-    switch (result.task) {
+    switch (dataTask.task) {
       case 'saveIds':
-        importData.importUniversities(
-          year,
-          qualification,
-          educationBase,
-          speciality,
-        );
+        await importData.importUniversities(dataTask);
+        res.status(200).json({ message: 'Імпорт пропозицій виконан' });
         break;
       case 'saveStat':
-        importData.importStatUniv();
+        await importData.importStatUniv(dataTask);
+        res.status(200).json({ message: 'Імпорт статистики пропозицій виконан' });
         break;
       case 'saveStud':
-        importData.importStatStudent();
+        await importData.importStatStudent();
+        res.status(200).json({ message: 'Імпорт статистики студентів виконан' });
         break;
       default:
         throw new Error('Неверная операция');
         break;
     }
-    res.status(200).json({ message: 'Running task', result });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Произошла ошибка выполнеии задачи' });
+    res.status(500).json({
+      message: 'Ошибка выполнения задачи',
+      error: err.message,
+    });
   }
 };
 
