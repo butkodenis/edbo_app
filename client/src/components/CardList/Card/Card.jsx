@@ -42,12 +42,15 @@ function Card({ card, fetchData }) {
       // Дополнительные действия после успешного импорта, если нужно
     } catch (error) {
       // Обработка ошибок при импорте
-      console.error('Error importing task:', error.message);
+      console.error('Помилка iмпорту задачи:', error.response.data.error);
+    } finally {
+      setLoading(false); // Сбрасываем состояние загрузки после завершения запроса
+      fetchData();
     }
   };
 
   return (
-    <div className="col-lg-4 col-md-4" key={_id}>
+    <div className="col-xxl-2 col-xl-3 col-lg-3 col-md-4  col-md-6" key={_id}>
       <div className="card  text-bg-light mb-4">
         <div className="card-header">
           <button
