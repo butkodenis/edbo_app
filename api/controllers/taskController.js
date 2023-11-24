@@ -76,8 +76,7 @@ const runTask = async (req, res) => {
         res.status(200).json({ message: 'Імпорт статистики студентів виконан' });
         break;
       default:
-        throw new Error('Неверная операция');
-        break;
+        throw new Error('Помилковi параметри');
     }
   } catch (err) {
     console.error(err);
