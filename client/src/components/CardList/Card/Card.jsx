@@ -51,7 +51,7 @@ function Card({ card, fetchData }) {
       console.log('Import response:', time);
     } catch (error) {
       // Обработка ошибок при импорте
-      console.error('Error importing task:', error.message);
+      console.error('Помилка iмпорту :', error.response.data.error);
     } finally {
       setLoading(false); // Сбрасываем состояние загрузки после завершения запроса
       fetchData();
