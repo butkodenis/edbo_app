@@ -11,7 +11,15 @@ function Card({ card, fetchData }) {
     qualificationText,
     educationBaseText,
     taskText,
+    timeCompleted,
+    timeCreation,
+    status,
   } = card;
+
+  const formattedTimeCreation = new Date(timeCreation).toLocaleString('ru-RU');
+  const formattedTimeCompleted = new Date(timeCompleted).toLocaleString(
+    'ru-RU',
+  );
 
   const handleDelete = async () => {
     try {
@@ -47,22 +55,23 @@ function Card({ card, fetchData }) {
   };
 
   return (
-    <div className="col-lg-4 col-md-4" key={_id}>
+    <div className="col-lg-3 col-md-3" key={_id}>
       <div className="card  text-bg-light mb-4">
-        <div className="card-header">
+        <div className="card-header d-flex justify-content-between align-items-center">
           <button
             type="button"
             className="btn-close"
             aria-label="Close"
             onClick={handleDelete}
           />
+          <p className="mb-0">{status}</p>
         </div>
 
         <div className="card-body">
           <p className="">
-            {taskText} {year}
+            {taskText} <strong>{year}</strong>
           </p>
-          <p className="">ID: {_id}</p>
+
           <p className="">
             <strong>
               {speciality} {specialityText}
@@ -73,7 +82,9 @@ function Card({ card, fetchData }) {
             ОР -<strong> {qualificationText}</strong>{' '}
           </p>
           <p className="">ОВ - {educationBaseText}</p>
-          <p className=""> time: {}</p>
+          <p className=""> Время создания: {formattedTimeCreation}</p>
+          <p className=""> Время завершения: {formattedTimeCompleted}</p>
+          <p className="">ID: {_id}</p>
         </div>
         <div className="card-footer text-body-secondary">
           <button
