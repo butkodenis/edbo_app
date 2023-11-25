@@ -19,11 +19,12 @@ const importUniversities = async (dataTask) => {
       // передем в ф-ю пар-ры из формы
       await saveUniversities(dataUniv, idJob, dataTask._id);
     } else {
-      console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
+      //console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
       throw new Error(`Неправильные параметры запроса`);
     }
   } catch (err) {
     console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', err);
+    throw new Error(`ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)`);
   }
 };
 
@@ -45,9 +46,10 @@ const importStatUniv = async (dataTask) => {
 
     console.log(results.length);
     //  сохраняем массив
-    saveStatUniv(results, dataTask);
+    await saveStatUniv(results, dataTask);
   } catch (err) {
-    console.error(err);
+    console.error(' помилка импорт статистики предложений университатов (importStatUniv) ', err);
+    throw new Error(`помилка импорт статистики предложений университатов (importStatUniv)`);
   }
 };
 

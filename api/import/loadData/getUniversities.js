@@ -31,6 +31,7 @@ const getUniversities = async (dataTask) => {
   } catch (error) {
     const message = `помилка запиту пропозиц: ${error.message}`;
     console.error('помилка запиту пропозиц.:', error.message);
+    throw new Error(`помилка запиту пропозиций (getUniversities)`);
   }
 };
 // getUniversities(2022, 2, 40, 226);
