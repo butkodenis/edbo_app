@@ -72,7 +72,7 @@ const runTask = async (req, res) => {
         res.status(200).json({ message: 'Імпорт статистики пропозицій виконан' });
         break;
       case 'saveStud':
-        await importData.importStatStudent();
+        await importData.importStatStudent(dataTask);
         res.status(200).json({ message: 'Імпорт статистики студентів виконан' });
         break;
       default:

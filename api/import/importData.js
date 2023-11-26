@@ -54,8 +54,16 @@ const importStatUniv = async (dataTask) => {
 };
 
 // импорт статистики по студентам
-const importStatStudent = async () => {
+const importStatStudent = async (dataTask) => {
   try {
+    const dataUniv = await getUniversities(dataTask); // запрос предложений
+
+    for (const item of dataUniv) {
+      const { ids } = item;
+      for (const usid of ids) {
+      }
+      console.log(ids);
+    }
     console.log('student stat');
   } catch (error) {
     console.error(error);
