@@ -5,6 +5,7 @@ const getUniversities = require('./loadData/getUniversities');
 const saveUniversities = require('./loadData/saveUniversities');
 const getStatUniv = require('./loadData/getStatUniv');
 const saveStatUniv = require('./loadData/saveStatUniv');
+const getStatStudents = require('./loadData/getStatStudents');
 
 // импорт предложений университетов
 const importUniversities = async (dataTask) => {
@@ -56,15 +57,28 @@ const importStatUniv = async (dataTask) => {
 // импорт статистики по студентам
 const importStatStudent = async (dataTask) => {
   try {
+    const { year } = dataTask;
+    const results = [];
+    let step = 0;
+    let last = year === 2022 ? 250 : 200; // Изменение значения last в зависимости от year
+    let iterations = 6; // Добавление счетчика итераций
+
     const dataUniv = await getUniversities(dataTask); // запрос предложений
 
     for (const item of dataUniv) {
       const { ids } = item;
-      for (const usid of ids) {
+      const idArray = ids.split(',').map(Number);
+
+      for (const id of idArray) {
+        console.log(id);
+
+        const result = await getStatStudents(year, id); // запрос студ. по номеру прециальности
+        results.push(...result);
+        //console.log(result);
       }
-      console.log(ids);
     }
     console.log('student stat');
+    console.log(results.length);
   } catch (error) {
     console.error(error);
   }
