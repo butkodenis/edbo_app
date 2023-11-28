@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 const getStatStudents = async (year, usid, last = 0) => {
+  /* меням сылку взависимости от года */
   if (year === new Date().getFullYear()) {
     year = '';
   }
@@ -17,9 +18,8 @@ const getStatStudents = async (year, usid, last = 0) => {
       },
     });
 
-    // Обработка данных из ответа
     const data = response.data.requests;
-    //console.log(data.requests); // The JSON response data
+
     if (data !== undefined) {
       console.log(`запит статистики студ. виконан: ${data ? data.length : 0} студентів, ${usid}`); // The JSON response data
       return data; // Return the JSON response data if you want to use it outside the function

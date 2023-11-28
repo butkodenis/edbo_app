@@ -59,9 +59,6 @@ const importStatStudent = async (dataTask) => {
   try {
     const { year } = dataTask;
     const results = [];
-    let step = 0;
-    let last = year === 2022 ? 250 : 200; // Изменение значения last в зависимости от year
-    let iterations = 6; // Добавление счетчика итераций
 
     const dataUniv = await getUniversities(dataTask); // запрос предложений
 
@@ -71,14 +68,23 @@ const importStatStudent = async (dataTask) => {
 
       for (const id of idArray) {
         console.log(id);
+        let step = 0;
+        let last = year === 2022 ? 250 : 200; // Изменение значения last в зависимости от year
 
-        const result = await getStatStudents(year, id); // запрос студ. по номеру прециальности
+        let result = await getStatStudents(year, id, step); // запрос студ. по номеру специальности
+
+        while (result.length === last) {
+          results.push(...result);
+          step += last;
+          result = await getStatStudents(year, id, step);
+        }
+
         results.push(...result);
-        //console.log(result);
       }
     }
-    console.log('student stat');
-    console.log(results.length);
+
+    console.log('студентов : ', results.length);
+    console.log(results[0]);
   } catch (error) {
     console.error(error);
   }
