@@ -11,6 +11,7 @@ const saveStatUniv = async (data, dataTask) => {
       ...item,
       timeCreation: new Date(),
       idJob,
+      idtask: _id,
     }));
 
     const result = await StatUniv.insertMany(modData);

@@ -6,6 +6,9 @@ const saveUniversities = require('./loadData/saveUniversities');
 const getStatUniv = require('./loadData/getStatUniv');
 const saveStatUniv = require('./loadData/saveStatUniv');
 const getStatStudents = require('./loadData/getStatStudents');
+const saveStatStudents = require('./loadData/saveStatStudents');
+
+const Tasks = require('../models/taskModel');
 
 // импорт предложений университетов
 const importUniversities = async (dataTask) => {
@@ -20,7 +23,7 @@ const importUniversities = async (dataTask) => {
       // передем в ф-ю пар-ры из формы
       await saveUniversities(dataUniv, idJob, dataTask._id);
     } else {
-      //console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
+      // console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
       throw new Error(`Неправильные параметры запроса`);
     }
   } catch (err) {
@@ -64,14 +67,13 @@ const importStatStudent = async (dataTask) => {
 
     for (const item of dataUniv) {
       const { ids } = item;
-      const idArray = ids.split(',').map(Number);
+      const idArray = ids.split(',').map(Number); // преобразуем в массив
 
       for (const id of idArray) {
-        console.log(id);
         let step = 0;
         let last = year === 2022 ? 250 : 200; // Изменение значения last в зависимости от year
 
-        let result = await getStatStudents(year, id, step); // запрос студ. по номеру специальности
+        let result = await getStatStudents(year, id, step); // запрос стат. студ. по номеру специальности
 
         while (result.length === last) {
           results.push(...result);
@@ -84,9 +86,13 @@ const importStatStudent = async (dataTask) => {
     }
 
     console.log('студентов : ', results.length);
-    console.log(results[0]);
+
+    await saveStatStudents(results, dataTask);
   } catch (error) {
     console.error(error);
+    const { _id } = dataTask;
+    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
+    throw new Error(`помилка импорт статистики предложений университатов (importStatStudent)`);
   }
 };
 
