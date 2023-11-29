@@ -60,11 +60,15 @@ function Card({ card, fetchData }) {
 
   return (
     <div className="col-xxl-2 col-xl-3 col-lg-3 col-md-4  col-md-6" key={_id}>
-      <div className="card  text-bg-light mb-4">
+      <div
+        className={`card ${
+          status === 'Помилка' ? 'text-white bg-danger' : 'text-bg-light'
+        } mb-4`}
+      >
         <div className="card-header d-flex justify-content-between align-items-center">
           <button
             type="button"
-            className="btn-close"
+            className="btn-close "
             aria-label="Close"
             onClick={handleDelete}
           />
@@ -72,23 +76,23 @@ function Card({ card, fetchData }) {
         </div>
 
         <div className="card-body">
-          <p className="mb-1">
+          <p className="mb-0">
             {taskText} <strong>{year}</strong>
           </p>
 
-          <p className="mb-1">
+          <p className="mb-0">
             <strong>
               {speciality} {specialityText}
             </strong>
           </p>
 
-          <p className="mb-1">
+          <p className="mb-0">
             ОР -<strong> {qualificationText}</strong>{' '}
           </p>
-          <p className="mb-1"> ОВ - {educationBaseText}</p>
-          <p className="mb-1"> Створено: {formattedTimeCreation}</p>
-          <p className="mb-1"> Виконано: {formattedTimeCompleted}</p>
-          <p className="mb-1">ID: {_id}</p>
+          <p className="mb-0"> ОВ - {educationBaseText}</p>
+          <p className="mb-0"> Створено: {formattedTimeCreation}</p>
+          <p className="mb-0"> Виконано: {formattedTimeCompleted}</p>
+          <p className="mb-0">ID: {_id}</p>
         </div>
         <div className="card-footer text-body-secondary">
           {/* Используем тернарный оператор для отображения spinner, если loading === true */}
@@ -99,7 +103,9 @@ function Card({ card, fetchData }) {
           ) : (
             <button
               type="button"
-              className="btn btn-outline-primary btn-sm"
+              className={`btn  ${
+                status === 'Помилка' ? 'btn btn-light' : 'btn-outline-primary'
+              } btn-sm`}
               onClick={handleImport}
             >
               Імпорт
