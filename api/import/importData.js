@@ -103,6 +103,9 @@ const importAll = async (dataTask) => {
     await importStatStudent(dataTask);
   } catch (error) {
     console.error(error);
+    const { _id } = dataTask;
+    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
+
     throw new Error(`Ошибка операций всі завдання`);
   }
 };
