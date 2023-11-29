@@ -4,6 +4,7 @@ const logShema = new mongoose.Schema({
   idTask: String,
   task: String,
   taskText: String,
+  info: String,
   status: String,
   timeCreation: Date,
   idJob: Number,

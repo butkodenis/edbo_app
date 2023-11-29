@@ -29,8 +29,9 @@ const saveUniversities = async (data, idJob, dataTask) => {
       { $set: { timeCompleted: latestDate.timeCreation, status: 'Виконано' } },
     );
 
-    await saveLog();
-    console.log(`Данные сохранены в базе данных:  ${latestDate.timeCreation} ${idTask}`);
+    const message = `імпортовано : ${data.length} універсітета`;
+    await saveLog(dataTask, idJob, message);
+    console.log(message);
   } catch (error) {
     const message = `помилка при збереженні даних: ${error.message}`;
     console.error(message);
