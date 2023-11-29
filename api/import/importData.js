@@ -57,7 +57,7 @@ const importStatUniv = async (dataTask) => {
   }
 };
 
-// импорт статистики по студентам
+/* импорт статистики по студентам */
 const importStatStudent = async (dataTask) => {
   try {
     const { year } = dataTask;
@@ -96,4 +96,15 @@ const importStatStudent = async (dataTask) => {
   }
 };
 
-module.exports = { importUniversities, importStatUniv, importStatStudent };
+const importAll = async (dataTask) => {
+  try {
+    await importUniversities(dataTask);
+    await importStatUniv(dataTask);
+    await importStatStudent(dataTask);
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Ошибка операций всі завдання`);
+  }
+};
+
+module.exports = { importUniversities, importStatUniv, importStatStudent, importAll };

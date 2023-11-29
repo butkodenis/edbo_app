@@ -75,6 +75,10 @@ const runTask = async (req, res) => {
         await importData.importStatStudent(dataTask);
         res.status(200).json({ message: 'Імпорт статистики студентів виконан' });
         break;
+      case 'saveAll':
+        await importData.importAll(dataTask);
+        res.status(200).json({ message: 'Імпорт усіх завдань виконан' });
+        break;
       default:
         throw new Error('Помилковi параметри');
     }
