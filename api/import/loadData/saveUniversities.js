@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 const Universities = require('../../models/universitiesModel');
 const Tasks = require('../../models/taskModel');
+const saveLog = require('../loadData/saveLog');
 
-const saveUniversities = async (data, idJob, idTask) => {
+const saveUniversities = async (data, idJob, dataTask) => {
   try {
     // Сохр. данные в БД
     const universitiesData = data.map((item) => ({
@@ -13,6 +14,7 @@ const saveUniversities = async (data, idJob, idTask) => {
       timeCreation: new Date(),
       idJob,
     }));
+    const idTask = dataTask._id;
 
     await Universities.insertMany(universitiesData);
 
@@ -27,10 +29,12 @@ const saveUniversities = async (data, idJob, idTask) => {
       { $set: { timeCompleted: latestDate.timeCreation, status: 'Виконано' } },
     );
 
+    await saveLog();
     console.log(`Данные сохранены в базе данных:  ${latestDate.timeCreation} ${idTask}`);
   } catch (error) {
     const message = `помилка при збереженні даних: ${error.message}`;
     console.error(message);
+    throw new Error('Невдале збереження університетів(saveUniversities)');
   }
 };
 

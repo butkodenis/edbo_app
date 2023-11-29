@@ -21,7 +21,7 @@ const importUniversities = async (dataTask) => {
       const idJob = Math.floor(Math.random() * 10000);
 
       // передем в ф-ю пар-ры из формы
-      await saveUniversities(dataUniv, idJob, dataTask._id);
+      await saveUniversities(dataUniv, idJob, dataTask);
     } else {
       // console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
       throw new Error(`Неправильные параметры запроса`);
