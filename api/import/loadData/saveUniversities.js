@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const Universities = require('../../models/universitiesModel');
-const saveLog = require('../loadData/saveLog');
+const saveLog = require('./saveLog');
 const updateTask = require('./updateTask');
 
 const saveUniversities = async (data, idJob, dataTask) => {

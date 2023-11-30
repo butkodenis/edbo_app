@@ -28,6 +28,8 @@ const importUniversities = async (dataTask) => {
     }
   } catch (error) {
     // console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', error);
+    const { _id } = dataTask;
+    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
     throw new Error(`Помилка імпорту пропозицій (importUniversities)`);
   }
 };
@@ -37,6 +39,10 @@ const importStatUniv = async (dataTask) => {
   try {
     const { year, qualification, educationBase, speciality } = dataTask;
     const dataUniv = await getUniversities(dataTask); // запрос предложений
+
+    if (dataUniv.length === 0) {
+      throw new Error('Неправильные параметры запроса');
+    }
 
     const results = [];
     for (const item of dataUniv) {
@@ -67,6 +73,10 @@ const importStatStudent = async (dataTask) => {
     const results = [];
 
     const dataUniv = await getUniversities(dataTask); // запрос предложений
+
+    if (dataUniv.length === 0) {
+      throw new Error('Неправильные параметры запроса');
+    }
 
     for (const item of dataUniv) {
       const { ids } = item;

@@ -1,6 +1,6 @@
 const StatStudent = require('../../models/statStudModel');
-const Tasks = require('../../models/taskModel');
-const saveLog = require('../loadData/saveLog');
+const saveLog = require('./saveLog');
+const updateTask = require('./updateTask');
 
 const saveStatStudents = async (data, idJob, dataTask) => {
   try {
@@ -16,25 +16,22 @@ const saveStatStudents = async (data, idJob, dataTask) => {
 
     const result = await StatStudent.insertMany(modData);
 
-    console.log(`імпортовано : ${result.length} студентів`);
+    // обновляем время импорта задачи, статус в БД
+    const status = 'Виконано';
+    await updateTask(dataTask, status);
 
-    // получ время последней записи импорта
-    const latestDate = await StatStudent.findOne({ idJob }).sort({
-      timeCreation: -1,
-    });
-
-    // обновляем время импорта задачи в БД
-    await Tasks.updateOne(
-      { _id },
-      { $set: { timeCompleted: latestDate.timeCreation, status: 'Виконано' } },
-    );
-    const message = `імпортовано : ${result.length} студентів`;
+    // сохраняем в лог
+    const message = `імпортовано : ${result.length} студентів по ${dataTask.speciality}`;
     await saveLog(dataTask, idJob, message);
   } catch (error) {
-    const message = 'Невдале збереження  статистики по студентам(saveStatStudents)';
-    await saveLog(dataTask, idJob, message);
-    console.error(error);
-    throw new Error('Невдале збереження  статистики по студентам(saveStatStudents)');
+    // обновляем время импорта ошибки задачи, статус в БД
+    const status = 'Помилка';
+    await updateTask(dataTask, status);
+
+    const message = `Невдале збереження  статистики по студентам (saveStatStudents), ${error.message}`;
+    saveLog(dataTask, idJob, message, status);
+
+    throw new Error('Невдале збереження  статистики по студентам (saveStatStudents)');
   }
 };
 module.exports = saveStatStudents;
