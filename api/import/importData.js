@@ -17,7 +17,6 @@ const importUniversities = async (dataTask) => {
     const dataUniv = await getUniversities(dataTask);
 
     if (dataUniv.length > 0) {
-      console.log(dataUniv.length, 'пропозиций');
       // генерируем случайный id для текущего импорта каждый раз
       const idJob = generateIdJob();
 
@@ -28,17 +27,15 @@ const importUniversities = async (dataTask) => {
       throw new Error(`Неправильные параметры запроса`);
     }
   } catch (error) {
-    //console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', error);
-    const { _id } = dataTask;
-    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
-    throw new Error(`ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)`);
+    // console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', error);
+    throw new Error(`Помилка імпорту пропозицій (importUniversities)`);
   }
 };
 
 /* импорт статистики предложений университатов */
 const importStatUniv = async (dataTask) => {
   try {
-    const { year, qualification, educationBase, speciality, _id } = dataTask;
+    const { year, qualification, educationBase, speciality } = dataTask;
     const dataUniv = await getUniversities(dataTask); // запрос предложений
 
     const results = [];

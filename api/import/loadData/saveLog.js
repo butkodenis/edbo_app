@@ -7,7 +7,7 @@ const saveLog = async (dataTask, idJob, message, status) => {
       task: dataTask.task,
       taskText: dataTask.taskText,
       info: message,
-      status,
+      status, // статус передаем в ручную. dataTask содержит данные до запуска изменения
       timeCreation: new Date(),
       idJob,
     });
