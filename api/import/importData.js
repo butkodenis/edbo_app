@@ -28,7 +28,7 @@ const importUniversities = async (dataTask) => {
       throw new Error(`Неправильные параметры запроса`);
     }
   } catch (error) {
-    console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', error);
+    //console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', error);
     const { _id } = dataTask;
     await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
     throw new Error(`ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)`);

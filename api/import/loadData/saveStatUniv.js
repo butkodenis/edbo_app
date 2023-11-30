@@ -1,6 +1,6 @@
 const Tasks = require('../../models/taskModel');
 const StatUniv = require('../../models/statUnivModel');
-const saveLog = require('../loadData/saveLog');
+const saveLog = require('./saveLog');
 
 const saveStatUniv = async (data, idJob, dataTask) => {
   try {
@@ -16,16 +16,8 @@ const saveStatUniv = async (data, idJob, dataTask) => {
 
     const result = await StatUniv.insertMany(modData);
 
-    // получ время последней записи импорта
-    const latestDate = await StatUniv.findOne({ idJob }).sort({
-      timeCreation: -1,
-    });
-
     // обновляем время импорта задачи в БД
-    await Tasks.updateOne(
-      { _id },
-      { $set: { timeCompleted: latestDate.timeCreation, status: 'Виконано' } },
-    );
+    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Виконано' } });
 
     // записуем в лог
     const message = `імпортовано : ${result.length} пропозицій`;

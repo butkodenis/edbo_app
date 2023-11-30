@@ -1,13 +1,13 @@
 const Log = require('../../models/logModel');
 
-const saveLog = async (dataTask, idJob, message) => {
+const saveLog = async (dataTask, idJob, message, status) => {
   try {
     const log = new Log({
       idTask: dataTask._id,
       task: dataTask.task,
       taskText: dataTask.taskText,
       info: message,
-      status: dataTask.status,
+      status,
       timeCreation: new Date(),
       idJob,
     });

@@ -15,18 +15,13 @@ const saveUniversities = async (data, idJob, dataTask) => {
       idJob,
     }));
     const idTask = dataTask._id;
-
+    // throw new Error('тестовая ошибка');
     await Universities.insertMany(universitiesData);
-
-    // получ время последней записи импорта
-    const latestDate = await Universities.findOne({ idJob }).sort({
-      timeCreation: -1,
-    });
 
     // обновляем время импорта задачи в БД
     await Tasks.updateOne(
       { _id: idTask },
-      { $set: { timeCompleted: latestDate.timeCreation, status: 'Виконано' } },
+      { $set: { timeCompleted: new Date(), status: 'Виконано' } },
     );
 
     const message = `імпортовано : ${data.length} універсітета`;
@@ -35,7 +30,8 @@ const saveUniversities = async (data, idJob, dataTask) => {
   } catch (error) {
     const message = `Невдале збереження університетів(saveUniversities): ${error.message}`;
     console.error(message);
-    saveLog(dataTask, idJob, message);
+    const status = 'Помилка';
+    saveLog(dataTask, idJob, message, status);
     throw new Error('Невдале збереження університетів(saveUniversities)');
   }
 };
