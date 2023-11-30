@@ -7,10 +7,11 @@ const getStatUniv = require('./loadData/getStatUniv');
 const saveStatUniv = require('./loadData/saveStatUniv');
 const getStatStudents = require('./loadData/getStatStudents');
 const saveStatStudents = require('./loadData/saveStatStudents');
+const generateIdJob = require('./utility');
 
 const Tasks = require('../models/taskModel');
 
-// импорт предложений университетов
+/* импорт предложений университетов */
 const importUniversities = async (dataTask) => {
   try {
     const dataUniv = await getUniversities(dataTask);
@@ -18,7 +19,7 @@ const importUniversities = async (dataTask) => {
     if (dataUniv.length > 0) {
       console.log(dataUniv.length, 'пропозиций');
       // генерируем случайный id для текущего импорта каждый раз
-      const idJob = Math.floor(Math.random() * 10000);
+      const idJob = generateIdJob();
 
       // передем в ф-ю пар-ры из формы
       await saveUniversities(dataUniv, idJob, dataTask);
@@ -26,13 +27,15 @@ const importUniversities = async (dataTask) => {
       // console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
       throw new Error(`Неправильные параметры запроса`);
     }
-  } catch (err) {
-    console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', err);
+  } catch (error) {
+    console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', error);
+    const { _id } = dataTask;
+    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
     throw new Error(`ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)`);
   }
 };
 
-// импорт статистики предложений университатов
+/* импорт статистики предложений университатов */
 const importStatUniv = async (dataTask) => {
   try {
     const { year, qualification, educationBase, speciality, _id } = dataTask;
@@ -48,11 +51,14 @@ const importStatUniv = async (dataTask) => {
       }
     }
 
-    console.log(results.length);
-    //  сохраняем массив
-    await saveStatUniv(results, dataTask);
+    // генерируем случайный id для текущего импорта
+    const idJob = await generateIdJob();
+    //  сохраняем
+    await saveStatUniv(results, idJob, dataTask);
   } catch (err) {
     console.error(' помилка импорт статистики предложений университатов (importStatUniv) ', err);
+    const { _id } = dataTask;
+    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
     throw new Error(`помилка импорт статистики предложений университатов (importStatUniv)`);
   }
 };
@@ -87,7 +93,10 @@ const importStatStudent = async (dataTask) => {
 
     console.log('студентов : ', results.length);
 
-    await saveStatStudents(results, dataTask);
+    // генерируем случайный id для текущего импорта
+    const idJob = await generateIdJob();
+
+    await saveStatStudents(results, idJob, dataTask);
   } catch (error) {
     console.error(error);
     const { _id } = dataTask;
@@ -96,6 +105,7 @@ const importStatStudent = async (dataTask) => {
   }
 };
 
+/* Запуск всіх завдянь */
 const importAll = async (dataTask) => {
   try {
     await importUniversities(dataTask);

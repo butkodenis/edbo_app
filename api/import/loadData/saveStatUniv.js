@@ -1,11 +1,11 @@
 const Tasks = require('../../models/taskModel');
 const StatUniv = require('../../models/statUnivModel');
-const generateIdJob = require('../utility');
+const saveLog = require('../loadData/saveLog');
 
-const saveStatUniv = async (data, dataTask) => {
+const saveStatUniv = async (data, idJob, dataTask) => {
   try {
     const { _id } = dataTask;
-    const idJob = await generateIdJob();
+
     // добавляем время импорта и код выполяемой задачи
     const modData = data.map((item) => ({
       ...item,
@@ -15,8 +15,6 @@ const saveStatUniv = async (data, dataTask) => {
     }));
 
     const result = await StatUniv.insertMany(modData);
-
-    console.log(`Данные успешно сохранены: ${result.length}`);
 
     // получ время последней записи импорта
     const latestDate = await StatUniv.findOne({ idJob }).sort({
@@ -28,8 +26,15 @@ const saveStatUniv = async (data, dataTask) => {
       { _id },
       { $set: { timeCompleted: latestDate.timeCreation, status: 'Виконано' } },
     );
+
+    // записуем в лог
+    const message = `імпортовано : ${result.length} пропозицій`;
+    await saveLog(dataTask, idJob, message);
+    console.log(message);
   } catch (error) {
-    console.error('Ошибка при сохранении данных', error);
+    const message = 'Невдале збереження пропозицій (saveStatUniv)';
+    await saveLog(dataTask, idJob, message);
+    throw new Error('Невдале збереження пропозицій (saveStatUniv)');
   }
 };
 

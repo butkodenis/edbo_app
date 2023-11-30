@@ -33,8 +33,9 @@ const saveUniversities = async (data, idJob, dataTask) => {
     await saveLog(dataTask, idJob, message);
     console.log(message);
   } catch (error) {
-    const message = `помилка при збереженні даних: ${error.message}`;
+    const message = `Невдале збереження університетів(saveUniversities): ${error.message}`;
     console.error(message);
+    saveLog(dataTask, idJob, message);
     throw new Error('Невдале збереження університетів(saveUniversities)');
   }
 };

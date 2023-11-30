@@ -1,11 +1,10 @@
 const StatStudent = require('../../models/statStudModel');
 const Tasks = require('../../models/taskModel');
-const generateIdJob = require('../utility');
+const saveLog = require('../loadData/saveLog');
 
-const saveStatStudents = async (data, dataTask) => {
+const saveStatStudents = async (data, idJob, dataTask) => {
   try {
     const { _id } = dataTask;
-    const idJob = await generateIdJob();
 
     // добавляем время импорта и код выполяемой задачи
     const modData = data.map((item) => ({
@@ -17,7 +16,7 @@ const saveStatStudents = async (data, dataTask) => {
 
     const result = await StatStudent.insertMany(modData);
 
-    console.log(`Данные успешно сохранены: ${result.length} студентов`);
+    console.log(`імпортовано : ${result.length} студентів`);
 
     // получ время последней записи импорта
     const latestDate = await StatStudent.findOne({ idJob }).sort({
@@ -29,9 +28,12 @@ const saveStatStudents = async (data, dataTask) => {
       { _id },
       { $set: { timeCompleted: latestDate.timeCreation, status: 'Виконано' } },
     );
+    const message = `імпортовано : ${result.length} студентів`;
+    await saveLog(dataTask, idJob, message);
   } catch (error) {
+    const message = 'Невдале збереження  статистики по студентам(saveStatStudents)';
+    await saveLog(dataTask, idJob, message);
     console.error(error);
-
     throw new Error('Невдале збереження  статистики по студентам(saveStatStudents)');
   }
 };
