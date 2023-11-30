@@ -21,9 +21,9 @@ const saveUniversities = async (data, idJob, dataTask) => {
     const status = 'Виконано';
     await updateTask(dataTask, status);
 
+    // сохраняем в лог
     const message = `імпортовано : ${data.length} універсітета по ${dataTask.speciality}`;
     await saveLog(dataTask, idJob, message, status);
-    console.log(message);
   } catch (error) {
     const status = 'Помилка';
     await updateTask(dataTask, status);

@@ -22,12 +22,13 @@ const saveStatStudents = async (data, idJob, dataTask) => {
 
     // сохраняем в лог
     const message = `імпортовано : ${result.length} студентів по ${dataTask.speciality}`;
-    await saveLog(dataTask, idJob, message);
+    saveLog(dataTask, idJob, message, status);
   } catch (error) {
     // обновляем время импорта ошибки задачи, статус в БД
     const status = 'Помилка';
     await updateTask(dataTask, status);
 
+    // сохраняем в лог
     const message = `Невдале збереження  статистики по студентам (saveStatStudents), ${error.message}`;
     saveLog(dataTask, idJob, message, status);
 
