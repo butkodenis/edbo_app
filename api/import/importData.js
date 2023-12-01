@@ -8,6 +8,7 @@ const saveStatUniv = require('./loadData/saveStatUniv');
 const getStatStudents = require('./loadData/getStatStudents');
 const saveStatStudents = require('./loadData/saveStatStudents');
 const generateIdJob = require('./utility');
+const updateTask = require('./loadData/updateTask');
 
 const Tasks = require('../models/taskModel');
 
@@ -23,14 +24,17 @@ const importUniversities = async (dataTask) => {
       // передем в ф-ю пар-ры из формы
       await saveUniversities(dataUniv, idJob, dataTask);
     } else {
-      // console.log(`ІМПОРТ ПРОПОЗИЦІЙ: не коректні параметри!`);
-      throw new Error(`Неправильные параметры запроса`);
+      throw new Error('Невірні параметри запиту');
     }
-  } catch (error) {
-    // console.error('ПОМИЛКА операции ІМПОРТ ПРОПОЗИЦІЙ: (importUniversities)', error);
-    const { _id } = dataTask;
-    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
-    throw new Error(`Помилка імпорту пропозицій (importUniversities)`);
+  } catch (err) {
+    const status = 'Помилка';
+    await updateTask(dataTask, status);
+
+    if (err.message === 'Невірні параметри запиту') {
+      throw err;
+    } else {
+      throw new Error(`Помилка імпорту пропозицій (importUniversities)`);
+    }
   }
 };
 
@@ -41,7 +45,7 @@ const importStatUniv = async (dataTask) => {
     const dataUniv = await getUniversities(dataTask); // запрос предложений
 
     if (dataUniv.length === 0) {
-      throw new Error('Неправильные параметры запроса');
+      throw new Error('Невірні параметри запиту');
     }
 
     const results = [];
@@ -59,10 +63,15 @@ const importStatUniv = async (dataTask) => {
     //  сохраняем
     await saveStatUniv(results, idJob, dataTask);
   } catch (err) {
-    console.error(' помилка импорт статистики предложений университатов (importStatUniv) ', err);
-    const { _id } = dataTask;
-    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
-    throw new Error(`помилка импорт статистики предложений университатов (importStatUniv)`);
+    // console.error(err);
+    const status = 'Помилка';
+    await updateTask(dataTask, status);
+
+    if (err.message === 'Невірні параметри запиту') {
+      throw err;
+    } else {
+      throw new Error(`Помилка імпорту статистики пропозицій (importStatUniv) `);
+    }
   }
 };
 
@@ -75,7 +84,7 @@ const importStatStudent = async (dataTask) => {
     const dataUniv = await getUniversities(dataTask); // запрос предложений
 
     if (dataUniv.length === 0) {
-      throw new Error('Неправильные параметры запроса');
+      throw new Error('Невірні параметри запиту');
     }
 
     for (const item of dataUniv) {
@@ -104,11 +113,16 @@ const importStatStudent = async (dataTask) => {
     const idJob = await generateIdJob();
 
     await saveStatStudents(results, idJob, dataTask);
-  } catch (error) {
-    console.error(error);
-    const { _id } = dataTask;
-    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
-    throw new Error(`помилка импорт статистики предложений университатов (importStatStudent)`);
+  } catch (err) {
+    console.error(err);
+    const status = 'Помилка';
+    await updateTask(dataTask, status);
+
+    if (err.message === 'Невірні параметри запиту') {
+      throw err;
+    } else {
+      throw new Error(`Помилка імпорту статистики студентів (importStatStudent)`);
+    }
   }
 };
 
@@ -118,12 +132,16 @@ const importAll = async (dataTask) => {
     await importUniversities(dataTask);
     await importStatUniv(dataTask);
     await importStatStudent(dataTask);
-  } catch (error) {
-    console.error(error);
-    const { _id } = dataTask;
-    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status: 'Помилка' } });
+  } catch (err) {
+    // console.error(err);
+    const status = 'Помилка';
+    await updateTask(dataTask, status);
 
-    throw new Error(`Ошибка операций всі завдання`);
+    if (err.message === 'Невірні параметри запиту') {
+      throw err;
+    } else {
+      throw new Error(`Помилка операций всі завдання`);
+    }
   }
 };
 
