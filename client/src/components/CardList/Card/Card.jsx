@@ -52,6 +52,9 @@ function Card({ card, fetchData }) {
     } catch (error) {
       // Обработка ошибок при импорте
       console.error('Помилка iмпорту задачи:', error.response.data.error);
+      if (error.response.data.error === 'Невірні параметри запиту') {
+        alert(error.response.data.error);
+      }
     } finally {
       setLoading(false); // Сбрасываем состояние загрузки после завершения запроса
       fetchData();
