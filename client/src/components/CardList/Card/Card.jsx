@@ -97,7 +97,7 @@ function Card({ card, fetchData }) {
           <p className="mb-0"> Виконано: {formattedTimeCompleted}</p>
           <p className="mb-0">ID: {_id}</p>
         </div>
-        <div className="card-footer text-body-secondary">
+        <div className="card-footer  d-flex justify-content-between align-items-center">
           {/* Используем тернарный оператор для отображения spinner, если loading === true */}
           {loading ? (
             <div className="spinner-border text-primary" role="status">
@@ -108,12 +108,23 @@ function Card({ card, fetchData }) {
               type="button"
               className={`btn  ${
                 status === 'Помилка' ? 'btn btn-light' : 'btn-outline-primary'
-              } btn-sm`}
+              } btn-sm mr-2`}
               onClick={handleImport}
             >
               Імпорт
             </button>
           )}
+          <div className="d-flex justify-content-end">
+            <button
+              type="button"
+              className="btn btn-outline-primary btn-sm mx-2"
+            >
+              <i class="bi bi-journal-text"></i>
+            </button>
+            <button type="button" className="btn btn-outline-primary btn-sm">
+              <i class="bi bi-clock-history "></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
