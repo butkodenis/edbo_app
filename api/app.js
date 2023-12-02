@@ -17,8 +17,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const url =
-  'mongodb+srv://butko:8Hd4mTmlceS9d9ft@cluster0.i7ddjab.mongodb.net/edbo';
+const url = 'mongodb+srv://butko:8Hd4mTmlceS9d9ft@cluster0.i7ddjab.mongodb.net/edbo';
 
 // Подключаемся к базе данных
 mongoose.connect(url);
@@ -35,6 +34,8 @@ app.post('/task/create', taskController.createTask);
 app.delete('/task/delete', taskController.deleteTask);
 
 app.post('/task/:id/run', taskController.runTask);
+
+app.get('/task/:id/log', taskController.getLog);
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => {

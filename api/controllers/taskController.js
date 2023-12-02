@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const Tasks = require('../models/taskModel');
+const Log = require('../models/logModel');
 const importData = require('../import/importData');
 
 const createTask = async (req, res) => {
@@ -91,4 +92,17 @@ const runTask = async (req, res) => {
   }
 };
 
-module.exports = { createTask, getTasksAll, deleteTask, runTask };
+const getLog = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const dataLog = await Log.find({ idTask: id });
+
+    res.status(200).json(dataLog);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+module.exports = { createTask, getTasksAll, deleteTask, runTask, getLog };
