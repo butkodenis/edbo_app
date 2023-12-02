@@ -3,7 +3,7 @@ import axios from 'axios';
 import Form from './components/Forms/Form';
 import CardList from './components/CardList/CardList';
 
-import './App.css';
+import './App.scss';
 
 function App() {
   const [cardsData, setCardsData] = useState([]);
