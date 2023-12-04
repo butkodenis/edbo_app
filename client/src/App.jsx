@@ -19,11 +19,8 @@ function App() {
 
   useEffect(() => {
     fetchData();
-  }, []);
-
-  useEffect(() => {
     console.log(cardsData);
-  }, [cardsData]); // This useEffect will run whenever cardData changes
+  }, []);
 
   return (
     <div className="container-fluid ">

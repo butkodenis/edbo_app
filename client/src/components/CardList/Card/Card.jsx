@@ -119,10 +119,10 @@ function Card({ card, fetchData }) {
               type="button"
               className="btn btn-outline-primary btn-sm mx-2"
             >
-              <i class="bi bi-journal-text"></i>
+              <i className="bi bi-journal-text" />
             </button>
             <button type="button" className="btn btn-outline-primary btn-sm">
-              <i class="bi bi-clock-history "></i>
+              <i className="bi bi-clock-history " />
             </button>
           </div>
         </div>
