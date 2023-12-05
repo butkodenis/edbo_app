@@ -3,7 +3,7 @@ import axios from 'axios';
 import Form from '../components/Forms/Form';
 import CardList from '../components/CardList/CardList';
 
-function Homepage() {
+function Home() {
   const [cardsData, setCardsData] = useState([]);
 
   const fetchData = async () => {
@@ -36,4 +36,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default Home;

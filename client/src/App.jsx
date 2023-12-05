@@ -1,40 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Form from './components/Forms/Form';
-import CardList from './components/CardList/CardList';
+import { Router, Route, Link, Routes } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Log from './pages/Log';
+import Graphics from './pages/Grafic';
+
+import LayOut from './components/Layout/Layout';
 
 import './App.scss';
 
 function App() {
-  const [cardsData, setCardsData] = useState([]);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://localhost:4040/task/all');
-      setCardsData(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-    console.log(cardsData);
-  }, []);
-
   return (
-    <div className="container-fluid ">
-      <div className="row">
-        <div className="col-12">
-          <Form fetchData={fetchData} />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12">
-          <CardList cardsData={cardsData} fetchData={fetchData} />
-        </div>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<LayOut />}>
+        <Route index element={<Home />} />
+        <Route path="/log" element={<Log />} />
+        <Route path="/graphics" element={<Graphics />} />
+      </Route>
+    </Routes>
   );
 }
 
