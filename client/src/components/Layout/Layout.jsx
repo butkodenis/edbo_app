@@ -5,7 +5,7 @@ import { Link, Outlet } from 'react-router-dom';
 function LayOut() {
   return (
     <div className="conteiner">
-      <header className="d-flex justify-content-center py-3 mb-4 border-bottom  bg-light">
+      <header className="d-flex justify-content-center py-3 mb-4 border-bottom  bg-info-subtle">
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li>
             <Link to="/" className="nav-link px-2 active">
