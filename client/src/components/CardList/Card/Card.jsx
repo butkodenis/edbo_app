@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Card({ card, fetchData }) {
@@ -115,12 +116,15 @@ function Card({ card, fetchData }) {
             </button>
           )}
           <div className="d-flex justify-content-end">
-            <button
-              type="button"
-              className="btn btn-outline-primary btn-sm mx-2"
-            >
-              <i className="bi bi-journal-text" />
-            </button>
+            <Link to={`/${_id}/log`}>
+              <button
+                type="button"
+                className="btn btn-outline-primary btn-sm mx-2"
+              >
+                <i className="bi bi-journal-text" />
+              </button>
+            </Link>
+
             <button type="button" className="btn btn-outline-primary btn-sm">
               <i className="bi bi-clock-history " />
             </button>

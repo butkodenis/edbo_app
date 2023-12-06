@@ -12,11 +12,7 @@ function LayOut() {
               Home
             </Link>
           </li>
-          <li>
-            <Link to="/log" className="nav-link px-2 ">
-              Log
-            </Link>
-          </li>
+
           <li>
             <Link to="/graphics" className="nav-link px-2">
               Графіки

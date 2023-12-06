@@ -14,8 +14,8 @@ function App() {
     <Routes>
       <Route path="/" element={<LayOut />}>
         <Route index element={<Home />} />
-        <Route path="/log" element={<Log />} />
-        <Route path="/graphics" element={<Graphics />} />
+        <Route path="/:id/log" element={<Log />} />
+        <Route path="graphics" element={<Graphics />} />
       </Route>
     </Routes>
   );
