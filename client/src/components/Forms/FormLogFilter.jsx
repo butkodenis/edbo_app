@@ -23,17 +23,6 @@ function FormLogFilter({ onFormSubmit, onFormReset }) {
   return (
     <form className="mb-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="row g-3">
-        <div className="col-2">
-          <Select
-            name="status"
-            options={[
-              { code: 'Помилка', name: 'Помилка' },
-              { code: 'Виконано', name: 'Виконано' },
-            ]}
-            label="Оберіть статус"
-            register={register}
-          />
-        </div>
         <div className="col-md-2">
           <Input name="date" label="Оберіть дату" register={register} />
         </div>
@@ -44,11 +33,7 @@ function FormLogFilter({ onFormSubmit, onFormReset }) {
           </button>
         </div>
         <div className="col-md-2">
-          <button
-            type="button"
-            className="btn btn-secondary btn-sm"
-            onClick={handleReset}
-          >
+          <button type="button" className="btn btn-secondary btn-sm" onClick={handleReset}>
             Скинути
           </button>
         </div>
