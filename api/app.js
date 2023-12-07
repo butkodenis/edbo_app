@@ -4,7 +4,9 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 
 const app = express();
+
 const taskController = require('./controllers/taskController');
+const logController = require('./controllers/logController');
 
 app.use(morgan('tiny'));
 
@@ -36,6 +38,8 @@ app.delete('/task/delete', taskController.deleteTask);
 app.post('/task/:id/run', taskController.runTask);
 
 app.get('/task/:id/log', taskController.getLog);
+
+app.delete('/log/:id', logController.delLog);
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => {
