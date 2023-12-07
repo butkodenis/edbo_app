@@ -6,13 +6,11 @@ function ButtonLogDel({ logId, updateData }) {
   const [loading, setLoading] = useState(false); // Состояние для отслеживания статуса загрузки
 
   const handleClick = async () => {
-    console.log('Log ID:', logId);
-
     setLoading(true);
     // Здесь вы можете выполнить необходимые действия с logId
     try {
       await axios.delete(`http://localhost:4040/log/${logId}`);
-      console.log('Log deleted successfully');
+      console.log('Данные удалены успешно');
 
       // Вызываем функцию обновления данных
       updateData();

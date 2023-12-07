@@ -11,14 +11,14 @@ function TableTask() {
   const [filteredData, setFilteredData] = useState(null); // Добавлен новый state для отфильтрованных данных
 
   const handleFormData = (formData) => {
-    console.log('Данные из формы:', formData);
+    // console.log('Данные из формы:', formData);
 
     // Применяем фильтрацию к данным при получении новых данных из формы
     filterData(formData);
   };
 
   const handleFormReset = () => {
-    console.log('Форма сброшена');
+    // console.log('Форма сброшена');
 
     // Сбрасываем фильтрацию при сбросе формы
     setFilteredData(tableData);
@@ -54,7 +54,7 @@ function TableTask() {
       const response = await axios.get(`http://localhost:4040/task/${id}/log`);
       setTableData(response.data);
       setFilteredData(response.data); // Инициализируем отфильтрованные данные при получении данных
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error('Error fetching data:', error.message);
     }
