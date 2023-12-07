@@ -23,7 +23,10 @@ function FormLogFilter({ onFormSubmit, onFormReset }) {
       <h5>параметри фільтру</h5>
       <div className="row g-3">
         <div className="col-md-2">
-          <Input name="date" label="Оберіть дату" register={register} />
+          <Input name="dateStart" label="початкова дата" register={register} />
+        </div>
+        <div className="col-md-2">
+          <Input name="dateEnd" label="цінцева дата" register={register} />
         </div>
 
         <div className="col-md-3 d-flex align-items-end">

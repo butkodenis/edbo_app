@@ -11,7 +11,7 @@ function TableTask() {
   const [filteredData, setFilteredData] = useState(null); // Добавлен новый state для отфильтрованных данных
 
   const handleFormData = (formData) => {
-    // console.log('Данные из формы:', formData);
+    console.log('Данные из формы:', formData);
 
     // Применяем фильтрацию к данным при получении новых данных из формы
     filterData(formData);
@@ -26,13 +26,22 @@ function TableTask() {
 
   const filterData = (formData) => {
     // Применяем фильтрацию к данным
-    const { date } = formData;
+    const { dateStart, dateEnd } = formData;
 
     const filtered = tableData.filter((row) => {
-      if (date !== '') {
-        // Фильтрация только по дате
-        return new Date(row.timeCreation) > new Date(date);
+      if (dateStart !== '' && dateEnd === '') {
+        return new Date(row.timeCreation) >= new Date(dateStart);
       }
+      if (dateStart === '' && dateEnd !== '') {
+        return new Date(row.timeCreation) <= new Date(dateEnd);
+      }
+      if (dateStart !== '' && dateEnd !== '') {
+        return (
+          new Date(row.timeCreation) >= new Date(dateStart) &&
+          new Date(row.timeCreation) <= new Date(dateEnd)
+        );
+      }
+
       return true; // Возвращаем true, чтобы сохранить все записи, если нет фильтрации
     });
 
@@ -91,14 +100,14 @@ function TableTask() {
               </tr>
             ))}
         </tbody>
-        <tfoot className="">
-          <Link to="/" className="nav-link px-2 ">
-            <button type="button" className="btn btn-info btn-sm ms-2 mt-1 w-25">
-              <i className="bi bi-house" />
-            </button>
-          </Link>
-        </tfoot>
       </table>
+      <div className="">
+        <Link to="/" className="nav-link px-2 ">
+          <button type="button" className="btn btn-info btn-sm ms-2 mt-1">
+            <i className="bi bi-house" />
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
