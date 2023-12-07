@@ -104,7 +104,7 @@ function Card({ card, fetchData }) {
               Імпорт
             </button>
           )}
-          <div className="d-flex justify-content-end">
+          <div className={`d-flex justify-content-end ${loading ? 'd-none' : ''}`}>
             <Link to={`/${_id}/log`}>
               <button type="button" className="btn btn-outline-primary btn-sm mx-2">
                 <i className="bi bi-journal-text" />
