@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Card({ card, fetchData }) {
-  const [loading, setLoading] = React.useState(false); // Состояние для отслеживания статуса загрузки
+  const [loading, setLoading] = useState(false); // Состояние для отслеживания статуса загрузки
 
   const {
     _id,
@@ -20,9 +20,7 @@ function Card({ card, fetchData }) {
   } = card;
 
   const formattedTimeCreation = new Date(timeCreation).toLocaleString('ru-RU');
-  const formattedTimeCompleted = new Date(timeCompleted).toLocaleString(
-    'ru-RU',
-  );
+  const formattedTimeCompleted = new Date(timeCompleted).toLocaleString('ru-RU');
 
   const handleDelete = async () => {
     try {
@@ -44,9 +42,7 @@ function Card({ card, fetchData }) {
     try {
       setLoading(true); // Устанавливаем состояние загрузки в true при начале запроса
       // Отправка POST-запроса на /task/:id/run
-      const response = await axios.post(
-        `http://localhost:4040/task/${_id}/run`,
-      );
+      const response = await axios.post(`http://localhost:4040/task/${_id}/run`);
       const time = response.data;
 
       console.log('Import response:', time);
@@ -65,17 +61,10 @@ function Card({ card, fetchData }) {
   return (
     <div className="col-xxl-2 col-xl-3 col-lg-3 col-md-4  col-md-6" key={_id}>
       <div
-        className={`card ${
-          status === 'Помилка' ? 'text-white bg-danger' : 'text-bg-light'
-        } mb-4`}
+        className={`card ${status === 'Помилка' ? 'text-white bg-danger' : 'text-bg-light'} mb-4`}
       >
         <div className="card-header d-flex justify-content-between align-items-center">
-          <button
-            type="button"
-            className="btn-close "
-            aria-label="Close"
-            onClick={handleDelete}
-          />
+          <button type="button" className="btn-close " aria-label="Close" onClick={handleDelete} />
           <p className="mb-0">{status}</p>
         </div>
 
@@ -117,10 +106,7 @@ function Card({ card, fetchData }) {
           )}
           <div className="d-flex justify-content-end">
             <Link to={`/${_id}/log`}>
-              <button
-                type="button"
-                className="btn btn-outline-primary btn-sm mx-2"
-              >
+              <button type="button" className="btn btn-outline-primary btn-sm mx-2">
                 <i className="bi bi-journal-text" />
               </button>
             </Link>

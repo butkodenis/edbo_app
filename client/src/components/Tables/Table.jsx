@@ -51,6 +51,10 @@ function TableTask() {
     }
   };
 
+  const updateData = async () => {
+    await fetchData(id); // Повторно получаем данные после обновления
+  };
+
   useEffect(() => {
     fetchData(id);
   }, [id]);
@@ -82,13 +86,13 @@ function TableTask() {
                 <td>{row.status}</td>
                 <td>{row.idJob}</td>
                 <td>
-                  <ButtonLogDel taskId={row._id} jobId={row.idJob} />
+                  <ButtonLogDel logId={row._id} updateData={updateData} />
                 </td>
               </tr>
             ))}
         </tbody>
         <tfoot className="">
-          <Link to="/" className="nav-link px-2">
+          <Link to="/" className="nav-link px-2 ">
             <button type="button" className="btn btn-info btn-sm ms-2 mt-1 w-25">
               <i className="bi bi-house" />
             </button>

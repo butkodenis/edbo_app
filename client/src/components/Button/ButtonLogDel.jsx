@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function ButtonLogDel({ taskId, jobId }) {
-  const handleClick = () => {
-    console.log('Task ID:', taskId);
-    console.log('Job ID:', jobId);
-    // Здесь вы можете выполнить необходимые действия с taskId и jobId
+import axios from 'axios';
+
+function ButtonLogDel({ logId, updateData }) {
+  const [loading, setLoading] = useState(false); // Состояние для отслеживания статуса загрузки
+
+  const handleClick = async () => {
+    console.log('Log ID:', logId);
+
+    setLoading(true);
+    // Здесь вы можете выполнить необходимые действия с logId
+    try {
+      await axios.delete(`http://localhost:4040/log/${logId}`);
+      console.log('Log deleted successfully');
+
+      // Вызываем функцию обновления данных
+      updateData();
+    } catch (error) {
+      console.error('Error deleting log:', error);
+    } finally {
+      setLoading(false); // Сбрасываем состояние загрузки после завершения запроса
+    }
   };
+
   return (
-    <button type="button" className="btn btn-outline-danger btn-sm " onClick={handleClick}>
-      <i className="bi bi-trash" />
-    </button>
+    <div>
+      {loading ? (
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      ) : (
+        <button type="button" className="btn btn-outline-danger btn-sm" onClick={handleClick}>
+          <i className="bi bi-trash" />
+        </button>
+      )}
+    </div>
   );
 }
 
