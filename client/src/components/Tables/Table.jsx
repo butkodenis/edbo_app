@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+
 import axios from 'axios';
 import FormLogFilter from '../Forms/FormLogFilter';
+import ButtonLogDel from '../Button/ButtonLogDel';
 
 function TableTask() {
   const { id } = useParams();
@@ -9,7 +11,7 @@ function TableTask() {
   const [filteredData, setFilteredData] = useState(null); // Добавлен новый state для отфильтрованных данных
 
   const handleFormData = (formData) => {
-    console.log('Данные из формы:', formData);
+    // console.log('Данные из формы:', formData);
 
     // Применяем фильтрацию к данным при получении новых данных из формы
     filterData(formData);
@@ -57,15 +59,16 @@ function TableTask() {
     <div>
       <FormLogFilter onFormSubmit={handleFormData} onFormReset={handleFormReset} />
 
-      <table className="table table-hover table-sm">
+      <table className="table table-hover table-sm ">
         <thead>
           <tr>
             <th scope="col">id</th>
             <th scope="col">Тип завдання</th>
-            <th scope="col">Завдання</th>
-            <th scope="col">Час ост. виконання</th>
-            <th scope="col">Статутс</th>
-            <th scope="col">Операция</th>
+            <th scope="col">Опис</th>
+            <th scope="col">Час </th>
+            <th scope="col">Статус</th>
+            <th scope="col">id імпорту</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -78,9 +81,19 @@ function TableTask() {
                 <td>{new Date(row.timeCreation).toLocaleString('ru-RU')}</td>
                 <td>{row.status}</td>
                 <td>{row.idJob}</td>
+                <td>
+                  <ButtonLogDel taskId={row._id} jobId={row.idJob} />
+                </td>
               </tr>
             ))}
         </tbody>
+        <tfoot className="">
+          <Link to="/" className="nav-link px-2">
+            <button type="button" className="btn btn-info btn-sm ms-2 mt-1 w-25">
+              <i className="bi bi-house" />
+            </button>
+          </Link>
+        </tfoot>
       </table>
     </div>
   );
