@@ -41,6 +41,8 @@ app.get('/task/:id/log', taskController.getLog);
 
 app.delete('/log/:id', logController.delLog);
 
+// require('./import/scheduler');
+
 const port = process.env.PORT || 4040;
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
