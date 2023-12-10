@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 
 const app = express();
+const scheduleTasks = require('./import/scheduler');
 
 const taskController = require('./controllers/taskController');
 const logController = require('./controllers/logController');
@@ -41,7 +42,13 @@ app.get('/task/:id/log', taskController.getLog);
 
 app.delete('/log/:id', logController.delLog);
 
-// require('./import/scheduler');
+app.post('/task/:id/shedule', taskController.postSchedule);
+
+app.get('/task/:id/shedule', taskController.getShedule);
+
+app.delete('/task/:id/shedule/:idShedule', taskController.deleteShedule);
+
+//scheduleTasks();
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => {
