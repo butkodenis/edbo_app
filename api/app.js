@@ -39,9 +39,8 @@ app.get('/task/:id/shedule', scheduleController.getShedule);
 
 app.delete('/task/:id/shedule/:idShedule', scheduleController.deleteShedule);
 
-//scheduleTasks();
-
-const port = process.env.PORT || 4040;
+const port = process.env.NODE_PORT;
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
+  scheduleTasks();
 });

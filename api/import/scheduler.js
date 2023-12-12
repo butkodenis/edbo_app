@@ -6,35 +6,13 @@ const Tasks = require('../models/taskModel');
 const Schedule = require('../models/scheduleModel');
 
 const scheduleTasks = async () => {
-  const tasks = await Schedule.find({});
-  console.log(tasks);
+  const listJob = await Schedule.find({});
+  console.log(listJob);
 
-  const importDataScheduler = async (dataTask) => {
-    switch (dataTask.task) {
-      case 'saveIds':
-        await importData.importUniversities(dataTask);
-        break;
-      case 'saveStat':
-        await importData.importStatUniv(dataTask);
-        break;
-      case 'saveStud':
-        await importData.importStatStudent(dataTask);
-        break;
-      case 'saveAll':
-        await importData.importAll(dataTask);
-        break;
-      default:
-        throw new Error('Помилковi параметри');
-    }
-  };
-
-  tasks.forEach((task) => {
-    cron.schedule(task.schedule, async () => {
-      const dataTask = await Tasks.findById(task.idTask);
-      importDataScheduler(dataTask);
-      console.log(task.idTask);
-
-      console.log(dataTask);
+  listJob.forEach((job) => {
+    cron.schedule(job.schedule, async () => {
+      const dataTask = await Tasks.findById(job.idTask);
+      console.log(job.idTask, dataTask.taskText);
     });
   });
 };
