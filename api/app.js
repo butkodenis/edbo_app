@@ -8,6 +8,7 @@ const scheduleTasks = require('./import/scheduler');
 
 const taskController = require('./controllers/taskController');
 const logController = require('./controllers/logController');
+const scheduleController = require('./controllers/scheduleController');
 
 app.use(morgan('tiny'));
 
@@ -42,11 +43,11 @@ app.get('/task/:id/log', taskController.getLog);
 
 app.delete('/log/:id', logController.delLog);
 
-app.post('/task/:id/shedule', taskController.postSchedule);
+app.post('/task/:id/shedule', scheduleController.postSchedule);
 
-app.get('/task/:id/shedule', taskController.getShedule);
+app.get('/task/:id/shedule', scheduleController.getShedule);
 
-app.delete('/task/:id/shedule/:idShedule', taskController.deleteShedule);
+app.delete('/task/:id/shedule/:idShedule', scheduleController.deleteShedule);
 
 //scheduleTasks();
 
