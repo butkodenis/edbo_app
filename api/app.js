@@ -2,13 +2,12 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const schedule = require('node-schedule');
 const dotenv = require('dotenv');
 dotenv.config({ path: '../.env' });
 
 const connectToDatabase = require('./db');
 const app = express();
-
-const scheduleTasks = require('./import/scheduler');
 
 const taskController = require('./controllers/taskController');
 const logController = require('./controllers/logController');
@@ -37,5 +36,8 @@ app.delete('/task/:id/shedule/:idShedule', scheduleController.deleteShedule);
 const port = process.env.NODE_PORT;
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
-  scheduleTasks();
+  job = schedule.scheduleJob('*/10 * * * * *', () => {
+    console.log('test1', new Date());
+  });
+  scheduleController.jobList.push(job);
 });

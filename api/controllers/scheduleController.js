@@ -1,4 +1,9 @@
+const schedule = require('node-schedule');
+
 const Schedule = require('../models/scheduleModel');
+const Tasks = require('../models/taskModel');
+
+let jobList = [];
 
 const getShedule = async (req, res) => {
   try {
@@ -14,19 +19,25 @@ const getShedule = async (req, res) => {
 const postSchedule = async (req, res) => {
   try {
     const { id } = req.params;
-    const { schedule } = req.body;
-
+    const { schedule_ } = req.body;
+    console.log(id, schedule_);
     // Проверяем, чтобы schedule и id были переданы в запросе
     if (!schedule || !id) {
       return res.status(400).json({ error: 'Необходимо передать schedule и id в запросе' });
     }
 
     const newSchedule = new Schedule({
-      schedule,
+      schedule: schedule_,
       idTask: id,
     });
 
     await newSchedule.save();
+
+    //const dataTask = await Tasks.findById(id);
+    const job = schedule.scheduleJob(schedule_, () => {
+      console.log(id);
+    });
+    jobList.push(job);
 
     // Отправляем успешный ответ
     res.status(201).json({ message: 'Запись успешно сохранена в базе данных' });
@@ -53,4 +64,4 @@ const deleteShedule = async (req, res) => {
   }
 };
 
-module.exports = { postSchedule, getShedule, deleteShedule };
+module.exports = { postSchedule, getShedule, deleteShedule, jobList };
