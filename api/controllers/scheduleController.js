@@ -19,28 +19,55 @@ const getShedule = async (req, res) => {
 const postSchedule = async (req, res) => {
   try {
     const { id } = req.params;
-    const { schedule_ } = req.body;
-    console.log(id, schedule_);
+    const { timing } = req.body;
+    console.log(id, timing);
     // Проверяем, чтобы schedule и id были переданы в запросе
     if (!schedule || !id) {
       return res.status(400).json({ error: 'Необходимо передать schedule и id в запросе' });
     }
-
+    // сораняем в БД
     const newSchedule = new Schedule({
-      schedule: schedule_,
+      timing,
       idTask: id,
     });
 
-    await newSchedule.save();
+    const { _id } = await newSchedule.save();
+    console.log(_id.toString());
+    const nameJob = _id.toString();
 
-    //const dataTask = await Tasks.findById(id);
-    const job = schedule.scheduleJob(schedule_, () => {
-      console.log(id);
+    const newJob = schedule.scheduleJob(nameJob, timing, async () => {
+      const dataTask = await Tasks.findById(id);
+      console.log(id, dataTask.taskText, new Date());
     });
-    jobList.push(job);
+    jobList.push(newJob);
 
     // Отправляем успешный ответ
     res.status(201).json({ message: 'Запись успешно сохранена в базе данных' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Произошла ошибка при сохранении записи в базе данных' });
+  }
+};
+
+const updateSchedule = async (req, res) => {
+  try {
+    const { idShedule } = req.params;
+    const { timing } = req.body;
+    // console.log(idShedule, timing);
+
+    if (!idShedule || !timing) {
+      return res.status(400).json({ error: 'Отсутствуют необходимые параметры в запросе' });
+    }
+
+    await Schedule.findOneAndUpdate({ _id: idShedule }, { $set: { timing } });
+
+    jobList.filter((job) => {
+      if (job.name === idShedule) {
+        job.reschedule(timing);
+      }
+    });
+
+    res.json({ message: 'Расписание успешно изменено' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Произошла ошибка при сохранении записи в базе данных' });
@@ -56,12 +83,18 @@ const deleteShedule = async (req, res) => {
       // Если deletedShedule пустой, отправляем соответствующий ответ
       return res.status(404).json({ error: 'Расписание с указанным ID не найдено' });
     }
+    // удаляем текещее задание из планировщика
+    jobList.filter((job) => {
+      if (job.name === idShedule) {
+        job.cancel();
+      }
+    });
 
-    res.json({ message: 'Расписание успешно удалено', deletedShedule });
+    res.json({ message: 'Расписание успешно удалено' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Произошла ошибка при удалении записи из базы данных' });
   }
 };
 
-module.exports = { postSchedule, getShedule, deleteShedule, jobList };
+module.exports = { postSchedule, getShedule, updateSchedule, deleteShedule, jobList };

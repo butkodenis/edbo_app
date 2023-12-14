@@ -12,6 +12,7 @@ const app = express();
 const taskController = require('./controllers/taskController');
 const logController = require('./controllers/logController');
 const scheduleController = require('./controllers/scheduleController');
+const scheduleAutorun = require('./import/scheduler');
 
 app.use(morgan('tiny'));
 app.use(cors());
@@ -31,13 +32,11 @@ app.delete('/log/:id', logController.delLog);
 app.post('/task/:id/shedule', scheduleController.postSchedule);
 
 app.get('/task/:id/shedule', scheduleController.getShedule);
+app.put('/task/:id/shedule/:idShedule', scheduleController.updateSchedule);
 app.delete('/task/:id/shedule/:idShedule', scheduleController.deleteShedule);
 
 const port = process.env.NODE_PORT;
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
-  job = schedule.scheduleJob('*/10 * * * * *', () => {
-    console.log('test1', new Date());
-  });
-  scheduleController.jobList.push(job);
+  scheduleAutorun();
 });

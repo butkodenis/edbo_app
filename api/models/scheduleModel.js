@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const scheduleShema = new mongoose.Schema({
-  schedule: String,
+  timing: String,
   idTask: String,
 });
 

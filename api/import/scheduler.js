@@ -1,21 +1,25 @@
 // scheduler.js
 
-const cron = require('node-cron');
 const schedule = require('node-schedule');
 const importData = require('./importData');
 const Tasks = require('../models/taskModel');
 const Schedule = require('../models/scheduleModel');
+const scheduleController = require('../controllers/scheduleController');
 
-const scheduleTasks = async () => {
-  const listJob = await Schedule.find({});
-  console.log(listJob);
+const scheduleAutorun = async () => {
+  // получаем массив засписаний с id задачи
+  const schedulesFromDB = await Schedule.find({});
 
-  listJob.forEach((job) => {
-    cron.schedule(job.schedule, async () => {
-      const dataTask = await Tasks.findById(job.idTask);
-      console.log(job.idTask, dataTask.taskText);
+  schedulesFromDB.forEach((data) => {
+    const { timing, idTask, _id } = data;
+    const nameJob = _id.toString(); // даем имя задачи что бы потом ее можно было отследать по имени
+    // создаем задачу и добавлемм ее в
+    const newJob = schedule.scheduleJob(nameJob, timing, async () => {
+      const dataTask = await Tasks.findById(idTask);
+      console.log(data.idTask, dataTask.taskText, nameJob, new Date());
     });
+    scheduleController.jobList.push(newJob);
   });
 };
 
-module.exports = scheduleTasks;
+module.exports = scheduleAutorun;
