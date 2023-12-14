@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 
+import FormSchedule from '../components/Forms/FormShedele';
+
 function Schedule() {
   const { id } = useParams();
   return (
@@ -10,6 +12,7 @@ function Schedule() {
           <h3> плнировщик задач</h3>
           <p>{id}</p>
         </div>
+        <FormSchedule />
       </div>
       <div className="row">
         <div className="col">
