@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const schedule = require('node-schedule');
+
 const dotenv = require('dotenv');
 dotenv.config({ path: '../.env' });
 
@@ -29,11 +29,11 @@ app.post('/task/:id/run', taskController.runTask);
 
 app.get('/task/:id/log', taskController.getLog);
 app.delete('/log/:id', logController.delLog);
-app.post('/task/:id/shedule', scheduleController.postSchedule);
 
-app.get('/task/:id/shedule', scheduleController.getShedule);
-app.put('/task/:id/shedule/:idShedule', scheduleController.updateSchedule);
-app.delete('/task/:id/shedule/:idShedule', scheduleController.deleteShedule);
+app.get('/task/:id/shedule', scheduleController.getSchedule);
+app.post('/task/:id/shedule', scheduleController.createSchedule);
+app.put('/task/:id/shedule/:idSchedule', scheduleController.updateSchedule);
+app.delete('/task/:id/shedule/:idSchedule', scheduleController.deleteSchedule);
 
 const port = process.env.NODE_PORT;
 app.listen(port, () => {

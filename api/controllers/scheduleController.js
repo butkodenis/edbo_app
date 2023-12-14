@@ -5,24 +5,24 @@ const Tasks = require('../models/taskModel');
 
 let jobList = [];
 
-const getShedule = async (req, res) => {
+const getSchedule = async (req, res) => {
   try {
     const { id } = req.params;
-    const dataShedule = await Schedule.find({ idTask: id });
-    res.status(200).json(dataShedule);
+    const dataSchedule = await Schedule.find({ idTask: id });
+    res.status(200).json(dataSchedule);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Произошла ошибка при запросе даных ' });
   }
 };
 
-const postSchedule = async (req, res) => {
+const createSchedule = async (req, res) => {
   try {
     const { id } = req.params;
     const { timing } = req.body;
     console.log(id, timing);
     // Проверяем, чтобы schedule и id были переданы в запросе
-    if (!schedule || !id) {
+    if (!timing || !id) {
       return res.status(400).json({ error: 'Необходимо передать schedule и id в запросе' });
     }
     // сораняем в БД
@@ -51,18 +51,18 @@ const postSchedule = async (req, res) => {
 
 const updateSchedule = async (req, res) => {
   try {
-    const { idShedule } = req.params;
+    const { idSchedule } = req.params;
     const { timing } = req.body;
-    // console.log(idShedule, timing);
+    // console.log(idSchedule, timing);
 
-    if (!idShedule || !timing) {
+    if (!idSchedule || !timing) {
       return res.status(400).json({ error: 'Отсутствуют необходимые параметры в запросе' });
     }
 
-    await Schedule.findOneAndUpdate({ _id: idShedule }, { $set: { timing } });
+    await Schedule.findOneAndUpdate({ _id: idSchedule }, { $set: { timing } });
 
     jobList.filter((job) => {
-      if (job.name === idShedule) {
+      if (job.name === idSchedule) {
         job.reschedule(timing);
       }
     });
@@ -74,10 +74,10 @@ const updateSchedule = async (req, res) => {
   }
 };
 
-const deleteShedule = async (req, res) => {
+const deleteSchedule = async (req, res) => {
   try {
-    const { idShedule } = req.params;
-    const deletedShedule = await Schedule.findOneAndDelete({ _id: idShedule });
+    const { idSchedule } = req.params;
+    const deletedShedule = await Schedule.findOneAndDelete({ _id: idSchedule });
 
     if (!deletedShedule) {
       // Если deletedShedule пустой, отправляем соответствующий ответ
@@ -85,7 +85,7 @@ const deleteShedule = async (req, res) => {
     }
     // удаляем текещее задание из планировщика
     jobList.filter((job) => {
-      if (job.name === idShedule) {
+      if (job.name === idSchedule) {
         job.cancel();
       }
     });
@@ -97,4 +97,4 @@ const deleteShedule = async (req, res) => {
   }
 };
 
-module.exports = { postSchedule, getShedule, updateSchedule, deleteShedule, jobList };
+module.exports = { createSchedule, getSchedule, updateSchedule, deleteSchedule, jobList };
