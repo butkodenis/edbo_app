@@ -110,10 +110,11 @@ function Card({ card, fetchData }) {
                 <i className="bi bi-journal-text" />
               </button>
             </Link>
-
-            <button type="button" className="btn btn-outline-primary btn-sm">
-              <i className="bi bi-clock-history " />
-            </button>
+            <Link to={`/${_id}/schedule`}>
+              <button type="button" className="btn btn-outline-primary btn-sm">
+                <i className="bi bi-clock-history " />
+              </button>
+            </Link>
           </div>
         </div>
       </div>

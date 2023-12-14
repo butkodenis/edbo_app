@@ -1,10 +1,29 @@
-// scheduler.js
-
 const schedule = require('node-schedule');
+
 const importData = require('./importData');
 const Tasks = require('../models/taskModel');
 const Schedule = require('../models/scheduleModel');
 const scheduleController = require('../controllers/scheduleController');
+
+// в зависимости от парметров задачи запускам нужняю ф-ю
+const importDataScheduler = async (dataTask) => {
+  switch (dataTask.task) {
+    case 'saveIds':
+      await importData.importUniversities(dataTask);
+      break;
+    case 'saveStat':
+      await importData.importStatUniv(dataTask);
+      break;
+    case 'saveStud':
+      await importData.importStatStudent(dataTask);
+      break;
+    case 'saveAll':
+      await importData.importAll(dataTask);
+      break;
+    default:
+      throw new Error('Помилковi параметри');
+  }
+};
 
 const scheduleAutorun = async () => {
   // получаем массив засписаний с id задачи
