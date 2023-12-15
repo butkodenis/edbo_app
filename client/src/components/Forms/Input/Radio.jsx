@@ -13,7 +13,7 @@ function Radio({ name, value, label, register }) {
         {...register(name, { text: label })}
         defaultChecked={value === 'saveAll'}
       />
-      <label htmlFor={name} className="form-check-label">
+      <label htmlFor={value} className="form-check-label">
         {label}
       </label>
     </div>

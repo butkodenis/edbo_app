@@ -8,8 +8,7 @@ import Radio from './Input/Radio';
 import dictionary from '../dict';
 
 function Form({ fetchData }) {
-  const { years, specialitys, qualifications, educationBases, tasks } =
-    dictionary;
+  const { years, specialitys, qualifications, educationBases, tasks } = dictionary;
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
@@ -22,24 +21,16 @@ function Form({ fetchData }) {
       qualification: Number(data.qualification),
 
       // Добавляем текстовые поля из справочника
-      specialityText: specialitys.find((item) => item.code == data.speciality)
-        .name,
-      qualificationText: qualifications.find(
-        (item) => item.code == data.qualification,
-      ).name,
-      educationBaseText: educationBases.find(
-        (item) => item.code == data.educationBase,
-      ).name,
+      specialityText: specialitys.find((item) => item.code == data.speciality).name,
+      qualificationText: qualifications.find((item) => item.code == data.qualification).name,
+      educationBaseText: educationBases.find((item) => item.code == data.educationBase).name,
       taskText: tasks.find((item) => item.code === data.task).name,
     };
 
     console.log(sendData);
     // Отправка POST-запроса
     try {
-      const response = await axios.post(
-        'http://localhost:4040/task/create',
-        sendData,
-      );
+      const response = await axios.post('http://localhost:4040/task/create', sendData);
       console.log('Ответ сервера:', response.data);
       fetchData();
     } catch (error) {
@@ -62,12 +53,7 @@ function Form({ fetchData }) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
           <div className="col-lg">
-            <Select
-              name="year"
-              options={years}
-              label="Оберіть рік"
-              register={register}
-            />
+            <Select name="year" options={years} label="Оберіть рік" register={register} />
           </div>
           <div className="col-lg">
             <Select
@@ -97,28 +83,13 @@ function Form({ fetchData }) {
         <hr className="my-4" />
         <div className="row">
           <div className="col-lg">
-            <Radio
-              name="task"
-              value={tasks[0].code}
-              label={tasks[0].name}
-              register={register}
-            />
+            <Radio name="task" value={tasks[0].code} label={tasks[0].name} register={register} />
           </div>
           <div className="col-lg">
-            <Radio
-              name="task"
-              value={tasks[1].code}
-              label={tasks[1].name}
-              register={register}
-            />
+            <Radio name="task" value={tasks[1].code} label={tasks[1].name} register={register} />
           </div>
           <div className="col-lg">
-            <Radio
-              name="task"
-              value={tasks[2].code}
-              label={tasks[2].name}
-              register={register}
-            />
+            <Radio name="task" value={tasks[2].code} label={tasks[2].name} register={register} />
           </div>
           <div className="col-lg">
             <Radio
@@ -126,6 +97,7 @@ function Form({ fetchData }) {
               value={tasks[3].code}
               label={tasks[3].name}
               register={register}
+              checked={true}
             />
           </div>
         </div>
