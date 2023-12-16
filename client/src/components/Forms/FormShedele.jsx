@@ -5,10 +5,37 @@ function FormSchedule() {
   const { register, handleSubmit } = useForm({
     defaultValues: {
       time: '12:30',
-      days: ['Середа', 'П’ятниця'],
+      days: ['Середа', 'П’ятниця', 'Понеділок'],
     },
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    const { time, days } = data;
+    const [hours, minutes] = time.split(':');
+    const dayNumber = days
+      .map((day) => {
+        switch (day) {
+          case 'Понеділок':
+            return 1;
+          case 'Вівторок':
+            return 2;
+          case 'Середа':
+            return 3;
+          case 'Четвер':
+            return 4;
+          case 'П’ятниця':
+            return 5;
+          case 'Субота':
+            return 6;
+          case 'Неділя':
+            return 7;
+          default:
+        }
+      })
+      .sort();
+    const shedule = `${minutes} ${hours} * * ${dayNumber}`;
+    console.log(shedule);
+  };
 
   const daysOfWeek = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П’ятниця', 'Субота', 'Неділя'];
 
