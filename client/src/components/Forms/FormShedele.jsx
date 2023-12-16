@@ -1,26 +1,41 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 
 function FormSchedule() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      time: '12:30',
+      days: ['Середа', 'П’ятниця'],
+    },
+  });
+  const onSubmit = (data) => console.log(data);
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const daysOfWeek = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П’ятниця', 'Субота', 'Неділя'];
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="row">
-        <div className="col-2">
-          <input type="number" id="hour" name="hour" min="0" max="23" value="12" />
-        </div>
-        <div className="col-2">
-          <input type="number" id="minutes" name="minutes" min="0" max="59" value="30" />
-        </div>
+      <div className="mb-3">
+        <label className="form-label">Час</label>
+        <input type="time" className="form-control w-25" {...register('time')} />
       </div>
-
+      <div className="mb-3">
+        {daysOfWeek.map((day, index) => (
+          <div className="form-check" key={index}>
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value={day}
+              id={`day-${index}`}
+              {...register('days')}
+            />
+            <label className="form-check-label" htmlFor={`day-${index}`}>
+              {day}
+            </label>
+          </div>
+        ))}
+      </div>
       <button type="submit" className="btn btn-primary">
-        Отправить
+        Надіслати
       </button>
     </form>
   );
