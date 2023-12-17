@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { useParams, Link } from 'react-router-dom';
 
 function FormSchedule() {
+  const { id } = useParams();
+
   const { register, handleSubmit } = useForm({
     defaultValues: {
       time: '12:30',
       days: ['Середа', 'П’ятниця', 'Понеділок'],
     },
   });
+
   const onSubmit = (data) => {
     console.log(data);
     const { time, days } = data;
@@ -33,8 +37,9 @@ function FormSchedule() {
         }
       })
       .sort();
+
     const shedule = `${minutes} ${hours} * * ${dayNumber}`;
-    console.log(shedule);
+    console.log(shedule, id);
   };
 
   const daysOfWeek = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П’ятниця', 'Субота', 'Неділя'];
