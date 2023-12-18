@@ -2,6 +2,7 @@ const schedule = require('node-schedule');
 
 const Schedule = require('../models/scheduleModel');
 const Tasks = require('../models/taskModel');
+const importDataScheduler = require('../import/importDataScheduler');
 
 let jobList = [];
 
@@ -9,6 +10,7 @@ const getSchedule = async (req, res) => {
   try {
     const { id } = req.params;
     const dataSchedule = await Schedule.find({ idTask: id });
+
     res.status(200).json(dataSchedule);
   } catch (err) {
     console.error(err);
@@ -20,7 +22,7 @@ const createSchedule = async (req, res) => {
   try {
     const { id } = req.params;
     const { timing } = req.body;
-    console.log(id, timing);
+
     // Проверяем, чтобы schedule и id были переданы в запросе
     if (!timing || !id) {
       return res.status(400).json({ error: 'Необходимо передать schedule и id в запросе' });
@@ -32,12 +34,13 @@ const createSchedule = async (req, res) => {
     });
 
     const { _id } = await newSchedule.save();
-    console.log(_id.toString());
+
     const nameJob = _id.toString();
 
     const newJob = schedule.scheduleJob(nameJob, timing, async () => {
       const dataTask = await Tasks.findById(id);
-      console.log(id, dataTask.taskText, new Date());
+      //  console.log(id, '___', dataTask.taskText, new Date());
+      importDataScheduler(dataTask);
     });
     jobList.push(newJob);
 

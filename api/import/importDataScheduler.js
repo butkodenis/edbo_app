@@ -1,3 +1,6 @@
+const importData = require('./importData');
+
+// в зависимости от парметров задачи запускам нужняю ф-ю
 const importDataScheduler = async (dataTask) => {
   switch (dataTask.task) {
     case 'saveIds':
@@ -16,3 +19,5 @@ const importDataScheduler = async (dataTask) => {
       throw new Error('Помилковi параметри');
   }
 };
+
+module.exports = importDataScheduler;

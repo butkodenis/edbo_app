@@ -38,5 +38,5 @@ app.delete('/task/:id/shedule/:idSchedule', scheduleController.deleteSchedule);
 const port = process.env.NODE_PORT;
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
-  // scheduleAutorun();
+  scheduleAutorun();
 });
