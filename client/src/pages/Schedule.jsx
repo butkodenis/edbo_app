@@ -7,14 +7,13 @@ import FormSchedule from '../components/Forms/FormShedele';
 
 function Schedule() {
   const { id } = useParams();
-  //const [scheduleData, setScheduleData] = useState(null);
+  const [scheduleData, setScheduleData] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:4040/task/${id}/shedule`);
-
-        console.log(response.data);
+        setScheduleData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -30,7 +29,7 @@ function Schedule() {
           <h3> плнировщик задач</h3>
           <p>{id}</p>
         </div>
-        <FormSchedule />
+        {scheduleData ? <FormSchedule scheduleData={scheduleData} /> : <p>Loading...</p>}
       </div>
       <div className="row">
         <div className="col">

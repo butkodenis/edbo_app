@@ -2,13 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useParams, Link } from 'react-router-dom';
 
-function FormSchedule() {
+function FormSchedule({ scheduleData }) {
   const { id } = useParams();
+  const [{ timing }] = scheduleData;
+
+  const [minute, hour, dayOfMonth, month, dayOfWeek] = timing.split(' ');
+  const dayNames = dayOfWeek.split(',').map((day) => {
+    switch (day) {
+      case '1':
+        return 'Понеділок';
+      case '2':
+        return 'Вівторок';
+      case '3':
+        return 'Середа';
+      case '4':
+        return 'Четвер';
+      case '5':
+        return 'П’ятниця';
+      case '6':
+        return 'Субота';
+      case '7':
+        return 'Неділя';
+      default:
+    }
+  });
+
+  console.log(dayNames);
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      time: '12:30',
-      days: ['Середа', 'П’ятниця', 'Понеділок'],
+      time: `${hour}:${minute}`,
+      days: dayNames,
     },
   });
 
