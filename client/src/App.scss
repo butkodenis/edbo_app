@@ -9,3 +9,10 @@ body {
 table {
   font-size: 13px;
 }
+
+.formSchedule {
+  background-color: aliceblue;
+  input[type='time'] {
+    width: 100px; // Замените на нужное вам значение
+  }
+}

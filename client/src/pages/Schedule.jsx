@@ -27,18 +27,9 @@ function Schedule() {
       <div className="row">
         <div className="col-6">
           <h4>виконувати за розкладом</h4>
-          <p>{id}</p>
+          <p>задача id : {id}</p>
         </div>
         {scheduleData ? <FormSchedule scheduleData={scheduleData} /> : <p>Loading...</p>}
-      </div>
-      <div className="row">
-        <div className="col">
-          <Link to="/" className="nav-link px-2 ">
-            <button type="button" className="btn btn-info btn-sm ms-2 mt-1">
-              <i className="bi bi-house" />
-            </button>
-          </Link>
-        </div>
       </div>
     </div>
   );

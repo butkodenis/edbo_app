@@ -103,7 +103,7 @@ function TableTask() {
       </table>
       <div className="">
         <Link to="/" className="nav-link px-2 ">
-          <button type="button" className="btn btn-info btn-sm ms-2 mt-1">
+          <button type="button" className="btn btn-info btn-sm mb-3  mt-1">
             <i className="bi bi-house" />
           </button>
         </Link>

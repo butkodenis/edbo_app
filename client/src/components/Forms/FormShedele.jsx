@@ -98,13 +98,14 @@ function FormSchedule({ scheduleData }) {
   const daysOfWeek = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П’ятниця', 'Субота', 'Неділя'];
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="mb-3">
-        <input type="time" className="form-control w-25" {...register('time')} />
-      </div>
-      <div className="mb-3">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="formSchedule border p-3 text-bg-light rounded "
+    >
+      <div className="mb-3 d-flex align-items-center">
+        <input type="time" className="form-control me-3" {...register('time')} />
         {daysOfWeek.map((day, index) => (
-          <div className="form-check" key={index}>
+          <div className="form-check me-3" key={index}>
             <input
               className="form-check-input"
               type="checkbox"
@@ -118,8 +119,8 @@ function FormSchedule({ scheduleData }) {
           </div>
         ))}
       </div>
-      <button type="submit" className="btn btn-primary">
-        Змінити росклад
+      <button type="submit" className="btn btn-outline-primary btn-sm">
+        Змінити розклад
       </button>
     </form>
   );
