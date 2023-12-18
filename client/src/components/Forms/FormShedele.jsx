@@ -71,7 +71,7 @@ function FormSchedule({ scheduleData }) {
       .sort();
 
     const shedule = `${minutes} ${hours} * * ${dayNumber}`;
-    console.log(shedule, id, _id);
+    console.log(shedule, id, _id, dayNumber);
 
     const apiUrl = _id
       ? `http://localhost:4040/task/${id}/shedule/${_id}`
@@ -83,14 +83,18 @@ function FormSchedule({ scheduleData }) {
 
     try {
       if (_id) {
-        // If _id exists, make a PUT request
-        await axios.put(apiUrl, requestData);
+        if (dayNumber.length > 0) {
+          // Если _id существует и dayNumber не пуст, выполняем PUT-запросt
+          await axios.put(apiUrl, requestData);
+        } else {
+          // Если _id существует и dayNumber пуст, выполняем DELETE-запрос
+          await axios.delete(apiUrl);
+        }
       } else {
-        // If _id doesn't exist, make a POST request
+        // Если _id не существует и dayNumber не пуст, выполняем POST-запрос
         await axios.post(apiUrl, requestData);
       }
     } catch (error) {
-      // Handle errors or provide feedback to the user
       console.error('ошибка  при обновлении расписания', error);
     }
   };
