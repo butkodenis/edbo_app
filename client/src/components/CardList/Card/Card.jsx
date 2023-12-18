@@ -20,7 +20,9 @@ function Card({ card, fetchData }) {
   } = card;
 
   const formattedTimeCreation = new Date(timeCreation).toLocaleString('ru-RU');
-  const formattedTimeCompleted = new Date(timeCompleted).toLocaleString('ru-RU');
+  const formattedTimeCompleted = timeCompleted
+    ? new Date(timeCompleted).toLocaleString('ru-RU')
+    : '';
 
   const handleDelete = async () => {
     try {
@@ -29,7 +31,6 @@ function Card({ card, fetchData }) {
         data: { id: _id },
       });
 
-      // Дополнительные действия после успешного удаления, если нужно
       console.log(`Задача ID ${_id} видалена`);
       fetchData();
     } catch (error) {
@@ -44,8 +45,6 @@ function Card({ card, fetchData }) {
       // Отправка POST-запроса на /task/:id/run
       const response = await axios.post(`http://localhost:4040/task/${_id}/run`);
       const time = response.data;
-
-      console.log('Import response:', time);
     } catch (error) {
       // Обработка ошибок при импорте
       console.error('Помилка iмпорту задачи:', error.response.data.error);
