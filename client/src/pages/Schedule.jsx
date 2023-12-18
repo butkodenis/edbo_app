@@ -26,7 +26,7 @@ function Schedule() {
     <div className="container">
       <div className="row">
         <div className="col-6">
-          <h3> плнировщик задач</h3>
+          <h4>виконувати за розкладом</h4>
           <p>{id}</p>
         </div>
         {scheduleData ? <FormSchedule scheduleData={scheduleData} /> : <p>Loading...</p>}
