@@ -26,7 +26,7 @@ function Card({ card, fetchData }) {
 
   const handleDelete = async () => {
     try {
-      // Отправка запроса на удаление с использованием Axios
+      // Отправка запроса на удаление
       await axios.delete(`http://localhost:4040/task/delete`, {
         data: { id: _id },
       });

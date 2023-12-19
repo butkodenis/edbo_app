@@ -36,7 +36,7 @@ function Form({ fetchData }) {
     } catch (error) {
       if (error.response) {
         // Запрос выполнен, и сервер вернул статус код отличный от 2xx
-        console.error('Ошибка при запросе. Статус:', error.response.status);
+
         console.error('Данные ошибки:', error.response.data);
       } else if (error.request) {
         // Запрос отправлен, но нет ответа
@@ -103,7 +103,7 @@ function Form({ fetchData }) {
         </div>
         <hr className="my-4" />
         <button type="submit" className="btn btn-primary">
-          Отправить
+          Додати імпорт
         </button>
       </form>
     </div>
