@@ -6,9 +6,8 @@ const scheduleController = require('../controllers/scheduleController');
 const importDataScheduler = require('./importDataScheduler');
 
 const scheduleAutorun = async () => {
-  // получаем массив засписаний с id задачи
+  // получаем массив расписаний с id задачи
   const schedulesFromDB = await Schedule.find({});
-  console.log(schedulesFromDB.length);
 
   schedulesFromDB.forEach((data) => {
     const { timing, idTask, _id } = data;
@@ -16,8 +15,8 @@ const scheduleAutorun = async () => {
     // создаем задачу и добавлемм ее в
     const newJob = schedule.scheduleJob(nameJob, timing, async () => {
       const dataTask = await Tasks.findById(idTask);
-      console.log(data.idTask, dataTask.taskText, nameJob, new Date());
-      console.log('test');
+      //console.log(data.idTask, dataTask.taskText, nameJob, new Date());
+      // запускаем тот импорт в зависимости от параметров
       importDataScheduler(dataTask);
     });
     scheduleController.jobList.push(newJob);
