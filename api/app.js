@@ -18,7 +18,13 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 
-const url = process.env.MONGODB_URI;
+//const url = process.env.MONGODB_URI;
+
+const containerName = process.env.MONGODB_CONTAINER_NAME;
+const mongoPort = process.env.MONGODB_DOCKER_PORT;
+const mongoDatabase = process.env.MONGODB_DATABASE;
+
+const url = `mongodb://${containerName}:${mongoPort}/${mongoDatabase}`;
 connectToDatabase(url);
 
 app.get('/task/all', taskController.getTasksAll);

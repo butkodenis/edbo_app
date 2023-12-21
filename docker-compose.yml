@@ -34,7 +34,7 @@ services:
 
   mongodb:
     image: mongo
-    container_name: edbo-mongodb
+    container_name: $MONGODB_CONTAINER_NAME
     restart: unless-stopped
     ports:
       - '27017:27017'
