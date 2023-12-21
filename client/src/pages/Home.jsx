@@ -8,7 +8,7 @@ function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:4040/task/all');
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/task/all`);
       setCardsData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error.message);
@@ -17,7 +17,6 @@ function Home() {
 
   useEffect(() => {
     fetchData();
-    console.log(cardsData);
   }, []);
 
   return (

@@ -9,8 +9,8 @@ function ButtonLogDel({ logId, updateData }) {
     setLoading(true);
     // Здесь вы можете выполнить необходимые действия с logId
     try {
-      await axios.delete(`http://localhost:4040/log/${logId}`);
-      console.log('Данные удалены успешно');
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/log/${logId}`);
+      console.log(`Данные удалены успешно ${logId}`);
 
       // Вызываем функцию обновления данных
       updateData();

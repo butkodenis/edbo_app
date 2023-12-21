@@ -30,7 +30,7 @@ function Form({ fetchData }) {
     console.log(sendData);
     // Отправка POST-запроса
     try {
-      const response = await axios.post('http://localhost:4040/task/create', sendData);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/task/create`, sendData);
       console.log('Ответ сервера:', response.data);
       fetchData();
     } catch (error) {

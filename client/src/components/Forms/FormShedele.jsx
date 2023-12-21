@@ -74,8 +74,8 @@ function FormSchedule({ scheduleData }) {
     console.log(shedule, id, _id, dayNumber);
 
     const apiUrl = _id
-      ? `http://localhost:4040/task/${id}/shedule/${_id}`
-      : `http://localhost:4040/task/${id}/shedule`;
+      ? `${import.meta.env.VITE_BASE_URL}/task/${id}/shedule/${_id}`
+      : `${import.meta.env.VITE_BASE_URL}/task/${id}/shedule`;
 
     const requestData = {
       timing: shedule,
