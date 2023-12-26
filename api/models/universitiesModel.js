@@ -8,6 +8,7 @@ const universitiesSchema = new mongoose.Schema({
   timeCreation: Date,
   idTask: String,
   idJob: Number,
+  year: Number,
 });
 
 const Universities = mongoose.model('Universities', universitiesSchema);
