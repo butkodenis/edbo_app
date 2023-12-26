@@ -4,14 +4,15 @@ const updateTask = require('./updateTask');
 
 const saveStatStudents = async (data, idJob, dataTask) => {
   try {
-    const { _id } = dataTask;
+    const { _id, year } = dataTask;
 
     // добавляем время импорта и код выполяемой задачи
     const modData = data.map((item) => ({
       ...item,
       timeCreation: new Date(),
       idJob,
-      idtask: _id,
+      idTask: _id.toString(),
+      year,
     }));
 
     const result = await StatStudent.insertMany(modData);

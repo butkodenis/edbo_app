@@ -5,7 +5,6 @@ const updateTask = require('./updateTask');
 
 const saveUniversities = async (data, idJob, dataTask) => {
   try {
-    console.log(dataTask, idJob);
     // Сохр. данные в БД
     const universitiesData = data.map((item) => ({
       uid: item.uid,

@@ -51,6 +51,7 @@ const statUnivShema = new mongoose.Schema({
       ocm: Number,
     },
   },
+  year: Number,
   timeCreation: Date,
   idTask: String,
   idJob: Number,

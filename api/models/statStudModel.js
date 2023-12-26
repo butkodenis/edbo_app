@@ -12,6 +12,7 @@ const statStudShema = new mongoose.Schema({
   kv: Number,
   p: String,
   rss: Array,
+  year: Number,
   timeCreation: Date,
   idTask: String,
   idJob: Number,
