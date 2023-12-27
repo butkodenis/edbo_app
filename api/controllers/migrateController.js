@@ -93,6 +93,9 @@ const UniversitiesPostgres = sequelize.define(
     idJob: {
       type: DataTypes.INTEGER,
     },
+    year: {
+      type: DataTypes.INTEGER,
+    },
   },
   {
     // Настройки модели, если необходимо
@@ -149,6 +152,7 @@ const mierateAll = async (req, res) => {
         timeCreation: univer.timeCreation,
         idTask: univer.idTask,
         idJob: univer.idJob,
+        year: univer.year,
       });
     }
 
