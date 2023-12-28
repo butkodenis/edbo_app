@@ -1,131 +1,33 @@
 const { Sequelize, DataTypes } = require('sequelize');
+
 const Tasks = require('../models/taskModel');
-const Log = require('../models/logModel');
-const Schedule = require('../models/scheduleModel');
 const StatStudent = require('../models/statStudModel');
 const StatUniv = require('../models/statUnivModel');
 const Universities = require('../models/universitiesModel');
-//
-const sequelize = new Sequelize('edbo', 'admin', '123456', {
-  host: '10.101.10.100',
-  dialect: 'postgres',
-});
-
-// Проверка соединения с базой данных
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Соединение с базой данных установлено успешно.');
-  } catch (error) {
-    console.error('Ошибка при соединении с базой данных:', error);
-  }
-})();
-
-// Определение модели для таблицы в PostgreSQL
-const TaskPostgres = sequelize.define(
-  'Task',
-  {
-    year: {
-      type: DataTypes.INTEGER,
-    },
-    speciality: {
-      type: DataTypes.INTEGER,
-    },
-    specialityText: {
-      type: DataTypes.STRING,
-    },
-    qualification: {
-      type: DataTypes.INTEGER,
-    },
-    qualificationText: {
-      type: DataTypes.STRING,
-    },
-    educationBase: {
-      type: DataTypes.INTEGER,
-    },
-    educationBaseText: {
-      type: DataTypes.STRING,
-    },
-    task: {
-      type: DataTypes.STRING,
-    },
-    taskText: {
-      type: DataTypes.STRING,
-    },
-    status: {
-      type: DataTypes.STRING,
-    },
-    timeCreation: {
-      type: DataTypes.DATE,
-    },
-    timeCompleted: {
-      type: DataTypes.DATE,
-    },
-  },
-  {
-    // Настройки модели, если необходимо
-    tableName: 'tasks', // Название таблицы в базе данных PostgreSQL
-    timestamps: false, // Отключение полей created_at и updated_at
-  },
-);
-
-const UniversitiesPostgres = sequelize.define(
-  'Universities',
-  {
-    uid: {
-      type: DataTypes.INTEGER,
-    },
-    un: {
-      type: DataTypes.STRING,
-    },
-    ids: {
-      type: DataTypes.STRING,
-    },
-    n: {
-      type: DataTypes.INTEGER,
-    },
-    timeCreation: {
-      type: DataTypes.DATE,
-    },
-    idTask: {
-      type: DataTypes.STRING,
-    },
-    idJob: {
-      type: DataTypes.INTEGER,
-    },
-    year: {
-      type: DataTypes.INTEGER,
-    },
-  },
-  {
-    // Настройки модели, если необходимо
-    tableName: 'universities', // Название таблицы в базе данных PostgreSQL
-    timestamps: false, // Отключение полей created_at и updated_at
-  },
-);
+const pgModel = require('../models/pgModel');
 
 const mierateAll = async (req, res) => {
   try {
     const tasks = await Tasks.find();
-    const logs = await Log.find();
-    //const shedules = await Schedule.find();
-    //const statStudents = await StatStudent.distinct('f');
-    //const statUniversities = await StatUniv.find();
+
+    const statStudents = await StatStudent.find();
+    const statUniversities = await StatUniv.find();
     const universities = await Universities.find();
 
-    console.log(tasks.length, tasks[0]);
-    console.log(logs.length);
-    console.log(universities.length);
-    //console.log(statStudents.length);
+    //console.log(statUniversities.length);
+    console.log(statStudents.length);
+    console.log(universities);
 
     // Синхронизация модели с базой данных
-    await TaskPostgres.sync({ force: true });
-    await UniversitiesPostgres.sync({ force: true });
+    await pgModel.Task.sync({ force: true });
+    await pgModel.Universities.sync({ force: true });
+    await pgModel.StatUniv.sync({ force: true });
+    await pgModel.StatStudent.sync({ force: true });
 
     // eslint-disable-next-line no-restricted-syntax
     for (const task of tasks) {
       // eslint-disable-next-line no-await-in-loop
-      await TaskPostgres.create({
+      await pgModel.Task.create({
         year: task.year,
         speciality: task.speciality,
         specialityText: task.specialityText,
@@ -144,7 +46,7 @@ const mierateAll = async (req, res) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const univer of universities) {
       // eslint-disable-next-line no-await-in-loop
-      await UniversitiesPostgres.create({
+      await pgModel.Universities.create({
         uid: univer.uid,
         un: univer.un,
         ids: univer.ids,
@@ -156,6 +58,73 @@ const mierateAll = async (req, res) => {
       });
     }
 
+    // eslint-disable-next-line no-restricted-syntax
+    for (const statUn of statUniversities) {
+      // eslint-disable-next-line no-await-in-loop
+      await pgModel.StatUniv.create({
+        usid: statUn.usid,
+        usn: statUn.usn,
+        ustn: statUn.ustn,
+        uid: statUn.uid,
+        un: statUn.un,
+        ufn: statUn.ufn,
+        rk: statUn.rk,
+        qid: statUn.qid,
+        qn: statUn.qn,
+        ebid: statUn.ebid,
+        ebn: statUn.ebn,
+        efid: statUn.efid,
+        efn: statUn.efn,
+        cid: statUn.cid,
+        ssc: statUn.ssc,
+        ssn: statUn.ssn,
+        etrm: statUn.etrm,
+        rtrm: statUn.rtrm,
+        price: statUn.price,
+        xprice: statUn.xprice,
+        up: statUn.up,
+        spn: statUn.spn,
+        ox: statUn.ox,
+        ol: statUn.ol,
+        oc: statUn.oc,
+        rr: statUn.rr,
+        osn: statUn.osn,
+        os: statUn.os,
+        st: statUn.st,
+        year: statUn.year,
+        timeCreation: statUn.timeCreation,
+        idTask: statUn.idTask,
+        idJob: statUn.idJob,
+      });
+    }
+    /*
+    // eslint-disable-next-line no-restricted-syntax
+    for (const stud of statStudents) {
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await pgModel.StatStudent.create({
+          prid: stud.prid,
+          n: stud.n,
+          prsid: stud.prsid,
+          ptid: stud.ptid,
+          fio: stud.fio,
+          pa: stud.pa,
+          d: stud.d,
+          artid: stud.artid,
+          kv: stud.kv,
+          p: stud.p,
+          rss: stud.rss,
+          year: stud.year,
+          timeCreation: stud.timeCreation,
+          idTask: stud.idTask,
+          idJob: stud.idJob,
+        });
+      } catch (error) {
+        console.error(`Error creating StatStudent record for ${stud.fio}: ${error.message}`);
+        // Handle the error as needed
+      }
+    }
+    */
     res.json({ message: 'данные успешно мигрированы' });
   } catch (err) {
     console.error(`Ошибка миграции : ${err}`);
