@@ -3,12 +3,14 @@ const Tasks = require('../models/taskModel');
 const Log = require('../models/logModel');
 const Schedule = require('../models/scheduleModel');
 const importData = require('../import/importData');
+const { Task } = require('../models/pgModel');
 
 const createTask = async (req, res) => {
   try {
     const data = req.body;
+    await Task.sync();
 
-    const task = new Tasks({
+    await Task.create({
       year: data.year,
       speciality: data.speciality,
       specialityText: data.specialityText,
@@ -20,10 +22,8 @@ const createTask = async (req, res) => {
       taskText: data.taskText,
       status: '',
       timeCreation: new Date(),
-      timeCompleted: '',
     });
 
-    await task.save();
     res.json({ message: 'Данные успешно обработаны' });
   } catch (err) {
     console.log(err);

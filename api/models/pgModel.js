@@ -5,16 +5,6 @@ const sequelize = new Sequelize('edbo', 'admin', '123456', {
   dialect: 'postgres',
 });
 
-// Проверка соединения с базой данных
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Соединение с базой данных установлено успешно.');
-  } catch (error) {
-    console.error('Ошибка при соединении с базой данных:', error);
-  }
-})();
-
 // Определение модели для таблицы в PostgreSQL
 const Task = sequelize.define(
   'Task',

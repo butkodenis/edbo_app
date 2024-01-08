@@ -19,14 +19,7 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 
-//const url = process.env.MONGODB_URI;
-
-const containerName = process.env.MONGODB_CONTAINER_NAME;
-const mongoPort = process.env.MONGODB_DOCKER_PORT;
-const mongoDatabase = process.env.MONGODB_DATABASE;
-
-const url = `mongodb://${containerName}:${mongoPort}/${mongoDatabase}`;
-connectToDatabase(url);
+connectToDatabase();
 
 app.get('/task/all', taskController.getTasksAll);
 app.post('/task/create', taskController.createTask);
@@ -42,10 +35,8 @@ app.post('/task/:id/shedule', scheduleController.createSchedule);
 app.put('/task/:id/shedule/:idSchedule', scheduleController.updateSchedule);
 app.delete('/task/:id/shedule/:idSchedule', scheduleController.deleteSchedule);
 
-app.post('/migrate', migrateController.mierateAll);
-
 const port = process.env.NODE_PORT;
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
-  scheduleAutorun();
+  // scheduleAutorun();   !!!!!!!
 });
