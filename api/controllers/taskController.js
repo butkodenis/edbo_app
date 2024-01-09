@@ -33,7 +33,7 @@ const createTask = async (req, res) => {
 
 const getTasksAll = async (req, res) => {
   try {
-    const tasks = await Tasks.find();
+    const tasks = await Tasks.findAll();
     res.json(tasks);
   } catch (err) {
     console.log(err);
