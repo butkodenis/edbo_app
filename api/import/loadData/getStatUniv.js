@@ -1,14 +1,7 @@
 const axios = require('axios');
 
-const getStatUniv = async (
-  ids,
-  uid,
-  year,
-  qualification,
-  educationBase,
-  speciality,
-) => {
-  if (year === new Date().getFullYear()) {
+const getStatUniv = async (ids, uid, year, qualification, educationBase, speciality) => {
+  if (year === 2023) {
     year = '';
   }
   const apiUrl = `https://vstup${year}.edbo.gov.ua/offers-list`;

@@ -1,62 +1,56 @@
-const mongoose = require('mongoose');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const statUnivShema = new mongoose.Schema({
-  usid: Number,
-  usn: String,
-  ustn: String,
-  uid: Number,
-  un: String,
-  ufn: String,
-  rk: String,
-  qid: String,
-  qn: String,
-  ebid: Number,
-  ebn: String,
-  efid: Number,
-  efn: String,
-  cid: Number,
-  ssc: String,
-  ssn: String,
-  etrm: String,
-  rtrm: String,
-  price: String,
-  xprice: String,
-  up: Number,
-  spn: String,
-  ox: Number,
-  ol: Number,
-  oc: Number,
-  rr: Number,
-  osn: {
-    type: Object,
-    default: {},
+const sequelize = new Sequelize(
+  process.env.POSTGRES_DB,
+  process.env.POSTGRES_USER,
+  process.env.POSTGRES_PASSWORD,
+  {
+    host: process.env.HOST,
+    dialect: 'postgres',
   },
-  os: {
-    type: Object,
-    default: {},
-  },
-  st: {
-    c: {
-      t: Number,
-      a: Number,
-      b: Number,
-      ka: Number,
-      km: Number,
-      kx: Number,
-      r: Number,
-      ob: Number,
-      oc: Number,
-      rm: Number,
-      obm: Number,
-      ocm: Number,
-    },
-  },
-  year: Number,
-  timeCreation: Date,
-  idTask: String,
-  idJob: Number,
-});
+);
 
-const StatUniv = mongoose.model('StatUniv', statUnivShema);
+const StatUniv = sequelize.define(
+  'StatUnivs',
+  {
+    usid: { type: DataTypes.INTEGER },
+    usn: { type: DataTypes.STRING },
+    ustn: { type: DataTypes.STRING },
+    uid: { type: DataTypes.INTEGER },
+    un: { type: DataTypes.STRING },
+    ufn: { type: DataTypes.STRING },
+    rk: { type: DataTypes.STRING },
+    qid: { type: DataTypes.STRING },
+    qn: { type: DataTypes.STRING },
+    ebid: { type: DataTypes.INTEGER },
+    ebn: { type: DataTypes.STRING },
+    efid: { type: DataTypes.INTEGER },
+    efn: { type: DataTypes.STRING },
+    cid: { type: DataTypes.INTEGER },
+    ssc: { type: DataTypes.STRING },
+    ssn: { type: DataTypes.STRING },
+    etrm: { type: DataTypes.STRING },
+    rtrm: { type: DataTypes.STRING },
+    price: { type: DataTypes.STRING },
+    xprice: { type: DataTypes.STRING },
+    up: { type: DataTypes.INTEGER },
+    spn: { type: DataTypes.STRING },
+    ox: { type: DataTypes.INTEGER },
+    ol: { type: DataTypes.INTEGER },
+    oc: { type: DataTypes.INTEGER },
+    rr: { type: DataTypes.INTEGER },
+    osn: { type: DataTypes.JSONB },
+    os: { type: DataTypes.JSONB },
+    st: { type: DataTypes.JSONB },
+    year: { type: DataTypes.INTEGER },
+    timeCreation: { type: DataTypes.DATE },
+    idTask: { type: DataTypes.STRING },
+    idJob: { type: DataTypes.INTEGER },
+  },
+  {
+    tableName: 'statUnivs', // Название таблицы в базе данных PostgreSQL
+    timestamps: false, // Отключение полей created_at и updated_at
+  },
+);
 
 module.exports = StatUniv;

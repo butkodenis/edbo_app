@@ -4,18 +4,18 @@ const updateTask = require('./updateTask');
 
 const saveStatUniv = async (data, idJob, dataTask) => {
   try {
-    const { _id, year } = dataTask;
-    console.log(_id.toString());
+    const { id, year } = dataTask;
+
     // добавляем время импорта и код выполяемой задачи
     const modData = data.map((item) => ({
       ...item,
       timeCreation: new Date(),
       idJob,
-      idTask: _id.toString(),
+      idTask: id,
       year,
     }));
 
-    const result = await StatUniv.insertMany(modData);
+    const result = await StatUniv.bulkCreate(modData);
 
     // обновляем время импорта задачи, статус в БД
     const status = 'Виконано';
