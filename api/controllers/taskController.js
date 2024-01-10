@@ -44,7 +44,10 @@ const getTasksAll = async (req, res) => {
 const deleteTask = async (req, res) => {
   try {
     const { id } = req.body;
-    const deletedTask = await Tasks.findOneAndDelete({ _id: id });
+    // запрос в таблицу
+    const deletedTask = await Tasks.destroy({
+      where: { id: id },
+    });
 
     if (!deletedTask) {
       return res.status(404).json({ message: 'Документ с указанным ID не найден' });

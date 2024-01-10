@@ -32,16 +32,6 @@ services:
     depends_on:
       - api
 
-  mongodb:
-    image: mongo
-    container_name: $MONGODB_CONTAINER_NAME
-    restart: unless-stopped
-    ports:
-      - '27017:27017'
-
-    volumes:
-      - mongodb_data:/data/db
-
   postgres:
     image: postgres
     container_name: edbo-postgres

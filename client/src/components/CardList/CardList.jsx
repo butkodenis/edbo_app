@@ -8,7 +8,7 @@ function CardList({ cardsData, fetchData }) {
       <div className="container-fluid">
         <div className="row">
           {cardsData.map((card) => (
-            <Card key={card._id} card={card} fetchData={fetchData} />
+            <Card key={card.id} card={card} fetchData={fetchData} />
           ))}
         </div>
       </div>
