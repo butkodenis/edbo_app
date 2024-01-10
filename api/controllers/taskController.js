@@ -8,7 +8,6 @@ const { Task } = require('../models/pgModel');
 const createTask = async (req, res) => {
   try {
     const data = req.body;
-    await Task.sync();
 
     await Task.create({
       year: data.year,
@@ -64,7 +63,8 @@ const runTask = async (req, res) => {
     const { id } = req.params;
 
     // запрос в таблицу, получить параметры задачи по id
-    const dataTask = await Tasks.findById(id); // получаем { year, speciality...}
+    const data = await Tasks.findByPk(id); // получаем { year, speciality...}
+    const dataTask = data.dataValues;
     // console.log(dataTask);
 
     switch (dataTask.task) {

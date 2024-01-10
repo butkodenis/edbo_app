@@ -2,9 +2,15 @@ const Tasks = require('../../models/taskModel');
 
 const updateTask = async (dataTask, status) => {
   try {
-    const { _id } = dataTask;
+    const { id } = dataTask;
     // обновляем время импорта задачи в БД
-    await Tasks.updateOne({ _id }, { $set: { timeCompleted: new Date(), status } });
+    const updateData = {
+      timeCompleted: new Date(),
+      status,
+    };
+    await Tasks.update(updateData, {
+      where: { id: id },
+    });
   } catch (error) {
     console.log(error);
   }

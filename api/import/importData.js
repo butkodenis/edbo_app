@@ -10,8 +10,6 @@ const saveStatStudents = require('./loadData/saveStatStudents');
 const generateIdJob = require('./utility');
 const updateTask = require('./loadData/updateTask');
 
-const Tasks = require('../models/taskModel');
-
 /* импорт предложений университетов */
 const importUniversities = async (dataTask) => {
   try {

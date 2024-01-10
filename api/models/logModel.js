@@ -1,14 +1,44 @@
-const mongoose = require('mongoose');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const logShema = new mongoose.Schema({
-  idTask: String,
-  task: String,
-  taskText: String,
-  info: String,
-  status: String,
-  timeCreation: Date,
-  idJob: Number,
-});
-const Log = mongoose.model('Log', logShema);
+const sequelize = new Sequelize(
+  process.env.POSTGRES_DB,
+  process.env.POSTGRES_USER,
+  process.env.POSTGRES_PASSWORD,
+  {
+    host: process.env.HOST,
+    dialect: 'postgres',
+  },
+);
+
+const Log = sequelize.define(
+  'Log',
+  {
+    idTask: {
+      type: DataTypes.STRING,
+    },
+    task: {
+      type: DataTypes.STRING,
+    },
+    taskText: {
+      type: DataTypes.STRING,
+    },
+    info: {
+      type: DataTypes.STRING,
+    },
+    status: {
+      type: DataTypes.STRING,
+    },
+    timeCreation: {
+      type: DataTypes.DATE,
+    },
+    idJob: {
+      type: DataTypes.INTEGER,
+    },
+  },
+  {
+    tableName: 'log', // Название таблицы в базе данных PostgreSQL
+    timestamps: false, // Отключение полей created_at и updated_at});
+  },
+);
 
 module.exports = Log;

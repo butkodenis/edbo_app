@@ -5,7 +5,12 @@ const getUniversities = async (dataTask) => {
   let { year } = dataTask;
 
   // меняем ссылку взависимости от года
+  /*
   if (year === new Date().getFullYear()) {
+    year = '';
+  }
+  */
+  if (year === 2023) {
     year = '';
   }
 

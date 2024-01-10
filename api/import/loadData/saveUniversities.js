@@ -13,11 +13,11 @@ const saveUniversities = async (data, idJob, dataTask) => {
       n: item.n,
       timeCreation: new Date(),
       idJob,
-      idTask: dataTask._id.toString(),
+      idTask: dataTask.id,
       year: dataTask.year,
     }));
 
-    await Universities.insertMany(universitiesData);
+    await Universities.bulkCreate(universitiesData);
 
     /* обновл. статут, время задачи */
     const status = 'Виконано';
