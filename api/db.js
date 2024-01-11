@@ -3,6 +3,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const Tasks = require('./models/taskModel');
 const Universities = require('./models/universitiesModel');
 const StatUniv = require('./models/statUnivModel');
+const StatStudent = require('./models/statStudModel');
 const Log = require('./models/logModel');
 
 const sequelize = new Sequelize(
@@ -24,6 +25,7 @@ const connectToDatabase = async () => {
     await Tasks.sync();
     await Universities.sync();
     await StatUniv.sync();
+    await StatStudent.sync();
     await Log.sync();
   } catch (error) {
     console.error('Ошибка при соединении с базой данных:', error);

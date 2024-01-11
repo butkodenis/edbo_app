@@ -1,5 +1,5 @@
 const generateIdJob = () => {
-  return Math.floor(Math.random() * 10000);
+  return Math.floor(Math.random() * 100000);
 };
 
 module.exports = generateIdJob;

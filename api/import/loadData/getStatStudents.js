@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const getStatStudents = async (year, usid, last = 0) => {
   /* меням сылку взависимости от года */
-  if (year === new Date().getFullYear()) {
+  if (year === 2023) {
     year = '';
   }
   const apiUrl = `https://vstup${year}.edbo.gov.ua/offer-requests`;
@@ -21,10 +21,10 @@ const getStatStudents = async (year, usid, last = 0) => {
     const data = response.data.requests;
 
     if (data !== undefined) {
-      console.log(`запит статистики студ. виконан: ${data ? data.length : 0} студентів, ${usid}`); // The JSON response data
-      return data; // Return the JSON response data if you want to use it outside the function
+      console.log(`запит статистики студ. виконан: ${data ? data.length : 0} студентів, ${usid}`);
+      return data;
     }
-    console.log(`запит студентів виконан: 0 ЗАЯВ`); // The JSON response data
+    console.log(`запит студентів виконан: 0 ЗАЯВ`);
     return [];
   } catch (error) {
     // Обработка ошибок

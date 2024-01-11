@@ -13,27 +13,13 @@ const sequelize = new Sequelize(
 const Log = sequelize.define(
   'Log',
   {
-    idTask: {
-      type: DataTypes.STRING,
-    },
-    task: {
-      type: DataTypes.STRING,
-    },
-    taskText: {
-      type: DataTypes.STRING,
-    },
-    info: {
-      type: DataTypes.STRING,
-    },
-    status: {
-      type: DataTypes.STRING,
-    },
-    timeCreation: {
-      type: DataTypes.DATE,
-    },
-    idJob: {
-      type: DataTypes.INTEGER,
-    },
+    idTask: {type: DataTypes.STRING,},
+    task: {type: DataTypes.STRING,},
+    taskText: {type: DataTypes.STRING,},
+    info: {type: DataTypes.STRING,},
+    status: {type: DataTypes.STRING,},
+    timeCreation: {type: DataTypes.DATE,},
+    idJob: {type: DataTypes.INTEGER,},
   },
   {
     tableName: 'log', // Название таблицы в базе данных PostgreSQL
