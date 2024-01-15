@@ -100,7 +100,11 @@ const getLog = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const dataLog = await Log.find({ idTask: id });
+    const dataLog = await Log.findAll({
+      where: {
+        idTask: id,
+      },
+    });
 
     res.status(200).json(dataLog);
   } catch (err) {

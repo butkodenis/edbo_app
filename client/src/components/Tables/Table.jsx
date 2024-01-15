@@ -87,15 +87,15 @@ function TableTask() {
         <tbody>
           {filteredData &&
             filteredData.map((row) => (
-              <tr key={row._id} className={row.status === 'Помилка' ? 'table-danger' : ''}>
-                <td>{row._id}</td>
+              <tr key={row.id} className={row.status === 'Помилка' ? 'table-danger' : ''}>
+                <td>{row.id}</td>
                 <td>{row.taskText}</td>
                 <td>{row.info}</td>
                 <td>{new Date(row.timeCreation).toLocaleString('ru-RU')}</td>
                 <td>{row.status}</td>
                 <td>{row.idJob}</td>
                 <td>
-                  <ButtonLogDel logId={row._id} updateData={updateData} />
+                  <ButtonLogDel logId={row.id} updateData={updateData} />
                 </td>
               </tr>
             ))}

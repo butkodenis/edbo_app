@@ -7,7 +7,7 @@ function ButtonLogDel({ logId, updateData }) {
 
   const handleClick = async () => {
     setLoading(true);
-    // Здесь вы можете выполнить необходимые действия с logId
+
     try {
       await axios.delete(`${import.meta.env.VITE_BASE_URL}/log/${logId}`);
       console.log(`Данные удалены успешно ${logId}`);
