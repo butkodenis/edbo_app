@@ -12,7 +12,7 @@ function FormSchedule({ scheduleData }) {
   }
   const [{ timing, _id }] = scheduleData;
 
-  console.log(timing, _id);
+  console.log(timing, 'id cron:', _id);
   // преобразуем из формата cron в формат формы
   const [minute, hour, dayOfMonth, month, dayOfWeek] = timing.split(' ');
 

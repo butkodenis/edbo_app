@@ -5,6 +5,7 @@ const Universities = require('./models/universitiesModel');
 const StatUniv = require('./models/statUnivModel');
 const StatStudent = require('./models/statStudModel');
 const Log = require('./models/logModel');
+const Schedule = require('./models/scheduleModel');
 
 const sequelize = new Sequelize(
   process.env.POSTGRES_DB,
@@ -27,6 +28,7 @@ const connectToDatabase = async () => {
     await StatUniv.sync();
     await StatStudent.sync();
     await Log.sync();
+    await Schedule.sync();
   } catch (error) {
     console.error('Ошибка при соединении с базой данных:', error);
   }

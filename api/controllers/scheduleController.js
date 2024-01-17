@@ -4,12 +4,16 @@ const Schedule = require('../models/scheduleModel');
 const Tasks = require('../models/taskModel');
 const importDataScheduler = require('../import/importDataScheduler');
 
-let jobList = [];
+let jobList = []; // обьявленм глобалную переменую для
 
 const getSchedule = async (req, res) => {
   try {
     const { id } = req.params;
-    const dataSchedule = await Schedule.find({ idTask: id });
+    const dataSchedule = await Schedule.findAll({
+      where: {
+        idTask: id,
+      },
+    });
 
     res.status(200).json(dataSchedule);
   } catch (err) {
@@ -28,17 +32,17 @@ const createSchedule = async (req, res) => {
       return res.status(400).json({ error: 'Необходимо передать schedule и id в запросе' });
     }
     // сораняем в БД
-    const newSchedule = new Schedule({
+    const newSchedule = await Schedule.create({
       timing,
       idTask: id,
     });
 
-    const { _id } = await newSchedule.save();
+    const { _id } = newSchedule;
 
     const nameJob = _id.toString();
 
     const newJob = schedule.scheduleJob(nameJob, timing, async () => {
-      const dataTask = await Tasks.findById(id);
+      const dataTask = await Tasks.findByPk(id);
       //  console.log(id, '___', dataTask.taskText, new Date());
       importDataScheduler(dataTask);
     });
