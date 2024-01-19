@@ -29,7 +29,17 @@ function Schedule() {
           <h4>виконувати за розкладом</h4>
           <p>задача id : {id}</p>
         </div>
-        {scheduleData ? <FormSchedule scheduleData={scheduleData} /> : <p>Loading...</p>}
+      </div>
+      <div className="row">
+        {scheduleData ? (
+          scheduleData.map((scheduleItem, index) => (
+            <div className="col-2">
+              <FormSchedule key={index} scheduleData={scheduleItem} />
+            </div>
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </div>
   );

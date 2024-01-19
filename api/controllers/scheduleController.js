@@ -39,7 +39,7 @@ const createSchedule = async (req, res) => {
 
     const { _id } = newSchedule;
 
-    const nameJob = _id.toString();
+    const nameJob = _id;
 
     const newJob = schedule.scheduleJob(nameJob, timing, async () => {
       const dataTask = await Tasks.findByPk(id);
@@ -60,13 +60,21 @@ const updateSchedule = async (req, res) => {
   try {
     const { idSchedule } = req.params;
     const { timing } = req.body;
-    // console.log(idSchedule, timing);
+
+    console.log(idSchedule, timing);
 
     if (!idSchedule || !timing) {
       return res.status(400).json({ error: 'Отсутствуют необходимые параметры в запросе' });
     }
 
-    await Schedule.findOneAndUpdate({ _id: idSchedule }, { $set: { timing } });
+    await Schedule.update(
+      { timing },
+      {
+        where: {
+          _id: idSchedule,
+        },
+      },
+    );
 
     jobList.filter((job) => {
       if (job.name === idSchedule) {
@@ -84,9 +92,13 @@ const updateSchedule = async (req, res) => {
 const deleteSchedule = async (req, res) => {
   try {
     const { idSchedule } = req.params;
-    const deletedShedule = await Schedule.findOneAndDelete({ _id: idSchedule });
+    const deletedSchedule = await Schedule.destroy({
+      where: {
+        _id: idSchedule,
+      },
+    });
 
-    if (!deletedShedule) {
+    if (!deletedSchedule) {
       // Если deletedShedule пустой, отправляем соответствующий ответ
       return res.status(404).json({ error: 'Расписание с указанным ID не найдено' });
     }

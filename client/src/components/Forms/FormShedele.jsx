@@ -6,11 +6,9 @@ import axios from 'axios';
 
 function FormSchedule({ scheduleData }) {
   const { id } = useParams();
-  // если нет расписания тогда подствить значания поумолчанию
-  if (!scheduleData || !scheduleData.length) {
-    scheduleData = [{ timing: '00 00 * * *' }];
-  }
-  const [{ timing, _id }] = scheduleData;
+  console.log(scheduleData);
+
+  const { timing, _id } = scheduleData || { timing: '00 00 * * *' };
 
   console.log(timing, 'id cron:', _id);
   // преобразуем из формата cron в формат формы
@@ -106,10 +104,11 @@ function FormSchedule({ scheduleData }) {
       onSubmit={handleSubmit(onSubmit)}
       className="formSchedule border p-3 text-bg-light rounded "
     >
-      <div className="mb-3 d-flex align-items-center">
-        <input type="time" className="form-control me-3" {...register('time')} />
+      <div className="mb-3">
+        <input type="time" className="form-control mb-3" {...register('time')} />
+
         {daysOfWeek.map((day, index) => (
-          <div className="form-check me-3" key={index}>
+          <div className="form-check mb-3" key={index}>
             <input
               className="form-check-input"
               type="checkbox"
