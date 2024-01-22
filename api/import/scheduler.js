@@ -15,7 +15,7 @@ const scheduleAutorun = async () => {
     // создаем задачу и добавлемм ее в глобальную переменную
     const newJob = schedule.scheduleJob(nameJob, timing, async () => {
       const dataTask = await Tasks.findByPk(idTask);
-      //console.log(data.idTask, dataTask.taskText, nameJob, new Date());
+      console.log(data.idTask, dataTask.taskText, nameJob, new Date());
       // запускаем тот импорт в зависимости от параметров
       importDataScheduler(dataTask);
     });

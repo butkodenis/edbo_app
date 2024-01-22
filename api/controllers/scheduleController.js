@@ -15,6 +15,7 @@ const getSchedule = async (req, res) => {
       },
     });
 
+    console.log(new Date());
     res.status(200).json(dataSchedule);
   } catch (err) {
     console.error(err);

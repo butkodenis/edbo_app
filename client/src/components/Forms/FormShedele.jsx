@@ -42,7 +42,7 @@ function FormSchedule({ scheduleData, fetchData }) {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    console.log(data, new Date());
     // преобразуем данные из формы в формат node-schedule
     const { time, days } = data;
     const [hours, minutes] = time.split(':');
@@ -107,7 +107,7 @@ function FormSchedule({ scheduleData, fetchData }) {
 
     try {
       await axios.delete(apiUrl);
-      fetchData();
+      await fetchData();
       // Optionally, you can reset the form or perform other actions after deletion.
     } catch (error) {
       console.error('Error deleting schedule', error);
@@ -139,12 +139,19 @@ function FormSchedule({ scheduleData, fetchData }) {
           </div>
         ))}
       </div>
-      <button type="submit" className="btn btn-outline-primary btn-sm">
-        {_id ? 'Змінити розклад' : 'Створити розклад'}
-      </button>
-      <button type="button" className="btn btn-outline-danger btn-sm" onClick={deleteSchedule}>
-        Удалить
-      </button>
+      <div className="mb-3 d-flex justify-content-between w-100">
+        <button type="submit" className="btn btn-primary btn-sm">
+          {_id ? (
+            <i className="bi bi-wrench-adjustable-circle"></i>
+          ) : (
+            <i className="bi bi-plus-circle"></i>
+          )}
+        </button>
+
+        <button type="button" className="btn btn-danger btn-sm" onClick={deleteSchedule}>
+          <i className="bi bi-x-circle"></i>
+        </button>
+      </div>
     </form>
   );
 }

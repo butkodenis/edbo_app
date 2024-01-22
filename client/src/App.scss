@@ -2,9 +2,12 @@
   font-size: 13px;
 }
 body {
-  background-color: ghostwhite;
+  background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
   overflow-y: scroll; /* Добавляет вертикальную полосу прокрутки только при необходимости */
   margin: 0; /* Убирает внешние отступы для предотвращения появления полосы прокрутки */
+}
+header {
+  background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
 }
 table {
   font-size: 13px;

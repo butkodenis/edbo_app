@@ -26,7 +26,7 @@ function Schedule() {
     // Получаем текущее состояние массива
     const currentScheduleData = [...scheduleData];
 
-    // Создаем новый элемент (можете заменить на ваш объект или значение)
+    // Создаем новый элемент
     const newElement = { timing: '00 00 * * *' };
 
     // Добавляем новый элемент к текущему состоянию массива
@@ -50,7 +50,7 @@ function Schedule() {
       <div className="row">
         {scheduleData ? (
           scheduleData.map((scheduleItem, index) => (
-            <div className="col-2">
+            <div key={index} className="col-2 ">
               <FormSchedule key={index} scheduleData={scheduleItem} fetchData={fetchData} />
             </div>
           ))
