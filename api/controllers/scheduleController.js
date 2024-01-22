@@ -39,11 +39,11 @@ const createSchedule = async (req, res) => {
 
     const { _id } = newSchedule;
 
-    const nameJob = _id;
+    const nameJob = _id.toString(); // _id будем использовать как уникальное имя для списка задач
 
     const newJob = schedule.scheduleJob(nameJob, timing, async () => {
       const dataTask = await Tasks.findByPk(id);
-      //  console.log(id, '___', dataTask.taskText, new Date());
+      // console.log(id, '___', dataTask.taskText, new Date());
       importDataScheduler(dataTask);
     });
     jobList.push(newJob);

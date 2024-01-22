@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 
 import axios from 'axios';
 
-function FormSchedule({ scheduleData }) {
+function FormSchedule({ scheduleData, fetchData }) {
   const { id } = useParams();
   console.log(scheduleData);
 
@@ -69,6 +69,7 @@ function FormSchedule({ scheduleData }) {
       .sort();
 
     const shedule = `${minutes} ${hours} * * ${dayNumber}`;
+
     console.log(shedule, id, _id, dayNumber);
 
     const apiUrl = _id
@@ -80,20 +81,36 @@ function FormSchedule({ scheduleData }) {
     };
 
     try {
+      console.log(_id);
       if (_id) {
         if (dayNumber.length > 0) {
           // Если _id существует и dayNumber не пуст, выполняем PUT-запросt
           await axios.put(apiUrl, requestData);
+          await fetchData();
         } else {
           // Если _id существует и dayNumber пуст, выполняем DELETE-запрос
           await axios.delete(apiUrl);
+          await fetchData();
         }
       } else {
         // Если _id не существует и dayNumber не пуст, выполняем POST-запрос
         await axios.post(apiUrl, requestData);
+        await fetchData();
       }
     } catch (error) {
       console.error('ошибка  при обновлении расписания', error);
+    }
+  };
+
+  const deleteSchedule = async () => {
+    const apiUrl = `${import.meta.env.VITE_BASE_URL}/task/${id}/shedule/${_id}`;
+
+    try {
+      await axios.delete(apiUrl);
+      fetchData();
+      // Optionally, you can reset the form or perform other actions after deletion.
+    } catch (error) {
+      console.error('Error deleting schedule', error);
     }
   };
 
@@ -123,7 +140,10 @@ function FormSchedule({ scheduleData }) {
         ))}
       </div>
       <button type="submit" className="btn btn-outline-primary btn-sm">
-        Змінити розклад
+        {_id ? 'Змінити розклад' : 'Створити розклад'}
+      </button>
+      <button type="button" className="btn btn-outline-danger btn-sm" onClick={deleteSchedule}>
+        Удалить
       </button>
     </form>
   );

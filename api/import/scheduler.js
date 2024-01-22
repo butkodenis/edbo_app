@@ -7,14 +7,14 @@ const importDataScheduler = require('./importDataScheduler');
 
 const scheduleAutorun = async () => {
   // получаем массив расписаний с id задачи
-  const schedulesFromDB = await Schedule.find({});
+  const schedulesFromDB = await Schedule.findAll();
 
   schedulesFromDB.forEach((data) => {
     const { timing, idTask, _id } = data;
     const nameJob = _id.toString(); // даем имя задачи что бы потом ее можно было отследать по имени
-    // создаем задачу и добавлемм ее в
+    // создаем задачу и добавлемм ее в глобальную переменную
     const newJob = schedule.scheduleJob(nameJob, timing, async () => {
-      const dataTask = await Tasks.findById(idTask);
+      const dataTask = await Tasks.findByPk(idTask);
       //console.log(data.idTask, dataTask.taskText, nameJob, new Date());
       // запускаем тот импорт в зависимости от параметров
       importDataScheduler(dataTask);
