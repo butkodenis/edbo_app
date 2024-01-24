@@ -140,16 +140,12 @@ function FormSchedule({ scheduleData, fetchData }) {
         ))}
       </div>
       <div className="mb-3 d-flex justify-content-between w-100">
-        <button type="submit" className="btn btn-primary btn-sm">
-          {_id ? (
-            <i className="bi bi-wrench-adjustable-circle"></i>
-          ) : (
-            <i className="bi bi-plus-circle"></i>
-          )}
+        <button type="submit" className="btn btn-outline-primary btn-sm">
+          {_id ? 'Змінити' : 'Додати'}
         </button>
 
-        <button type="button" className="btn btn-danger btn-sm" onClick={deleteSchedule}>
-          <i className="bi bi-x-circle"></i>
+        <button type="button" className="btn btn-outline-danger btn-sm" onClick={deleteSchedule}>
+          Видалити
         </button>
       </div>
     </form>

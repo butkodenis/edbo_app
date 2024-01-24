@@ -1,13 +1,17 @@
 .card p {
   font-size: 13px;
+  font-family: 'Rubik', sans-serif;
 }
 body {
   background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
   overflow-y: scroll; /* Добавляет вертикальную полосу прокрутки только при необходимости */
   margin: 0; /* Убирает внешние отступы для предотвращения появления полосы прокрутки */
+  font-family: 'Rubik', sans-serif;
 }
 header {
   background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+  font-size: 20px;
+  font-family: 'Rubik', sans-serif;
 }
 table {
   font-size: 13px;

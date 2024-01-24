@@ -40,10 +40,10 @@ function Schedule() {
     <div className="container">
       <div className="row">
         <div className="col-6">
-          <h4>виконувати за розкладом</h4>
+          <h4>виконати за розкладом</h4>
           <p>задача id : {id}</p>
           <button onClick={addFormSchedule} className="btn btn-outline-primary btn-sm mb-3">
-            Добавить расписание
+            Додати росклад
           </button>
         </div>
       </div>

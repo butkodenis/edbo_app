@@ -30,15 +30,15 @@ function TableTask() {
 
     const filtered = tableData.filter((row) => {
       if (dateStart !== '' && dateEnd === '') {
-        return new Date(row.timeCreation) >= new Date(dateStart);
+        return new Date(row.timeCreation) > new Date(dateStart);
       }
       if (dateStart === '' && dateEnd !== '') {
-        return new Date(row.timeCreation) <= new Date(dateEnd);
+        return new Date(row.timeCreation) < new Date(dateEnd);
       }
       if (dateStart !== '' && dateEnd !== '') {
         return (
-          new Date(row.timeCreation) >= new Date(dateStart) &&
-          new Date(row.timeCreation) <= new Date(dateEnd)
+          new Date(row.timeCreation) > new Date(dateStart) &&
+          new Date(row.timeCreation) < new Date(dateEnd)
         );
       }
 
