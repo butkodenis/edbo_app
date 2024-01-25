@@ -9,13 +9,18 @@ function LayOut() {
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li>
             <Link to="/" className="nav-link px-2 active">
-              <i className="bi bi-house"></i> Головна
+              Імпорт
             </Link>
           </li>
 
           <li>
             <Link to="/graphics" className="nav-link px-2">
               Графіки
+            </Link>
+          </li>
+          <li>
+            <Link to="/backup" className="nav-link px-2">
+              Backup
             </Link>
           </li>
         </ul>

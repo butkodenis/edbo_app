@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Log from './pages/Log';
 import Graphics from './pages/Grafic';
 import Schedule from './pages/Schedule';
+import Backup from './pages/Backup';
 
 import LayOut from './components/Layout/Layout';
 
@@ -17,6 +18,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/:id/log" element={<Log />} />
         <Route path="graphics" element={<Graphics />} />
+        <Route path="backup" element={<Backup />} />
         <Route path="/:id/schedule" element={<Schedule />} />
       </Route>
     </Routes>
