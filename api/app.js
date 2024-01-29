@@ -12,7 +12,7 @@ const app = express();
 const taskController = require('./controllers/taskController');
 const logController = require('./controllers/logController');
 const scheduleController = require('./controllers/scheduleController');
-const migrateController = require('./controllers/migrateController');
+const dampController = require('./controllers/dampController');
 const scheduleAutorun = require('./import/scheduler');
 
 app.use(morgan('tiny'));
@@ -34,6 +34,8 @@ app.get('/task/:id/shedule', scheduleController.getSchedule);
 app.post('/task/:id/shedule', scheduleController.createSchedule);
 app.put('/task/:id/shedule/:idSchedule', scheduleController.updateSchedule);
 app.delete('/task/:id/shedule/:idSchedule', scheduleController.deleteSchedule);
+
+app.post('/damp/create', dampController.createDamp);
 
 const port = process.env.NODE_PORT;
 app.listen(port, () => {
