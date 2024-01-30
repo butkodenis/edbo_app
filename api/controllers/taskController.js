@@ -3,13 +3,12 @@ const Tasks = require('../models/taskModel');
 const Log = require('../models/logModel');
 const Schedule = require('../models/scheduleModel');
 const importData = require('../import/importData');
-const { Task } = require('../models/pgModel');
 
 const createTask = async (req, res) => {
   try {
     const data = req.body;
 
-    await Task.create({
+    await Tasks.create({
       year: data.year,
       speciality: data.speciality,
       specialityText: data.specialityText,
