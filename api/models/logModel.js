@@ -5,7 +5,7 @@ const sequelize = new Sequelize(
   process.env.POSTGRES_USER,
   process.env.POSTGRES_PASSWORD,
   {
-    host: process.env.HOST,
+    host: process.env.POSTGRES_HOST,
     dialect: 'postgres',
   },
 );
@@ -13,13 +13,13 @@ const sequelize = new Sequelize(
 const Log = sequelize.define(
   'Log',
   {
-    idTask: {type: DataTypes.STRING,},
-    task: {type: DataTypes.STRING,},
-    taskText: {type: DataTypes.STRING,},
-    info: {type: DataTypes.STRING,},
-    status: {type: DataTypes.STRING,},
-    timeCreation: {type: DataTypes.DATE,},
-    idJob: {type: DataTypes.INTEGER,},
+    idTask: { type: DataTypes.STRING },
+    task: { type: DataTypes.STRING },
+    taskText: { type: DataTypes.STRING },
+    info: { type: DataTypes.STRING },
+    status: { type: DataTypes.STRING },
+    timeCreation: { type: DataTypes.DATE },
+    idJob: { type: DataTypes.INTEGER },
   },
   {
     tableName: 'log', // Название таблицы в базе данных PostgreSQL
