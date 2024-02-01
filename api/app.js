@@ -40,5 +40,5 @@ app.post('/damp/create', dampController.createDamp);
 const port = process.env.NODE_PORT;
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
-  scheduleAutorun();
+  setTimeout(scheduleAutorun, 5000);
 });
