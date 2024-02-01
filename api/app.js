@@ -40,5 +40,8 @@ app.post('/damp/create', dampController.createDamp);
 const port = process.env.NODE_PORT;
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
-  setTimeout(scheduleAutorun, 5000);
+  setTimeout(() => {
+     scheduleAutorun();
+     console.log(`Запланировано: ${scheduleController.jobList.length} импортов`);
+  }, 15000);
 });
