@@ -17,6 +17,7 @@ const Log = sequelize.define(
     task: { type: DataTypes.STRING },
     taskText: { type: DataTypes.STRING },
     info: { type: DataTypes.STRING },
+    amount: { type: DataTypes.INTEGER },
     status: { type: DataTypes.STRING },
     timeCreation: { type: DataTypes.DATE },
     idJob: { type: DataTypes.INTEGER },

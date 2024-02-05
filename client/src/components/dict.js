@@ -1,5 +1,6 @@
 const dictionary = {
   years: [
+    { code: 2024, name: '2024 р.' },
     { code: 2023, name: '2023 р.' },
     { code: 2022, name: '2022 р.' },
     { code: 2021, name: '2021 р.' },
@@ -13,8 +14,8 @@ const dictionary = {
     { code: 228, name: 'Педіатрія' },
   ],
   qualifications: [
-    { code: 1, name: 'Бакалавр' },
     { code: 2, name: 'Магістр' },
+    { code: 1, name: 'Бакалавр' },
     { code: 6, name: 'Молодший бакалавр' },
     { code: 9, name: 'Фаховий молодший бакалавр' },
   ],

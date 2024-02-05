@@ -15,7 +15,6 @@ const saveStatStudents = async (data, idJob, dataTask) => {
       year,
     }));
 
-    console.log(modData[88]);
     const result = await StatStudent.bulkCreate(modData);
 
     // обновляем время импорта задачи, статус в БД
@@ -24,7 +23,8 @@ const saveStatStudents = async (data, idJob, dataTask) => {
 
     // сохраняем в лог
     const message = `імпортовано : ${result.length} студентів по ${dataTask.speciality}`;
-    saveLog(dataTask, idJob, message, status);
+    const amount = result.length;
+    saveLog(dataTask, idJob, message, status, amount);
   } catch (error) {
     // обновляем время импорта ошибки задачи, статус в БД
     const status = 'Помилка';
@@ -32,7 +32,7 @@ const saveStatStudents = async (data, idJob, dataTask) => {
 
     // сохраняем в лог
     const message = `Невдале збереження  статистики по студентам (saveStatStudents), ${error.message}`;
-    saveLog(dataTask, idJob, message, status);
+    saveLog(dataTask, idJob, message, status, amount);
 
     throw new Error('Невдале збереження  статистики по студентам (saveStatStudents)');
   }

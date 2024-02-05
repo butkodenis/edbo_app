@@ -41,7 +41,6 @@ const port = process.env.NODE_PORT;
 app.listen(port, () => {
   console.log(`Сервер запущен на порту ${port}`);
   setTimeout(() => {
-     scheduleAutorun();
-     console.log(`Запланировано: ${scheduleController.jobList.length} импортов`);
+    scheduleAutorun();
   }, 15000);
 });

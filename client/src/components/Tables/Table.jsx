@@ -52,6 +52,7 @@ function TableTask() {
   const fetchData = async (id) => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/task/${id}/log`);
+
       setTableData(response.data);
       setFilteredData(response.data); // Инициализируем отфильтрованные данные при получении данных
       // console.log(response.data);
@@ -78,6 +79,7 @@ function TableTask() {
             <th scope="col">id</th>
             <th scope="col">Тип завдання</th>
             <th scope="col">Опис</th>
+            <th scope="col">Кількість</th>
             <th scope="col">Час </th>
             <th scope="col">Статус</th>
             <th scope="col">id імпорту</th>
@@ -91,6 +93,7 @@ function TableTask() {
                 <td>{row.id}</td>
                 <td>{row.taskText}</td>
                 <td>{row.info}</td>
+                <td>{row.amount}</td>
                 <td>{new Date(row.timeCreation).toLocaleString('ru-RU')}</td>
                 <td>{row.status}</td>
                 <td>{row.idJob}</td>

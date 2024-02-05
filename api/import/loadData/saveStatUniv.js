@@ -23,7 +23,8 @@ const saveStatUniv = async (data, idJob, dataTask) => {
 
     // сохраняем в лог
     const message = `імпортовано : ${result.length} пропозицій по ${dataTask.speciality}`;
-    saveLog(dataTask, idJob, message, status);
+    const amount = result.length;
+    saveLog(dataTask, idJob, message, status, amount);
   } catch (error) {
     // обновляем время импорта ошибки задачи, статус в БД
     const status = 'Помилка';

@@ -43,7 +43,7 @@ function Schedule() {
           <h4>виконати за розкладом</h4>
           <p>задача id : {id}</p>
           <button onClick={addFormSchedule} className="btn btn-outline-primary btn-sm mb-3">
-            Додати росклад
+            Додати розклад
           </button>
         </div>
       </div>

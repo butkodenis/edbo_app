@@ -21,6 +21,8 @@ const scheduleAutorun = async () => {
     });
     scheduleController.jobList.push(newJob);
   });
+
+  console.log(`Запланировано : ${scheduleController.jobList.length} импортов`);
 };
 
 module.exports = scheduleAutorun;

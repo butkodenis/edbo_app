@@ -3,6 +3,7 @@ const Tasks = require('../models/taskModel');
 const Log = require('../models/logModel');
 const Schedule = require('../models/scheduleModel');
 const importData = require('../import/importData');
+let { jobList } = require('../controllers/scheduleController');
 
 const createTask = async (req, res) => {
   try {
@@ -47,6 +48,22 @@ const deleteTask = async (req, res) => {
       where: { id: id },
     });
 
+    /*
+    // также удаляем из таблицы расписаний
+    await Schedule.destroy({
+      where: {
+        idTask: id,
+      },
+    });
+    /*
+    // и удаляем из запущеных в планировщике
+    console.log(jobList.length, '!!!!!');
+    jobList.filter((job) => {
+      if (job.name === id) {
+        job.cancel();
+      }
+    });
+    */
     if (!deletedTask) {
       return res.status(404).json({ message: 'Документ с указанным ID не найден' });
     }
