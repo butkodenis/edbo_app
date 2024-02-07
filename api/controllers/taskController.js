@@ -43,18 +43,22 @@ const getTasksAll = async (req, res) => {
 const deleteTask = async (req, res) => {
   try {
     const { id } = req.body;
-    // запрос в таблицу
-    const deletedTask = await Tasks.destroy({
-      where: { id: id },
-    });
+    console.log(typeof id, id);
+    // проверяем есть ли расписание
+    //const sheduleRun = await Schedule.findAll({ where : { idTask : id}});
 
-    /*
     // также удаляем из таблицы расписаний
     await Schedule.destroy({
       where: {
-        idTask: id,
+        idTask: id.toString(),
       },
     });
+
+    // удалем из таблицы
+    const deletedTask = await Tasks.destroy({
+      where: { id },
+    });
+
     /*
     // и удаляем из запущеных в планировщике
     console.log(jobList.length, '!!!!!');
