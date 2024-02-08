@@ -50,7 +50,7 @@ function Schedule() {
       <div className="row">
         {scheduleData ? (
           scheduleData.map((scheduleItem, index) => (
-            <div key={index} className="col-2 ">
+            <div key={index} className="col-xl-2 col-md-4 col-sm-4">
               <FormSchedule key={index} scheduleData={scheduleItem} fetchData={fetchData} />
             </div>
           ))

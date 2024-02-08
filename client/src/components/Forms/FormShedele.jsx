@@ -119,7 +119,7 @@ function FormSchedule({ scheduleData, fetchData }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="formSchedule border p-3 text-bg-light rounded "
+      className="formSchedule border p-3 text-bg-light rounded d-flex flex-column align-items-center"
     >
       <div className="mb-3">
         <input type="time" className="form-control mb-3" {...register('time')} />
@@ -139,12 +139,16 @@ function FormSchedule({ scheduleData, fetchData }) {
           </div>
         ))}
       </div>
-      <div className="mb-3 d-flex justify-content-between w-100">
-        <button type="submit" className="btn btn-outline-primary btn-sm">
+      <div className="mb-3 d-flex flex-column align-items-center w-100">
+        <button type="submit" className="btn btn-outline-primary btn-sm mb-2 w-100">
           {_id ? 'Змінити' : 'Додати'}
         </button>
 
-        <button type="button" className="btn btn-outline-danger btn-sm" onClick={deleteSchedule}>
+        <button
+          type="button"
+          className="btn btn-outline-danger btn-sm w-100"
+          onClick={deleteSchedule}
+        >
           Видалити
         </button>
       </div>
