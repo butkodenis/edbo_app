@@ -3,7 +3,6 @@ const Tasks = require('../models/taskModel');
 const Log = require('../models/logModel');
 const Schedule = require('../models/scheduleModel');
 const importData = require('../import/importData');
-let { jobList } = require('../controllers/scheduleController');
 
 const createTask = async (req, res) => {
   try {
@@ -49,7 +48,7 @@ const deleteTask = async (req, res) => {
     console.log(sheduleRun.length);
 
     if (sheduleRun.length > 0) {
-      throw new Error('Видаліть завдання у розкладі');
+      throw new Error('Видалити завдання з розкладу');
     }
 
     // удалем из таблицы

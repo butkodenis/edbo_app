@@ -36,7 +36,7 @@ function Card({ card, fetchData }) {
     } catch (error) {
       // Обработка ошибок при удалении
       console.error('Помилка видалення задачи:', error.response.data.error);
-      if (error.response.data.error === 'Видаліть завдання у розкладі') {
+      if (error.response.data.error === 'Видалити завдання з розкладу') {
         alert(error.response.data.error);
       }
     }
