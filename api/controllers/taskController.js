@@ -43,38 +43,27 @@ const getTasksAll = async (req, res) => {
 const deleteTask = async (req, res) => {
   try {
     const { id } = req.body;
-    console.log(typeof id, id);
-    // проверяем есть ли расписание
-    //const sheduleRun = await Schedule.findAll({ where : { idTask : id}});
 
-    // также удаляем из таблицы расписаний
-    await Schedule.destroy({
-      where: {
-        idTask: id.toString(),
-      },
-    });
+    // проверяем есть ли расписание
+    const sheduleRun = await Schedule.findAll({ where: { idTask: id.toString() } });
+    console.log(sheduleRun.length);
+
+    if (sheduleRun.length > 0) {
+      throw new Error('Видаліть завдання у розкладі');
+    }
 
     // удалем из таблицы
     const deletedTask = await Tasks.destroy({
       where: { id },
     });
 
-    /*
-    // и удаляем из запущеных в планировщике
-    console.log(jobList.length, '!!!!!');
-    jobList.filter((job) => {
-      if (job.name === id) {
-        job.cancel();
-      }
-    });
-    */
     if (!deletedTask) {
       return res.status(404).json({ message: 'Документ с указанным ID не найден' });
     }
     res.json({ message: 'Задача успешно удалена', deletedTask });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Произошла ошибка при удалении задачи' });
+    res.status(500).json({ message: 'Произошла ошибка при удалении задачи', error: err.message });
   }
 };
 
