@@ -1,25 +1,62 @@
+# Система відстеження вступу студентів
 
-установка 
- предварительные требования установлен Docker, git
+Этот проект представляет собой Full-stack PERN приложение для парсинга данных с портала vstup.edbo.gov.ua.
 
- скачать из репозитерия код 
-  https://github.com/butkodenis/edbo_app.git
- перейти в дерикторию 
-  cd /home/edbo_app
- заменить : 
- - на ваш ip  HOST, POSTGRES_HOST в .env
- - на ваш ip  VITE_BASE_URL в ./client/.env
+## Технологии
 
-собрать контейнеры
-   docker-compose build
-запустить
-  docker-compose up -d
-дождаться когда в логе контейнера edbo-api появится 
- Сервер запущен на порту 4040
- Соединение с базой данных установлено успешно.
- Запланировано : 0 импортов
+- **Client:** React JS, Vite
+- **Server:** Node JS, Express JS
+- **Database:** PostgreSQL
 
-docker exec -it edbo-postgres sh
-pg_dump -U admin edbo > backup.sql
-docker cp edbo-postgres:/backup.sql ./backup.sql
- 
+## Установка для локального использования
+
+### Предварительные требования
+
+Убедитесь, что у вас установлены Docker и git.
+
+### Шаги установки
+
+1. Склонируйте репозиторий:
+
+    ```bash
+    git clone https://github.com/butkodenis/edbo_app.git
+    ```
+
+2. Перейдите в директорию проекта:
+
+    ```bash
+    cd edbo_app
+    ```
+
+3. Замените следующие значения в файлах `.env`:
+
+    - В файле `.env` замените `HOST` и `POSTGRES_HOST` на ваш IP.
+    - В файле `./client/.env` замените `VITE_BASE_URL` на ваш IP.
+
+4. Соберите контейнеры:
+
+    ```bash
+    docker-compose build
+    ```
+
+5. Запустите контейнеры:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+6. Дождитесь, пока в логе контейнера `edbo-api` появится следующее сообщение:
+
+    ```
+    Сервер запущен на порту 4040
+    Соединение с базой данных установлено успешно.
+    Запланировано: 0 импортов
+    ```
+
+7. Создайте резервную копию базы данных:
+
+    ```bash
+    docker exec -it edbo-postgres sh -c 'pg_dump -U admin edbo > /backup_$(date +%Y%m%d_%H%M%S).sql' > ./backup_$(date +%Y%m%d_%H%M%S).sql
+    ```
+
+    Эта команда создаст резервную копию базы данных в файле `backup_ГГГГММДД_ЧЧММСС.sql` в директории проекта.
