@@ -11,7 +11,7 @@ function Schedule() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/task/${id}/shedule`);
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/task/${id}/shedule`);
       setScheduleData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);

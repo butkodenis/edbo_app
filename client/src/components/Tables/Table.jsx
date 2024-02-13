@@ -51,7 +51,7 @@ function TableTask() {
 
   const fetchData = async (id) => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/task/${id}/log`);
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/task/${id}/log`);
 
       setTableData(response.data);
       setFilteredData(response.data); // Инициализируем отфильтрованные данные при получении данных

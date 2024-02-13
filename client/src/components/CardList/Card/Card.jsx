@@ -27,7 +27,7 @@ function Card({ card, fetchData }) {
   const handleDelete = async () => {
     try {
       // Отправка запроса на удаление
-      await axios.delete(`${import.meta.env.VITE_BASE_URL}/task/delete`, {
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/task/delete`, {
         data: { id },
       });
 
@@ -46,7 +46,7 @@ function Card({ card, fetchData }) {
     try {
       setLoading(true); // Устанавливаем состояние загрузки в true при начале запроса
       // Отправка POST-запроса на /task/:id/run
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/task/${id}/run`);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/task/${id}/run`);
       const time = response.data;
     } catch (error) {
       // Обработка ошибок при импорте

@@ -21,21 +21,19 @@ app.use(express.json());
 
 connectToDatabase();
 
-app.get('/task/all', taskController.getTasksAll);
-app.post('/task/create', taskController.createTask);
-app.delete('/task/delete', taskController.deleteTask);
+app.get('/api/task/all', taskController.getTasksAll);
+app.post('/api/task/create', taskController.createTask);
+app.delete('/api/task/delete', taskController.deleteTask);
 
-app.post('/task/:id/run', taskController.runTask);
+app.post('/api/task/:id/run', taskController.runTask);
 
-app.get('/task/:id/log', taskController.getLog);
-app.delete('/log/:id', logController.delLog);
+app.get('/api/task/:id/log', taskController.getLog);
+app.delete('/api/log/:id', logController.delLog);
 
-app.get('/task/:id/shedule', scheduleController.getSchedule);
-app.post('/task/:id/shedule', scheduleController.createSchedule);
-app.put('/task/:id/shedule/:idSchedule', scheduleController.updateSchedule);
-app.delete('/task/:id/shedule/:idSchedule', scheduleController.deleteSchedule);
-
-app.post('/damp/create', dampController.createDamp);
+app.get('/api/task/:id/shedule', scheduleController.getSchedule);
+app.post('/api/task/:id/shedule', scheduleController.createSchedule);
+app.put('/api/task/:id/shedule/:idSchedule', scheduleController.updateSchedule);
+app.delete('/api/task/:id/shedule/:idSchedule', scheduleController.deleteSchedule);
 
 const port = process.env.NODE_PORT;
 app.listen(port, () => {

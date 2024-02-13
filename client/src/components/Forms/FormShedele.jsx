@@ -73,8 +73,8 @@ function FormSchedule({ scheduleData, fetchData }) {
     console.log(shedule, id, _id, dayNumber);
 
     const apiUrl = _id
-      ? `${import.meta.env.VITE_BASE_URL}/task/${id}/shedule/${_id}`
-      : `${import.meta.env.VITE_BASE_URL}/task/${id}/shedule`;
+      ? `${import.meta.env.VITE_BASE_URL}/api/task/${id}/shedule/${_id}`
+      : `${import.meta.env.VITE_BASE_URL}/api/task/${id}/shedule`;
 
     const requestData = {
       timing: shedule,
@@ -103,7 +103,7 @@ function FormSchedule({ scheduleData, fetchData }) {
   };
 
   const deleteSchedule = async () => {
-    const apiUrl = `${import.meta.env.VITE_BASE_URL}/task/${id}/shedule/${_id}`;
+    const apiUrl = `${import.meta.env.VITE_BASE_URL}/api/task/${id}/shedule/${_id}`;
 
     try {
       await axios.delete(apiUrl);
