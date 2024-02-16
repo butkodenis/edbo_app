@@ -18,44 +18,45 @@
 
 1. Склонуйте репозиторій:
 
-    ```bash
-    git clone https://github.com/butkodenis/edbo_app.git
-    ```
+   ```bash
+   git clone https://github.com/butkodenis/edbo_app.git
+   ```
 
 2. Перейдіть до директорії проекту:
 
-    ```bash
-    cd edbo_app
-    ```
+   ```bash
+   cd edbo_app
+   ```
 
 3. Замініть наступні значення у файлах `.env`:
 
-    - У файлі `.env` замініть `HOST` і `POSTGRES_HOST` на ваш IP.
-    - У файлі `./client/.env` замініть `VITE_BASE_URL` на ваш IP.
+   - У файлі `.env` замініть `HOST` і `POSTGRES_HOST` на ваш IP.
+   - У файлі `./client/.env` замініть `VITE_BASE_URL` на ваш IP.
 
 4. Зіберіть контейнери:
 
-    ```bash
-    docker-compose build
-    ```
+   ```bash
+   docker-compose build
+   ```
 
 5. Запустіть контейнери:
 
-    ```bash
-    docker-compose up -d
-    ```
+   ```bash
+   docker-compose up -d
+   ```
 
 6. Дочекайтеся, поки в лозі контейнера `edbo-api` з'явиться наступне повідомлення:
 
-    ```
-    Сервер запущений на порті 4040
-    З'єднання з базою даних встановлено успішно.
-    Заплановано: 0 імпортів
-    ```
+   ```
+   Сервер запущений на порті 4040
+   З'єднання з базою даних встановлено успішно.
+   Заплановано: 0 імпортів
+   ```
 
 7. Запустіть клієнт за адресою http://ваш_IP:5173/
 
 ### Створення резервної копії бази даних
 
 ```bash
-docker exec -it edbo-postgres sh -c 'pg_dump -U admin edbo > /backup_$(date +%Y%m%d_%H%M%S).sql' > ./backup_$(date +%Y%m%d_%H%M%S).sql
+docker exec edbo-postgres sh -c 'pg_dump -U admin edbo' > /backup/backup_$(date +%Y%m%d_%H%M).sql
+```
