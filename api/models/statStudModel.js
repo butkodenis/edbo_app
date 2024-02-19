@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
 );
 
 const StatStudent = sequelize.define(
-  'StatStudents',
+  'statstudents',
   {
     prid: { type: DataTypes.INTEGER },
     n: { type: DataTypes.INTEGER },
@@ -30,7 +30,7 @@ const StatStudent = sequelize.define(
     idJob: { type: DataTypes.INTEGER },
   },
   {
-    tableName: 'statStudents', // Название таблицы в базе данных PostgreSQL
+    tableName: 'statstudents', // Название таблицы в базе данных PostgreSQL
     timestamps: false, // Отключение полей created_at и updated_at
   },
 );
