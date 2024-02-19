@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
 );
 
 const StatUniv = sequelize.define(
-  'statunivs',
+  'StatUnivs',
   {
     usid: { type: DataTypes.INTEGER },
     usn: { type: DataTypes.STRING },
@@ -48,7 +48,7 @@ const StatUniv = sequelize.define(
     idJob: { type: DataTypes.INTEGER },
   },
   {
-    tableName: 'statunivs', // Название таблицы в базе данных PostgreSQL
+    tableName: 'stat_univs', // Название таблицы в базе данных PostgreSQL
     timestamps: false, // Отключение полей created_at и updated_at
   },
 );

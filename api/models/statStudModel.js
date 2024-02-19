@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
 );
 
 const StatStudent = sequelize.define(
-  'statstudents',
+  'StatStudents',
   {
     prid: { type: DataTypes.INTEGER },
     n: { type: DataTypes.INTEGER },
