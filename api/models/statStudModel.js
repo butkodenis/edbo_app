@@ -30,7 +30,7 @@ const StatStudent = sequelize.define(
     idJob: { type: DataTypes.INTEGER },
   },
   {
-    tableName: 'statstudents', // Название таблицы в базе данных PostgreSQL
+    tableName: 'stat_students', // Название таблицы в базе данных PostgreSQL
     timestamps: false, // Отключение полей created_at и updated_at
   },
 );
