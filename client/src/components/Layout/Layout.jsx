@@ -19,8 +19,8 @@ function LayOut() {
             </Link>
           </li>
           <li>
-            <Link to="/backup" className="nav-link px-2">
-              Backup
+            <Link to="/info" className="nav-link px-2">
+              Довідка
             </Link>
           </li>
         </ul>

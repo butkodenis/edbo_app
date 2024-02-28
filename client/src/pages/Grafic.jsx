@@ -3,7 +3,8 @@ import React from 'react';
 function Graphics() {
   return (
     <div className="container">
-      <h1 className="text">Graphics</h1>
+     
+      <a href="http://192.168.0.17:8088/login/">SuperSet</a>
     </div>
   );
 }
