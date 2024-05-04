@@ -2,9 +2,10 @@ const axios = require('axios');
 
 const getStatStudents = async (year, usid, last = 0) => {
   /* меням сылку взависимости от года */
-  if (year === 2023) {
+  if (year === new Date().getFullYear()) {
     year = '';
   }
+  
   const apiUrl = `https://vstup${year}.edbo.gov.ua/offer-requests`;
   const requestData = `id=${usid}&last=${last}`; // Замените на ваш запрос
 

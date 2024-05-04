@@ -5,15 +5,15 @@ const getUniversities = async (dataTask) => {
   let { year } = dataTask;
 
   // меняем ссылку взависимости от года
-  /*
+  
   if (year === new Date().getFullYear()) {
     year = '';
   }
-  */
+  /*
   if (year === 2023) {
     year = '';
   }
-
+*/
   try {
     const apiUrl = `https://vstup${year}.edbo.gov.ua/offers-universities/`;
     const requestData = `qualification=${qualification}&education_base=${educationBase}&speciality=${speciality}`;
